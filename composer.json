@@ -1,0 +1,51 @@
+{
+	"name":"bugbuster/botstatistics",
+	"description":"Counts the number of bot requests (visits, pages). ",
+	"keywords":["contao","statistic","counter"],
+	"type":"contao-module",
+	"homepage":"http://contao.ninja",
+	"license":"LGPL-3.0+",
+	"authors":[
+		{
+			"name":"Glen Langer",
+			"homepage":"http://contao.ninja",
+			"role":"Developer"
+		}
+	],
+	"support":{
+		"issues":"https://github.com/BugBuster1701/botstatistics/issues",
+		"irc":"irc://irc.freenode.org/contao.dev",
+		"source":"https://github.com/BugBuster1701/botstatistics"
+	},
+	"require":{
+		"php":">=5.3",
+		"contao/core":">=3.5,<4",
+		"contao-community-alliance/composer-plugin": "*",
+		"bugbuster/botdetection":">=4.0.2,<5"
+	},
+	"autoload":{
+		"classmap":[""]
+	},
+	"replace":{
+		"contao-legacy/botstatistics":"*"
+	},
+	"extra":{
+		"contao":{
+			"sources":{
+				"":"system/modules/botstatistics"
+			},
+			"transifex": {
+				"project": "contao-botstatistics",
+				"prefix": "master-",
+				"languages_cto": "languages",
+				"languages_tx": ".tx"
+			},
+			"runonce":[
+				"runonce/runonce.php"
+			]
+		},
+		"branch-alias": {
+			"dev-develop": "3.4.x-dev"
+		}
+	}
+}

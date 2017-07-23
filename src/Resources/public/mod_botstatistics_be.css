@@ -1,0 +1,54 @@
+/* Style sheet bot statistics backend */
+
+
+.mod_botstatistics_be_table_max { 
+  margin: 2px 0 !important;
+  width: 100%;
+  padding: 0;
+}
+
+.mod_botstatistics_be_table_max td { 
+  height:18px;
+  padding-left:6px !important;
+  padding-right:6px !important;
+}
+
+.mod_botstatistics_be_version {
+	
+}
+
+.mod_botstatistics_be_table_version { 
+  margin: 2px 0 !important;
+  width: 100%;
+  padding: 0;
+}
+
+.mod_botstatistics_be_table_version td {
+  height:18px;
+  padding-left:6px !important;
+  padding-right:6px !important;
+}
+
+.mod_botstatistics_be_counting_by_name {
+  width:300px;
+  float: right;
+}
+
+.mod_botstatistics_be_counting_by_date {
+  width:300px;
+  float: left;
+}
+
+#mod_botstatistics_grey {
+	-moz-opacity:0.3;
+	opacity: 0.3;
+    filter: alpha(opacity=30); /* For IE8 and earlier */
+}
+
+.top_bots {
+	margin-top: 20px;
+}
+
+.top_pages {
+	margin-top: 20px;
+}
