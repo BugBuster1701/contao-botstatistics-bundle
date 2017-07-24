@@ -14,10 +14,12 @@
  * @see        https://github.com/BugBuster1701/botstatistics
  */
 
-/**
- * Run in a custom namespace, so the class can be replaced
- */
 namespace BugBuster\BotStatistics;
+
+use BugBuster\BotDetection\ModuleBotDetection;
+use BugBuster\BotDetection\CheckBotAgentExtended;
+use Psr\Log\LogLevel;
+use Contao\CoreBundle\Monolog\ContaoContext;
 
 /**
  * Class ModuleBotStatisticsTag 
@@ -37,7 +39,6 @@ class ModuleBotStatisticsTag extends \Frontend
 	 */
 	public function replaceInsertTagsBotStatistics($strTag)
 	{
-	    require_once(TL_ROOT . '/system/modules/botstatistics/ModuleBotStatisticsVersion.php');
 	    $arrTag = trimsplit('::', $strTag);
 	    if ($arrTag[0] != 'cache_botstatistics')
 	    {
@@ -45,8 +46,12 @@ class ModuleBotStatisticsTag extends \Frontend
 	    }
 	    if (!isset($arrTag[2])) 
 	    {
-	        $this->loadLanguageFile('tl_botstatistics');
-	        $this->log($GLOBALS['TL_LANG']['tl_botstatistics']['no_key'], 'ModuleBotStatisticsTag replaceInsertTagsBotStatistics '. BOTSTATISTICS_VERSION .'.'. BOTSTATISTICS_BUILD, 'ERROR');
+	        \System::loadLanguageFile('tl_botstatistics');
+	        \System::getContainer()
+            	        ->get('monolog.logger.contao')
+            	        ->log(LogLevel::ERROR,
+            	            $GLOBALS['TL_LANG']['tl_botstatistics']['no_key'],
+            	            array('contao' => new ContaoContext('ModuleBotStatisticsTag replaceInsertTagsBotStatistics '. BOTSTATISTICS_VERSION .'.'. BOTSTATISTICS_BUILD, TL_ERROR)));
 	        return false;  // da fehlt was
 	    }
         if (!isset($arrTag[3]) || strlen($arrTag[3])<1) 
@@ -69,8 +74,12 @@ class ModuleBotStatisticsTag extends \Frontend
 	    }
 	    else
 	    {
-	        $this->loadLanguageFile('tl_botstatistics');
-	        $this->log($GLOBALS['TL_LANG']['tl_botstatistics']['wrong_key'], 'ModuleBotStatisticsTag replaceInsertTagsBotStatistics '. BOTSTATISTICS_VERSION .'.'. BOTSTATISTICS_BUILD, 'ERROR');
+	        \System::loadLanguageFile('tl_botstatistics');
+	        \System::getContainer()
+            	        ->get('monolog.logger.contao')
+            	        ->log(LogLevel::ERROR,
+            	            $GLOBALS['TL_LANG']['tl_botstatistics']['wrong_key'],
+            	            array('contao' => new ContaoContext('ModuleBotStatisticsTag replaceInsertTagsBotStatistics '. BOTSTATISTICS_VERSION .'.'. BOTSTATISTICS_BUILD, TL_ERROR)));
 	        return false;  // da ist was falsch
 	    }
 	}// BotStatReplaceInsertTags
@@ -81,7 +90,7 @@ class ModuleBotStatisticsTag extends \Frontend
 	protected function setBotCounter($bid)
 	{
 	    $visit = false;
-	    $ClientIP = bin2hex(sha1($bid . \Environment::get('ip'),true)); // sha1 20 Zeichen, bin2hex 40 zeichen
+	    $ClientIP  = bin2hex(sha1($bid . \Environment::get('ip'),true)); // sha1 20 Zeichen, bin2hex 40 zeichen
 	    $BlockTime = 60; //Sekunden
 	    $this->CURDATE = date('Y-m-d');
 	    
@@ -100,26 +109,26 @@ class ModuleBotStatisticsTag extends \Frontend
 	    
 	    //Bot Blocker
 	    \Database::getInstance()
-	        ->prepare("DELETE FROM 
-	                        tl_botstatistics_blocker
-        	            WHERE 
-	                        CURRENT_TIMESTAMP - INTERVAL ? SECOND > bot_tstamp
-                	    AND 
-	                        bot_module_id = ?
-	                ")
-            ->executeUncached($BlockTime, $bid);
+        	        ->prepare("DELETE FROM 
+        	                        tl_botstatistics_blocker
+                	            WHERE 
+        	                        CURRENT_TIMESTAMP - INTERVAL ? SECOND > bot_tstamp
+                        	    AND 
+        	                        bot_module_id = ?
+        	                ")
+                    ->execute($BlockTime, $bid);
 	    
 	    //Test ob Bot Visits gesetzt werden muessen
 	    $objBotIP = \Database::getInstance()
-	                    ->prepare("SELECT 
-	                                    id
-                    	            FROM 
-	                                    tl_botstatistics_blocker
-                    	            WHERE 
-	                                    bot_module_id = ? AND bot_ip = ?
-	                            ")
-                        ->limit(1)
-                        ->executeUncached($bid, $ClientIP);
+        	                    ->prepare("SELECT 
+        	                                    id
+                            	            FROM 
+        	                                    tl_botstatistics_blocker
+                            	            WHERE 
+        	                                    bot_module_id = ? AND bot_ip = ?
+        	                            ")
+                                ->limit(1)
+                                ->execute($bid, $ClientIP);
 	    
 	    if ($objBotIP->numRows == 0) 
 	    {
@@ -135,9 +144,9 @@ class ModuleBotStatisticsTag extends \Frontend
     	            'bot_counter'  => 0
     	    );
     	    \Database::getInstance()
-    	        ->prepare("INSERT IGNORE INTO tl_botstatistics_counter %s")
-    	        ->set($arrSet)
-    	        ->executeUncached();
+            	        ->prepare("INSERT IGNORE INTO tl_botstatistics_counter %s")
+            	        ->set($arrSet)
+            	        ->execute();
     	    
     	    //Bot Visits lesen
     	    $objBotCounter = \Database::getInstance()
@@ -152,28 +161,28 @@ class ModuleBotStatisticsTag extends \Frontend
                             	            AND 
     	                                        bot_name = ?
     	                                ")
-                                ->executeUncached($bid, $this->CURDATE, $this->BotName);
+                                ->execute($bid, $this->CURDATE, $this->BotName);
     	    $objBotCounter->next();
     	    //zählen per update
     	    \Database::getInstance()
-    	        ->prepare("UPDATE 
-    	                        tl_botstatistics_counter 
-    	                    SET 
-    	                        bot_counter = ? 
-    	                    WHERE 
-    	                        id = ?
-    	                ")
-                ->executeUncached($objBotCounter->bot_counter +1, $objBotCounter->id);
+            	        ->prepare("UPDATE 
+            	                        tl_botstatistics_counter 
+            	                    SET 
+            	                        bot_counter = ? 
+            	                    WHERE 
+            	                        id = ?
+            	                ")
+                        ->execute($objBotCounter->bot_counter +1, $objBotCounter->id);
     	    //blocken
     	    \Database::getInstance()
-    	        ->prepare("INSERT INTO 
-    	                        tl_botstatistics_blocker 
-    	                    SET 
-    	                        bot_module_id = ?, 
-    	                        bot_tstamp = CURRENT_TIMESTAMP, 
-    	                        bot_ip = ?
-    	                ")
-                ->executeUncached($bid, $ClientIP);
+            	        ->prepare("INSERT INTO 
+            	                        tl_botstatistics_blocker 
+            	                    SET 
+            	                        bot_module_id = ?, 
+            	                        bot_tstamp = CURRENT_TIMESTAMP, 
+            	                        bot_ip = ?
+            	                ")
+                        ->execute($bid, $ClientIP);
     	    $visit = true;
         }
 	    return $visit;
@@ -204,7 +213,7 @@ class ModuleBotStatisticsTag extends \Frontend
                         	            AND 
 	                                        tl_botstatistics_counter.bot_date = ?
 	                                ")
-                            ->executeUncached($bid, $this->BotName, $this->CURDATE);
+                            ->execute($bid, $this->BotName, $this->CURDATE);
 	    $objBotModul->next();
 	    // Doppelte Einträge verhindern bei zeitgleichen Zugriffen 
 	    // wenn noch kein Eintrag vorhanden ist durch Insert Ignore und Unique Key
@@ -216,21 +225,21 @@ class ModuleBotStatisticsTag extends \Frontend
 	            'bot_page_alias_counter' => 0
 	    );
 	    \Database::getInstance()
-	        ->prepare("INSERT IGNORE INTO tl_botstatistics_counter_details %s")
-            ->set($arrSet)
-	        ->executeUncached();
+        	        ->prepare("INSERT IGNORE INTO tl_botstatistics_counter_details %s")
+                    ->set($arrSet)
+        	        ->execute();
 	    
 	    \Database::getInstance()
-	        ->prepare("UPDATE 
-	                        tl_botstatistics_counter_details 
-                        SET 
-	                        bot_page_alias_counter = bot_page_alias_counter+1
-                        WHERE 
-	                        pid=? 
-	                    AND 
-	                        bot_page_alias = ?
-	                ")
-            ->executeUncached($objBotModul->pid,$page_alias);
+        	        ->prepare("UPDATE 
+        	                        tl_botstatistics_counter_details 
+                                SET 
+        	                        bot_page_alias_counter = bot_page_alias_counter+1
+                                WHERE 
+        	                        pid=? 
+        	                    AND 
+        	                        bot_page_alias = ?
+        	                ")
+                    ->execute($objBotModul->pid,$page_alias);
 	    return true;
 	}
 	
@@ -239,25 +248,28 @@ class ModuleBotStatisticsTag extends \Frontend
 	 */
 	protected function isSetBot()
 	{
-	    if (!in_array('botdetection', $this->Config->getActiveModules()))
+	    $this->BotName = false;
+	    $bundles = array_keys(\System::getContainer()->getParameter('kernel.bundles')); // old \ModuleLoader::getActive()
+	    if ( !in_array( 'BugBusterBotdetectionBundle', $bundles ) )
 	    {
-	        //botdetection Modul fehlt, Abbruch, Meldung kommt bereits per Hook
-	        $this->BotName = false;
+	        //BugBusterBotdetectionBundle Package fehlt, Abbruch
+	        \System::getContainer()
+	                   ->get('monolog.logger.contao')
+	                   ->log(LogLevel::ERROR,
+	                           'contao-botstatistics-bundle package required for the package: BotStatistics!',
+	                           array('contao' => new ContaoContext('ModuleBitStatisticsTag isSetBot ', TL_ERROR)));
 	        return false;
 	    }
-
-	    if (  \BotDetection\CheckBotAgentSimple::checkAgent( \Environment::get('httpUserAgent') ) 
-	       || \BotDetection\CheckBotIp::checkIP( \Environment::get('ip') )
-	       )
+	    
+	    $ModuleBotDetection = new ModuleBotDetection();
+	    if ($ModuleBotDetection->checkBotAllTests())
 	    {
-	        //Debug log_message('BotStatus True','debug.log');
 	        $this->BotStatus = true;
+	        $this->BotName   = CheckBotAgentExtended::checkAgentName( \Environment::get('httpUserAgent') );
 	    }
 	    
-	    $this->BotName = \BotDetection\CheckBotAgentExtended::checkAgentName( \Environment::get('httpUserAgent') ); 
-	    
 	    //Debug log_message('BotName: '.$this->BotName,'debug.log');
-	    if ($this->BotStatus === true || $this->BotName !== false) 
+	    if ($this->BotStatus === true) 
 	    {
 	        return true;
 	    }
