@@ -11,6 +11,8 @@
  * @see        https://github.com/BugBuster1701/botstatistics
  */
 
+define('BOTSTATISTICS_VERSION', '0.1');
+define('BOTSTATISTICS_BUILD'  , '0');
 
 /**
  * -------------------------------------------------------------------------
@@ -19,9 +21,9 @@
  */
 $GLOBALS['BE_MOD']['system']['botstatistics'] = array
 (
-        'callback'   => 'BotStatistics\ModuleBotStatisticsStat',
-        'icon'       => 'system/modules/botstatistics/assets/botstatistics2.png',
-        'stylesheet' => 'system/modules/botstatistics/assets/mod_botstatistics_be.css',
+        'callback'   => 'BugBuster\BotStatistics\ModuleBotStatisticsStat',
+        'icon'       => 'bundles/bugbusterbotstatistics/botstatistics2.png',
+        'stylesheet' => 'bundles/bugbusterbotstatistics/mod_botstatistics_be.css',
 );
 
 
@@ -32,7 +34,7 @@ $GLOBALS['BE_MOD']['system']['botstatistics'] = array
  */
 array_insert($GLOBALS['FE_MOD']['miscellaneous'], 0, array
 (
-        'botstatistics' => 'BotStatistics\ModuleBotStatistics',
+        'botstatistics' => 'BugBuster\BotStatistics\ModuleBotStatistics',
 )); 
 
 
@@ -41,8 +43,8 @@ array_insert($GLOBALS['FE_MOD']['miscellaneous'], 0, array
  * HOOKS
  * -------------------------------------------------------------------------
  */
-$GLOBALS['TL_HOOKS']['parseBackendTemplate'][]  = array('BotStatistics\BotStatisticsCheck', 'checkExtensions');
-$GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('BotStatistics\ModuleBotStatisticsTag', 'replaceInsertTagsBotStatistics');
+$GLOBALS['TL_HOOKS']['parseBackendTemplate'][]  = array('BugBuster\BotStatistics\BotStatisticsCheck', 'checkExtensions');
+$GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('BugBuster\BotStatistics\ModuleBotStatisticsTag', 'replaceInsertTagsBotStatistics');
 
 
 /**
@@ -50,5 +52,5 @@ $GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('BotStatistics\ModuleBotStat
  * CRON JOBS
  * -------------------------------------------------------------------------
  */
-$GLOBALS['TL_CRON']['daily'][]  = array('BotStatistics\BotStatisticsCron', 'deleteStatisticsData');
+$GLOBALS['TL_CRON']['daily'][]  = array('BugBuster\BotStatistics\BotStatisticsCron', 'deleteStatisticsData');
 
