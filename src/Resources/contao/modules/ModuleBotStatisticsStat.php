@@ -19,6 +19,10 @@
  */
 namespace BugBuster\BotStatistics;
 
+use BugBuster\BotStatistics\BotStatisticsHelper;
+use BugBuster\BotStatistics\BotStatisticsCheck;
+
+
 /**
  * Class ModuleBotStatisticsStat
  *
@@ -26,7 +30,7 @@ namespace BugBuster\BotStatistics;
  * @author     Glen Langer (BugBuster)
  * @package    BotStatistics
  */
-class ModuleBotStatisticsStat extends \BugBuster\BotStatistics\BotStatisticsHelper
+class ModuleBotStatisticsStat extends BotStatisticsHelper
 {
     /**
 	 * Template
@@ -54,7 +58,7 @@ class ModuleBotStatisticsStat extends \BugBuster\BotStatistics\BotStatisticsHelp
 	        $this->setZero();
 	    }
 	    //for statistics page directly, callback modules use not the template hook
-	    \BotStatistics\BotStatisticsCheck::getInstance()->checkExtensions('','be_main');
+	    BotStatisticsCheck::getInstance()->checkExtensions('','be_main');
 	}
 	
 	/**
@@ -62,16 +66,12 @@ class ModuleBotStatisticsStat extends \BugBuster\BotStatistics\BotStatisticsHelp
 	 */
 	protected function compile()
 	{
-		// Version
-		require_once(TL_ROOT . '/system/modules/botstatistics/ModuleBotStatisticsVersion.php');
-		
 		$this->Template->href   = $this->getReferer(true);
 		$this->Template->title  = specialchars($GLOBALS['TL_LANG']['MSC']['backBT']);
 		$this->Template->button = $GLOBALS['TL_LANG']['MSC']['backBT'];
 		$this->Template->theme  = $this->getTheme();
 		$this->Template->theme0 = 'default';
-		$this->Template->bot_base    = \Environment::get('base');
-		$this->Template->bot_base_be = \Environment::get('base') . 'contao';
+
 		
 		if ($this->intModuleID == 0) 
 		{   //direkter Aufruf ohne ID
