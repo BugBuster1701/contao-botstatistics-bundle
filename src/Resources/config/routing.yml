@@ -1,4 +1,4 @@
-botstatistics_backend_details:
-    resource: "@BugBusterBostStatisticsBundle/Controller"
+bugbuster_botstatistics_backend_details:
+    resource: "@BugBusterBotStatisticsBundle/Controller"
     type: annotation
 

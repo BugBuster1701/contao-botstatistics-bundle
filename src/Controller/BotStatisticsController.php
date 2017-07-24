@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
  * @copyright  Glen Langer 2017 <http://contao.ninja>
  * @author     Glen Langer (BugBuster)
  *
- * @Route("/bugbuster_botstatistics", defaults={"_scope" = "backend", "_token_check" = true}) // TODO
+ * @Route("/bugbuster_botstatistics", defaults={"_scope" = "backend", "_token_check" = true})
  */
 class BotStatisticsController extends Controller
 {
