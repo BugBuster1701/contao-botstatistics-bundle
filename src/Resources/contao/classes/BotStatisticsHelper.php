@@ -307,11 +307,8 @@ class BotStatisticsHelper extends \BackendModule
     
     protected function getBotStatDetailsAnzBot($action,$bmid)
     {
-        $this->TemplatePartial = new \BackendTemplate('mod_botstatistics_be_stat_partial_details');
-        $this->TemplatePartial->action = $action;
-        $this->TemplatePartial->bmid = $bmid;
-        $this->TemplatePartial->BotDetailList  = '<div class="tl_listing_container list_view">'."\n";
-        $this->TemplatePartial->BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">'.$this->getModulName($bmid).'</td></tr>'."\n";
+        $BotDetailList  = '<div class="tl_listing_container list_view">'."\n";
+        $BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">'.$this->getModulName($bmid).'</td></tr>'."\n";
         
         $objBotStatDetailsAnzBot = \Database::getInstance()
                                         ->prepare("SELECT DISTINCT 
@@ -325,19 +322,16 @@ class BotStatisticsHelper extends \BackendModule
                                         ->execute($bmid);
         while ($objBotStatDetailsAnzBot->next()) 
         {
-            $this->TemplatePartial->BotDetailList .= '<tr><td class="tl_file_list">'.$objBotStatDetailsAnzBot->bot_name.'</td></tr>';
+            $BotDetailList .= '<tr><td class="tl_file_list">'.$objBotStatDetailsAnzBot->bot_name.'</td></tr>';
         }
-        $this->TemplatePartial->BotDetailList .= '</tbody></table></div>';
-        return $this->TemplatePartial->parse();
+        $BotDetailList .= '</tbody></table></div>';
+        return $BotDetailList;
     }
     
     protected function getBotStatDetailsAnzVisits($action,$bmid)
     {
-        $this->TemplatePartial = new \BackendTemplate('mod_botstatistics_be_stat_partial_details');
-        $this->TemplatePartial->action = $action;
-        $this->TemplatePartial->bmid = $bmid;
-        $this->TemplatePartial->BotDetailList  = '<div class="tl_listing_container list_view">'."\n";
-        $this->TemplatePartial->BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">'.$this->getModulName($bmid).'</td><td class="tl_folder_tlist tl_right_nowrap">'.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_visit'].'</td></tr>'."\n";
+        $BotDetailList  = '<div class="tl_listing_container list_view">'."\n";
+        $BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">'.$this->getModulName($bmid).'</td><td class="tl_folder_tlist tl_right_nowrap">'.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_visit'].'</td></tr>'."\n";
         
         $objBotStatDetailsAnzBot = \Database::getInstance()
                                         ->prepare("SELECT DISTINCT 
@@ -352,18 +346,15 @@ class BotStatisticsHelper extends \BackendModule
                                         ->execute($bmid);
         while ($objBotStatDetailsAnzBot->next())
         {
-            $this->TemplatePartial->BotDetailList .= '<tr><td class="tl_file_list">'.$objBotStatDetailsAnzBot->bot_name.'</td><td class="tl_file_list tl_right_nowrap">'.$objBotStatDetailsAnzBot->AnzVisits.'</td></tr>';
+            $BotDetailList .= '<tr><td class="tl_file_list">'.$objBotStatDetailsAnzBot->bot_name.'</td><td class="tl_file_list tl_right_nowrap">'.$objBotStatDetailsAnzBot->AnzVisits.'</td></tr>';
         }
-        $this->TemplatePartial->BotDetailList .= '</tbody></table></div>';
-        return $this->TemplatePartial->parse();
+        $BotDetailList .= '</tbody></table></div>';
+        return $BotDetailList;
     }
     protected function getBotStatDetailsAnzPages($action,$bmid)
     {
-        $this->TemplatePartial = new \BackendTemplate('mod_botstatistics_be_stat_partial_details');
-        $this->TemplatePartial->action = $action;
-        $this->TemplatePartial->bmid = $bmid;
-        $this->TemplatePartial->BotDetailList  = '<div class="tl_listing_container list_view">'."\n";
-        $this->TemplatePartial->BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">'.$this->getModulName($bmid).'</td><td class="tl_folder_tlist tl_right_nowrap">'.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_hit'].'</td></tr>'."\n";
+        $BotDetailList  = '<div class="tl_listing_container list_view">'."\n";
+        $BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">'.$this->getModulName($bmid).'</td><td class="tl_folder_tlist tl_right_nowrap">'.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_hit'].'</td></tr>'."\n";
         
         $objBotStatDetailsAnzBot = \Database::getInstance()
                                         ->prepare("SELECT 
@@ -380,11 +371,11 @@ class BotStatisticsHelper extends \BackendModule
                                         ->execute($bmid);
         while ($objBotStatDetailsAnzBot->next())
         {
-            $this->TemplatePartial->BotDetailList .= '<tr><td class="tl_file_list">'.$objBotStatDetailsAnzBot->bot_name.'</td><td class="tl_file_list tl_right_nowrap">'.$objBotStatDetailsAnzBot->AnzPages.'</td></tr>';
+            $BotDetailList .= '<tr><td class="tl_file_list">'.$objBotStatDetailsAnzBot->bot_name.'</td><td class="tl_file_list tl_right_nowrap">'.$objBotStatDetailsAnzBot->AnzPages.'</td></tr>';
         }
-        $this->TemplatePartial->BotDetailList .= '</tbody></table></div>';
+        $BotDetailList .= '</tbody></table></div>';
         
-        return $this->TemplatePartial->parse();
+        return $BotDetailList;
     }
     /*    ______          __           
          /_  __/___  ____/ /___ ___  __
@@ -396,11 +387,8 @@ class BotStatisticsHelper extends \BackendModule
     protected function getBotStatDetailsAnzBotToday($action,$bmid)
     {
         $today = date('Y-m-d');
-        $this->TemplatePartial = new \BackendTemplate('mod_botstatistics_be_stat_partial_details');
-        $this->TemplatePartial->action = $action;
-        $this->TemplatePartial->bmid = $bmid;
-        $this->TemplatePartial->BotDetailList  = '<div class="tl_listing_container list_view">'."\n";
-        $this->TemplatePartial->BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">'.$this->getModulName($bmid).': '.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['today'].'</td></tr>'."\n";
+        $BotDetailList  = '<div class="tl_listing_container list_view">'."\n";
+        $BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">'.$this->getModulName($bmid).': '.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['today'].'</td></tr>'."\n";
         
         $objBotStatDetailsAnzBotToday = \Database::getInstance()
                                             ->prepare("SELECT DISTINCT 
@@ -416,20 +404,17 @@ class BotStatisticsHelper extends \BackendModule
                                             ->execute($bmid, $today);
         while ($objBotStatDetailsAnzBotToday->next())
         {
-            $this->TemplatePartial->BotDetailList .= '<tr><td class="tl_file_list">'.$objBotStatDetailsAnzBotToday->bot_name.'</td></tr>';
+            $BotDetailList .= '<tr><td class="tl_file_list">'.$objBotStatDetailsAnzBotToday->bot_name.'</td></tr>';
         }
-        $this->TemplatePartial->BotDetailList .= '</tbody></table></div>';
+        $BotDetailList .= '</tbody></table></div>';
         
-        return $this->TemplatePartial->parse();
+        return $BotDetailList;
     }
     protected function getBotStatDetailsAnzVisitsToday($action,$bmid)
     {
         $today = date('Y-m-d');
-        $this->TemplatePartial = new \BackendTemplate('mod_botstatistics_be_stat_partial_details');
-        $this->TemplatePartial->action = $action;
-        $this->TemplatePartial->bmid = $bmid;
-        $this->TemplatePartial->BotDetailList  = '<div class="tl_listing_container list_view">'."\n";
-        $this->TemplatePartial->BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">'.$this->getModulName($bmid).': '.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['today'].'</td><td class="tl_folder_tlist tl_right_nowrap">'.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_visit'].'</td></tr>'."\n";
+        $BotDetailList  = '<div class="tl_listing_container list_view">'."\n";
+        $BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">'.$this->getModulName($bmid).': '.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['today'].'</td><td class="tl_folder_tlist tl_right_nowrap">'.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_visit'].'</td></tr>'."\n";
         
         $objBotStatDetailsAnzVisitsToday = \Database::getInstance()
                                                 ->prepare("SELECT DISTINCT 
@@ -446,19 +431,16 @@ class BotStatisticsHelper extends \BackendModule
                                                 ->execute($bmid, $today);
         while ($objBotStatDetailsAnzVisitsToday->next())
         {
-            $this->TemplatePartial->BotDetailList .= '<tr><td class="tl_file_list">'.$objBotStatDetailsAnzVisitsToday->bot_name.'</td><td class="tl_file_list tl_right_nowrap">'.$objBotStatDetailsAnzVisitsToday->AnzVisits.'</td></tr>';
+            $BotDetailList .= '<tr><td class="tl_file_list">'.$objBotStatDetailsAnzVisitsToday->bot_name.'</td><td class="tl_file_list tl_right_nowrap">'.$objBotStatDetailsAnzVisitsToday->AnzVisits.'</td></tr>';
         }
-        $this->TemplatePartial->BotDetailList .= '</tbody></table></div>';
-        return $this->TemplatePartial->parse();
+        $BotDetailList .= '</tbody></table></div>';
+        return $BotDetailList;
     }
     protected function getBotStatDetailsAnzPagesToday($action,$bmid)
     {
         $today = date('Y-m-d');
-        $this->TemplatePartial = new \BackendTemplate('mod_botstatistics_be_stat_partial_details');
-        $this->TemplatePartial->action = $action;
-        $this->TemplatePartial->bmid = $bmid;
-        $this->TemplatePartial->BotDetailList  = '<div class="tl_listing_container list_view">'."\n";
-        $this->TemplatePartial->BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">'.$this->getModulName($bmid).': '.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['today'].'</td><td class="tl_folder_tlist tl_right_nowrap">'.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_hit'].'</td></tr>'."\n";
+        $BotDetailList  = '<div class="tl_listing_container list_view">'."\n";
+        $BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">'.$this->getModulName($bmid).': '.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['today'].'</td><td class="tl_folder_tlist tl_right_nowrap">'.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_hit'].'</td></tr>'."\n";
         
         $objBotStatDetailsAnzBotToday = \Database::getInstance()
                                             ->prepare("SELECT 
@@ -477,10 +459,10 @@ class BotStatisticsHelper extends \BackendModule
                                             ->execute($bmid, $today);
         while ($objBotStatDetailsAnzBotToday->next())
         {
-            $this->TemplatePartial->BotDetailList .= '<tr><td class="tl_file_list">'.$objBotStatDetailsAnzBotToday->bot_name.'</td><td class="tl_file_list tl_right_nowrap">'.$objBotStatDetailsAnzBotToday->AnzPages.'</td></tr>';
+            $BotDetailList .= '<tr><td class="tl_file_list">'.$objBotStatDetailsAnzBotToday->bot_name.'</td><td class="tl_file_list tl_right_nowrap">'.$objBotStatDetailsAnzBotToday->AnzPages.'</td></tr>';
         }
-        $this->TemplatePartial->BotDetailList .= '</tbody></table></div>';
-        return $this->TemplatePartial->parse();
+        $BotDetailList .= '</tbody></table></div>';
+        return $BotDetailList;
     }
 
     /*  __  __          __                __           
@@ -493,11 +475,8 @@ class BotStatisticsHelper extends \BackendModule
     protected function getBotStatDetailsAnzBotYesterday($action,$bmid)
     {
         $yesterday = date('Y-m-d', mktime(0, 0, 0, date("m"), date("d")-1, date("Y")));
-        $this->TemplatePartial = new \BackendTemplate('mod_botstatistics_be_stat_partial_details');
-        $this->TemplatePartial->action = $action;
-        $this->TemplatePartial->bmid = $bmid;
-        $this->TemplatePartial->BotDetailList  = '<div class="tl_listing_container list_view">'."\n";
-        $this->TemplatePartial->BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">'.$this->getModulName($bmid).': '.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['yesterday'].'</td></tr>'."\n";
+        $BotDetailList  = '<div class="tl_listing_container list_view">'."\n";
+        $BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">'.$this->getModulName($bmid).': '.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['yesterday'].'</td></tr>'."\n";
         
         $objBotStatDetailsAnzBotYesterday = \Database::getInstance()
                                                 ->prepare("SELECT DISTINCT 
@@ -513,20 +492,17 @@ class BotStatisticsHelper extends \BackendModule
                                                 ->execute($bmid, $yesterday);
         while ($objBotStatDetailsAnzBotYesterday->next())
         {
-            $this->TemplatePartial->BotDetailList .= '<tr><td class="tl_file_list">'.$objBotStatDetailsAnzBotYesterday->bot_name.'</td></tr>';
+            $BotDetailList .= '<tr><td class="tl_file_list">'.$objBotStatDetailsAnzBotYesterday->bot_name.'</td></tr>';
         }
-        $this->TemplatePartial->BotDetailList .= '</tbody></table></div>';
+        $BotDetailList .= '</tbody></table></div>';
         
-        return $this->TemplatePartial->parse();
+        return $BotDetailList;
     }
     protected function getBotStatDetailsAnzVisitsYesterday($action,$bmid)
     {
         $yesterday = date('Y-m-d', mktime(0, 0, 0, date("m"), date("d")-1, date("Y")));
-        $this->TemplatePartial = new \BackendTemplate('mod_botstatistics_be_stat_partial_details');
-        $this->TemplatePartial->action = $action;
-        $this->TemplatePartial->bmid = $bmid;
-        $this->TemplatePartial->BotDetailList  = '<div class="tl_listing_container list_view">'."\n";
-        $this->TemplatePartial->BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">'.$this->getModulName($bmid).': '.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['yesterday'].'</td><td class="tl_folder_tlist tl_right_nowrap">'.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_visit'].'</td></tr>'."\n";
+        $BotDetailList  = '<div class="tl_listing_container list_view">'."\n";
+        $BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">'.$this->getModulName($bmid).': '.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['yesterday'].'</td><td class="tl_folder_tlist tl_right_nowrap">'.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_visit'].'</td></tr>'."\n";
         
         $objBotStatDetailsAnzVisitsYesterday = \Database::getInstance()
                                                     ->prepare("SELECT DISTINCT 
@@ -543,19 +519,16 @@ class BotStatisticsHelper extends \BackendModule
                                                     ->execute($bmid, $yesterday);
         while ($objBotStatDetailsAnzVisitsYesterday->next())
         {
-            $this->TemplatePartial->BotDetailList .= '<tr><td class="tl_file_list">'.$objBotStatDetailsAnzVisitsYesterday->bot_name.'</td><td class="tl_file_list tl_right_nowrap">'.$objBotStatDetailsAnzVisitsYesterday->AnzVisits.'</td></tr>';
+            $BotDetailList .= '<tr><td class="tl_file_list">'.$objBotStatDetailsAnzVisitsYesterday->bot_name.'</td><td class="tl_file_list tl_right_nowrap">'.$objBotStatDetailsAnzVisitsYesterday->AnzVisits.'</td></tr>';
         }
-        $this->TemplatePartial->BotDetailList .= '</tbody></table></div>';
-        return $this->TemplatePartial->parse();
+        $BotDetailList .= '</tbody></table></div>';
+        return $BotDetailList;
     }
     protected function getBotStatDetailsAnzPagesYesterday($action,$bmid)
     {
         $yesterday = date('Y-m-d', mktime(0, 0, 0, date("m"), date("d")-1, date("Y")));
-        $this->TemplatePartial = new \BackendTemplate('mod_botstatistics_be_stat_partial_details');
-        $this->TemplatePartial->action = $action;
-        $this->TemplatePartial->bmid = $bmid;
-        $this->TemplatePartial->BotDetailList  = '<div class="tl_listing_container list_view">'."\n";
-        $this->TemplatePartial->BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">'.$this->getModulName($bmid).': '.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['yesterday'].'</td><td class="tl_folder_tlist tl_right_nowrap">'.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_hit'].'</td></tr>'."\n";
+        $BotDetailList  = '<div class="tl_listing_container list_view">'."\n";
+        $BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">'.$this->getModulName($bmid).': '.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['yesterday'].'</td><td class="tl_folder_tlist tl_right_nowrap">'.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_hit'].'</td></tr>'."\n";
         
         $objBotStatDetailsAnzBotYesterday = \Database::getInstance()
                                                 ->prepare("SELECT 
@@ -574,10 +547,10 @@ class BotStatisticsHelper extends \BackendModule
                                                 ->execute($bmid, $yesterday);
         while ($objBotStatDetailsAnzBotYesterday->next())
         {
-            $this->TemplatePartial->BotDetailList .= '<tr><td class="tl_file_list">'.$objBotStatDetailsAnzBotYesterday->bot_name.'</td><td class="tl_file_list tl_right_nowrap">'.$objBotStatDetailsAnzBotYesterday->AnzPages.'</td></tr>';
+            $BotDetailList .= '<tr><td class="tl_file_list">'.$objBotStatDetailsAnzBotYesterday->bot_name.'</td><td class="tl_file_list tl_right_nowrap">'.$objBotStatDetailsAnzBotYesterday->AnzPages.'</td></tr>';
         }
-        $this->TemplatePartial->BotDetailList .= '</tbody></table></div>';
-        return $this->TemplatePartial->parse();
+        $BotDetailList .= '</tbody></table></div>';
+        return $BotDetailList;
     }
     /*   _       __          __  
         | |     / /__  ___  / /__
@@ -590,11 +563,8 @@ class BotStatisticsHelper extends \BackendModule
         $CurrentWeek = date('W');
         //Besonderheit beachten das der 1.1. die 53. Woche sein kann!
         $YearCurrentWeek = ($CurrentWeek > 40 && (int)date('m') == 1) ? date('Y')-1 : date('Y');
-        $this->TemplatePartial = new \BackendTemplate('mod_botstatistics_be_stat_partial_details');
-        $this->TemplatePartial->action = $action;
-        $this->TemplatePartial->bmid = $bmid;
-        $this->TemplatePartial->BotDetailList  = '<div class="tl_listing_container list_view">'."\n";
-        $this->TemplatePartial->BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">'.$this->getModulName($bmid).': '.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['current_week'].'</td></tr>'."\n";
+        $BotDetailList  = '<div class="tl_listing_container list_view">'."\n";
+        $BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">'.$this->getModulName($bmid).': '.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['current_week'].'</td></tr>'."\n";
         
         $objBotStatDetailsAnzBotWeek = \Database::getInstance()
                                             ->prepare("SELECT DISTINCT 
@@ -610,22 +580,19 @@ class BotStatisticsHelper extends \BackendModule
                                             ->execute($bmid, $YearCurrentWeek.$CurrentWeek);
         while ($objBotStatDetailsAnzBotWeek->next())
         {
-            $this->TemplatePartial->BotDetailList .= '<tr><td class="tl_file_list">'.$objBotStatDetailsAnzBotWeek->bot_name.'</td></tr>';
+            $BotDetailList .= '<tr><td class="tl_file_list">'.$objBotStatDetailsAnzBotWeek->bot_name.'</td></tr>';
         }
-        $this->TemplatePartial->BotDetailList .= '</tbody></table></div>';
+        $BotDetailList .= '</tbody></table></div>';
         
-        return $this->TemplatePartial->parse();
+        return $BotDetailList;
     }
     protected function getBotStatDetailsAnzVisitsWeek($action,$bmid)
     {
         $CurrentWeek = date('W');
         //Besonderheit beachten das der 1.1. die 53. Woche sein kann!
         $YearCurrentWeek = ($CurrentWeek > 40 && (int)date('m') == 1) ? date('Y')-1 : date('Y');
-        $this->TemplatePartial = new \BackendTemplate('mod_botstatistics_be_stat_partial_details');
-        $this->TemplatePartial->action = $action;
-        $this->TemplatePartial->bmid = $bmid;
-        $this->TemplatePartial->BotDetailList  = '<div class="tl_listing_container list_view">'."\n";
-        $this->TemplatePartial->BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">'.$this->getModulName($bmid).': '.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['current_week'].'</td><td class="tl_folder_tlist tl_right_nowrap">'.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_visit'].'</td></tr>'."\n";
+        $BotDetailList  = '<div class="tl_listing_container list_view">'."\n";
+        $BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">'.$this->getModulName($bmid).': '.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['current_week'].'</td><td class="tl_folder_tlist tl_right_nowrap">'.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_visit'].'</td></tr>'."\n";
         
         $objBotStatDetailsAnzVisitsWeek = \Database::getInstance()
                                                 ->prepare("SELECT DISTINCT 
@@ -642,21 +609,18 @@ class BotStatisticsHelper extends \BackendModule
                                                 ->execute($bmid, $YearCurrentWeek.$CurrentWeek);
         while ($objBotStatDetailsAnzVisitsWeek->next())
         {
-            $this->TemplatePartial->BotDetailList .= '<tr><td class="tl_file_list">'.$objBotStatDetailsAnzVisitsWeek->bot_name.'</td><td class="tl_file_list tl_right_nowrap">'.$objBotStatDetailsAnzVisitsWeek->AnzVisits.'</td></tr>';
+            $BotDetailList .= '<tr><td class="tl_file_list">'.$objBotStatDetailsAnzVisitsWeek->bot_name.'</td><td class="tl_file_list tl_right_nowrap">'.$objBotStatDetailsAnzVisitsWeek->AnzVisits.'</td></tr>';
         }
-        $this->TemplatePartial->BotDetailList .= '</tbody></table></div>';
-        return $this->TemplatePartial->parse();
+        $BotDetailList .= '</tbody></table></div>';
+        return $BotDetailList;
     }
     protected function getBotStatDetailsAnzPagesWeek($action,$bmid)
     {
         $CurrentWeek = date('W');
         //Besonderheit beachten das der 1.1. die 53. Woche sein kann!
         $YearCurrentWeek = ($CurrentWeek > 40 && (int)date('m') == 1) ? date('Y')-1 : date('Y');
-        $this->TemplatePartial = new \BackendTemplate('mod_botstatistics_be_stat_partial_details');
-        $this->TemplatePartial->action = $action;
-        $this->TemplatePartial->bmid = $bmid;
-        $this->TemplatePartial->BotDetailList  = '<div class="tl_listing_container list_view">'."\n";
-        $this->TemplatePartial->BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">'.$this->getModulName($bmid).': '.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['current_week'].'</td><td class="tl_folder_tlist tl_right_nowrap">'.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_hit'].'</td></tr>'."\n";
+        $BotDetailList  = '<div class="tl_listing_container list_view">'."\n";
+        $BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">'.$this->getModulName($bmid).': '.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['current_week'].'</td><td class="tl_folder_tlist tl_right_nowrap">'.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_hit'].'</td></tr>'."\n";
         
         $objBotStatDetailsAnzBotWeek = \Database::getInstance()
                                             ->prepare("SELECT 
@@ -675,10 +639,10 @@ class BotStatisticsHelper extends \BackendModule
                                             ->execute($bmid, $YearCurrentWeek.$CurrentWeek);
         while ($objBotStatDetailsAnzBotWeek->next())
         {
-            $this->TemplatePartial->BotDetailList .= '<tr><td class="tl_file_list">'.$objBotStatDetailsAnzBotWeek->bot_name.'</td><td class="tl_file_list tl_right_nowrap">'.$objBotStatDetailsAnzBotWeek->AnzPages.'</td></tr>';
+            $BotDetailList .= '<tr><td class="tl_file_list">'.$objBotStatDetailsAnzBotWeek->bot_name.'</td><td class="tl_file_list tl_right_nowrap">'.$objBotStatDetailsAnzBotWeek->AnzPages.'</td></tr>';
         }
-        $this->TemplatePartial->BotDetailList .= '</tbody></table></div>';
-        return $this->TemplatePartial->parse();
+        $BotDetailList .= '</tbody></table></div>';
+        return $BotDetailList;
     }
 
     /*      __               __     _       __          __  
@@ -692,11 +656,8 @@ class BotStatisticsHelper extends \BackendModule
         $LastWeek = date('W', mktime(0, 0, 0, date("m"), date("d")-7, date("Y")) );
         //Besonderheit beachten das der 1.1. die 53. Woche sein kann!
         $YearLastWeek = ($LastWeek > 40 && (int)date('m') == 1) ? date('Y')-1 : date('Y');
-        $this->TemplatePartial = new \BackendTemplate('mod_botstatistics_be_stat_partial_details');
-        $this->TemplatePartial->action = $action;
-        $this->TemplatePartial->bmid = $bmid;
-        $this->TemplatePartial->BotDetailList  = '<div class="tl_listing_container list_view">'."\n";
-        $this->TemplatePartial->BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">'.$this->getModulName($bmid).': '.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['last_week'].'</td></tr>'."\n";
+        $BotDetailList  = '<div class="tl_listing_container list_view">'."\n";
+        $BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">'.$this->getModulName($bmid).': '.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['last_week'].'</td></tr>'."\n";
         
         $objBotStatDetailsAnzBotLastWeek = \Database::getInstance()
                                                 ->prepare("SELECT DISTINCT 
@@ -712,22 +673,19 @@ class BotStatisticsHelper extends \BackendModule
                                                 ->execute($bmid, $YearLastWeek.$LastWeek);
         while ($objBotStatDetailsAnzBotLastWeek->next())
         {
-            $this->TemplatePartial->BotDetailList .= '<tr><td class="tl_file_list">'.$objBotStatDetailsAnzBotLastWeek->bot_name.'</td></tr>';
+            $BotDetailList .= '<tr><td class="tl_file_list">'.$objBotStatDetailsAnzBotLastWeek->bot_name.'</td></tr>';
         }
-        $this->TemplatePartial->BotDetailList .= '</tbody></table></div>';
+        $BotDetailList .= '</tbody></table></div>';
         
-        return $this->TemplatePartial->parse();
+        return $BotDetailList;
     }
     protected function getBotStatDetailsAnzVisitsLastWeek($action,$bmid)
     {
         $LastWeek = date('W', mktime(0, 0, 0, date("m"), date("d")-7, date("Y")) );
         //Besonderheit beachten das der 1.1. die 53. Woche sein kann!
         $YearLastWeek = ($LastWeek > 40 && (int)date('m') == 1) ? date('Y')-1 : date('Y');
-        $this->TemplatePartial = new \BackendTemplate('mod_botstatistics_be_stat_partial_details');
-        $this->TemplatePartial->action = $action;
-        $this->TemplatePartial->bmid = $bmid;
-        $this->TemplatePartial->BotDetailList  = '<div class="tl_listing_container list_view">'."\n";
-        $this->TemplatePartial->BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">'.$this->getModulName($bmid).': '.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['last_week'].'</td><td class="tl_folder_tlist tl_right_nowrap">'.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_visit'].'</td></tr>'."\n";
+        $BotDetailList  = '<div class="tl_listing_container list_view">'."\n";
+        $BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">'.$this->getModulName($bmid).': '.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['last_week'].'</td><td class="tl_folder_tlist tl_right_nowrap">'.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_visit'].'</td></tr>'."\n";
         
         $objBotStatDetailsAnzVisitsLastWeek = \Database::getInstance()
                                                 ->prepare("SELECT DISTINCT 
@@ -744,21 +702,18 @@ class BotStatisticsHelper extends \BackendModule
                                                 ->execute($bmid, $YearLastWeek.$LastWeek);
         while ($objBotStatDetailsAnzVisitsLastWeek->next())
         {
-            $this->TemplatePartial->BotDetailList .= '<tr><td class="tl_file_list">'.$objBotStatDetailsAnzVisitsLastWeek->bot_name.'</td><td class="tl_file_list tl_right_nowrap">'.$objBotStatDetailsAnzVisitsLastWeek->AnzVisits.'</td></tr>';
+            $BotDetailList .= '<tr><td class="tl_file_list">'.$objBotStatDetailsAnzVisitsLastWeek->bot_name.'</td><td class="tl_file_list tl_right_nowrap">'.$objBotStatDetailsAnzVisitsLastWeek->AnzVisits.'</td></tr>';
         }
-        $this->TemplatePartial->BotDetailList .= '</tbody></table></div>';
-        return $this->TemplatePartial->parse();
+        $BotDetailList .= '</tbody></table></div>';
+        return $BotDetailList;
     }
     protected function getBotStatDetailsAnzPagesLastWeek($action,$bmid)
     {
         $LastWeek = date('W', mktime(0, 0, 0, date("m"), date("d")-7, date("Y")) );
         //Besonderheit beachten das der 1.1. die 53. Woche sein kann!
         $YearLastWeek = ($LastWeek > 40 && (int)date('m') == 1) ? date('Y')-1 : date('Y');
-        $this->TemplatePartial = new \BackendTemplate('mod_botstatistics_be_stat_partial_details');
-        $this->TemplatePartial->action = $action;
-        $this->TemplatePartial->bmid = $bmid;
-        $this->TemplatePartial->BotDetailList  = '<div class="tl_listing_container list_view">'."\n";
-        $this->TemplatePartial->BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">'.$this->getModulName($bmid).': '.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['last_week'].'</td><td class="tl_folder_tlist tl_right_nowrap">'.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_hit'].'</td></tr>'."\n";
+        $BotDetailList  = '<div class="tl_listing_container list_view">'."\n";
+        $BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">'.$this->getModulName($bmid).': '.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['last_week'].'</td><td class="tl_folder_tlist tl_right_nowrap">'.$GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_hit'].'</td></tr>'."\n";
         
         $objBotStatDetailsAnzBotLastWeek = \Database::getInstance()
                                                 ->prepare("SELECT 
@@ -777,10 +732,10 @@ class BotStatisticsHelper extends \BackendModule
                                                 ->execute($bmid, $YearLastWeek.$LastWeek);
         while ($objBotStatDetailsAnzBotLastWeek->next())
         {
-            $this->TemplatePartial->BotDetailList .= '<tr><td class="tl_file_list">'.$objBotStatDetailsAnzBotLastWeek->bot_name.'</td><td class="tl_file_list tl_right_nowrap">'.$objBotStatDetailsAnzBotLastWeek->AnzPages.'</td></tr>';
+            $BotDetailList .= '<tr><td class="tl_file_list">'.$objBotStatDetailsAnzBotLastWeek->bot_name.'</td><td class="tl_file_list tl_right_nowrap">'.$objBotStatDetailsAnzBotLastWeek->AnzPages.'</td></tr>';
         }
-        $this->TemplatePartial->BotDetailList .= '</tbody></table></div>';
-        return $this->TemplatePartial->parse();
+        $BotDetailList .= '</tbody></table></div>';
+        return $BotDetailList;
     }
 
     protected function getTopBots($limit=20)

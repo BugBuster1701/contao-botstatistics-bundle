@@ -10,7 +10,7 @@
 
 namespace BugBuster\BotStatisticsBundle\Controller;
 
-use BugBuster\DLStats\BackendDlstats; //TODO
+use BugBuster\BotStatistics\BackendStatisticsDetails; 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
  * @copyright  Glen Langer 2017 <http://contao.ninja>
  * @author     Glen Langer (BugBuster)
  *
- * @Route("/dlstats", defaults={"_scope" = "backend", "_token_check" = true})     //TODO
+ * @Route("/bugbuster_botstatistics", defaults={"_scope" = "backend", "_token_check" = true}) // TODO
  */
 class BotStatisticsController extends Controller
 {
@@ -30,13 +30,13 @@ class BotStatisticsController extends Controller
      *
      * @return Response
      *
-     * @Route("/details", name="dlstats_backend_details")
+     * @Route("/backend_details", name="bugbuster_botstatistics_backend_details")
      */
     public function detailsAction()
     {
         $this->container->get('contao.framework')->initialize();
 
-        $controller = new BackendDlstats(); //TODO
+        $controller = new BackendStatisticsDetails();
 
         return $controller->run();
     }
