@@ -53,7 +53,8 @@
 			}
 		},
 		"branch-alias": {
-			"dev-develop": "1.1.x-dev"
+			"dev-develop": "1.1.x-dev",
+			"dev-feature/contao4": "0.2.x-dev"
 		},
 		"contao-manager-plugin": "BugBuster\\BotStatisticsBundle\\ContaoManager\\Plugin"
 	}
