@@ -17,7 +17,7 @@
 <?php endforeach; ?>
             </select>
             <input type="hidden" name="REQUEST_TOKEN" value="<?= REQUEST_TOKEN; ?>">            
-            <input class="tl_img_submit" style="padding-left: 6px;" type="image" value="<?= StringUtil::specialchars($GLOBALS['TL_LANG']['MSC']['showOnly']); ?>" title="<?= StringUtil::specialchars($GLOBALS['TL_LANG']['MSC']['showOnly']); ?>" src="system/themes/<?= $this->theme; ?>/images/reload.gif" name="filter">
+            <input class="tl_img_submit" style="padding-left: 6px;" type="image" value="<?= StringUtil::specialchars($GLOBALS['TL_LANG']['MSC']['showOnly']); ?>" title="<?= StringUtil::specialchars($GLOBALS['TL_LANG']['MSC']['showOnly']); ?>" src="<?= Image::getPath('reload.svg') ?>" name="filter">
         </div>    
         <div class="clear"></div>
     </div>
