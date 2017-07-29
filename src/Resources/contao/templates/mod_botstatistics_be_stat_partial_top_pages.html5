@@ -1,5 +1,5 @@
 <div class="top_pages limit_height h110 block">
 <!-- BotTopPages::start -->
-<?php echo $this->BotTopPages; ?>
+<?= $this->BotTopPages; ?>
 <!-- BotTopPages::stop -->
 </div>
