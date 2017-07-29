@@ -52,3 +52,8 @@
 .top_pages {
 	margin-top: 20px;
 }
+
+.botstatistics_toggler {
+	border-bottom: 0 none;
+	padding: 0;
+}
