@@ -51,19 +51,19 @@
 	        <td style="padding-left: 2px; text-align: center;" class="tl_file_list">&nbsp;</td>
 	    </tr>
 	    <tr>
-	        <td colspan="6">&nbsp;</td>
+	        <td colspan="4">&nbsp;</td>
 	    </tr>
 	    </tbody>
 	    </table>
 	    <!-- Gesamt-Statistikdaten -->
 	    <?= $this->BotSummary; ?>
-	    <div class="clear"></div>
+	    <div style="clear:left;"></div>
 	    
 	    <?= $this->BotTopBots; ?>
-	    <div class="clear"></div>
+	    <div style="clear:left;"></div>
 	    
 	    <?= $this->BotTopPages; ?>
-	    <div class="clear"></div>
+	    <div style="clear:left;"></div>
 	</div>
 <?php endif; ?>
 </div><!--  tl_listing_container list_view -->
