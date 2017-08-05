@@ -47,7 +47,7 @@
 			"transifex": {
 				"project": "contao-botstatistics-bundle",
 				"prefix": "master-",
-				"languages_cto": "src/Resources/contao/anguages",
+				"languages_cto": "src/Resources/contao/languages",
 				"languages_tx": ".tx"
 			}
 		},
