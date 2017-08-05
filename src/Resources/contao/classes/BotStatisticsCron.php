@@ -19,6 +19,9 @@
  */
 namespace BugBuster\BotStatistics;
 
+use Psr\Log\LogLevel;
+use Contao\CoreBundle\Monolog\ContaoContext;
+
 /**
  * Class BotStatisticsCron 
  *
@@ -65,7 +68,12 @@ class BotStatisticsCron extends \Frontend
                             ")
                     ->execute($objCron->id, $mindate);
     	    // Add log entry
-    	    $this->log('Deletion of old Botstatistics data for module '.$objCron->id, 'BotStatisticsCron deleteStatisticsData()', TL_CRON);
+    	    \System::getContainer()
+                	    ->get('monolog.logger.contao')
+                	    ->log(LogLevel::INFO,
+                    	        'Deletion of old Botstatistics data for module '.$objCron->id,
+                    	        array('contao' => new ContaoContext('BotStatisticsCron deleteStatisticsData()', TL_CRON)));
+    	    	
 		}
 	}
 	

@@ -57,3 +57,8 @@
 	border-bottom: 0 none;
 	padding: 0;
 }
+
+.botstatistics_toggler .limit_toggler button span { 
+  color: green; 
+  font-weight: bold; 
+} 
