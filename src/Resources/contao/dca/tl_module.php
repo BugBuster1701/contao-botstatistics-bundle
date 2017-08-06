@@ -18,7 +18,6 @@
 /**
  * Add palettes to tl_module
  */
-//$GLOBALS['TL_DCA']['tl_module']['palettes']['botstatistics']   = 'name,type,headline;botstatistics_name;guests,protected;align,space,cssID';
 $GLOBALS['TL_DCA']['tl_module']['palettes']['botstatistics']   = 'name,type;botstatistics_name,botstatistics_cron';
 
 
