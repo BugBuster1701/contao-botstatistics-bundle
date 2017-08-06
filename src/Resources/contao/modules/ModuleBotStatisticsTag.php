@@ -1,17 +1,17 @@
 <?php 
 
 /**
- * Contao Open Source CMS, Copyright (C) 2005-2013 Leo Feyer
+ * Contao Open Source CMS, Copyright (C) 2005-2017 Leo Feyer
  *
  * Module BotStatistics - Frontend
  * Insert-Tags handling
  * 
- * @copyright  Glen Langer 2012..2013 <http://www.contao.glen-langer.de>
+ * @copyright  Glen Langer 2012..2017 <http://contao.ninja>
  * @author     Glen Langer (BugBuster)
  * @package    BotStatistics
  * @license    LGPL
  * @filesource
- * @see        https://github.com/BugBuster1701/botstatistics
+ * @see        https://github.com/BugBuster1701/contao-botstatistics-bundle
  */
 
 namespace BugBuster\BotStatistics;
@@ -24,7 +24,7 @@ use Contao\CoreBundle\Monolog\ContaoContext;
 /**
  * Class ModuleBotStatisticsTag 
  *
- * @copyright  Glen Langer 2012..2013 <http://www.contao.glen-langer.de>
+ * @copyright  Glen Langer 2012..2017 <http://contao.ninja>
  * @author     Glen Langer (BugBuster)
  * @package    BotStatistics
  */
