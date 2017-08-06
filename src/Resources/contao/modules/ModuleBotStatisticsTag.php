@@ -63,7 +63,7 @@ class ModuleBotStatisticsTag extends \Frontend
 	        $statusVisit  = $this->setBotCounter( (int)$arrTag[1] ); // Modul ID
 	        $statusDetail = $this->setBotCounterDetails( (int)$arrTag[1], $arrTag[3] ); // Modul ID, Page Alias
 	        
-	        if ($statusVisit == true || $statusDetail == true)
+	        if ($statusVisit === true || $statusDetail === true)
 	        {
 	            return '<!-- c0n740 f0r3v3r '.$arrTag[3].' -->';
 	        }
