@@ -5,7 +5,7 @@
  * @author     Glen Langer (BugBuster)
  * @package    BotStatistics
  * @license    LGPL-3.0+
- * @see	       https://github.com/BugBuster1701/contao-dlstats-bundle
+ * @see	       https://github.com/BugBuster1701/contao-botstatistics-bundle
  *
  */
 

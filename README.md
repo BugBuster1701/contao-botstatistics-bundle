@@ -1,5 +1,9 @@
 # Contao 4 Botstatistics Bundle
 
+[![Latest Stable Version](https://poser.pugx.org/bugbuster/contao-botstatistics-bundle/v/stable.svg)](https://packagist.org/packages/bugbuster/contao-botstatistics-bundle) [![Total Downloads](https://poser.pugx.org/bugbuster/contao-botstatistics-bundle/downloads.svg)](https://packagist.org/packages/bugbuster/contao-botstatistics-bundle) [![Latest Unstable Version](https://poser.pugx.org/bugbuster/contao-botstatistics-bundle/v/unstable.svg)](https://packagist.org/packages/bugbuster/contao-botstatistics-bundle) [![License](https://poser.pugx.org/bugbuster/contao-botstatistics-bundle/license.svg)](https://packagist.org/packages/bugbuster/contao-botstatistics-bundle)
+
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/54159c6c-14db-4f26-9e4b-23e3a5e4574d/small.png)](https://insight.sensiolabs.com/projects/54159c6c-14db-4f26-9e4b-23e3a5e4574d)
+
 
 ## About
 
