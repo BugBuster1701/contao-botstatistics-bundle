@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="<?= $this->language ?>">
+<head>
+	<meta charset="<?= $this->charset ?>">
+	<meta name="generator" content="Contao Open Source CMS">
+	<base href="<?= $this->base ?>">
+	<title><?= $this->title ?> - Contao Open Source CMS <?= VERSION ?></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="system/themes/<?= $this->theme ?>/fonts.css">
+    <link rel="stylesheet" href="system/themes/<?= $this->theme ?>/basic.css">
+    <link rel="stylesheet" href="system/themes/<?= $this->theme ?>/main.css">
+	<link rel="stylesheet" type="text/css" href="bundles/bugbusterbotstatistics/mod_botstatistics_be.css" media="all">
+</head>
+<body class="<?= $this->ua ?> popup">
+
+  <div id="container" class="cf">
+	<div id="tl_messages">
+		<!-- BotStatDetails::start -->
+		<?= $this->BotDetailList; ?>
+		<!-- BotStatDetails::stop -->
+	</div>
+  </div>
+
+</body>
+</html>

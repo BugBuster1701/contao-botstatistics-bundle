@@ -1,0 +1,11 @@
+#IDE
+.buildpath
+.project
+.settings/
+# Transifex
+/.tx/
+# phpunit
+build/
+# test apikey file
+phpunit.xml
+

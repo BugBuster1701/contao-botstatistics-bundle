@@ -1,0 +1,59 @@
+{
+	"name":"bugbuster/contao-botstatistics-bundle",
+	"description":"Contao 4 BotStatistics Bundle - Counts the number of bot requests (visits, pages). ",
+	"keywords":["contao","statistic","counter"],
+	"type":"contao-bundle",
+	"homepage":"http://contao.ninja",
+	"license":"LGPL-3.0+",
+	"authors":[
+		{
+			"name":"Glen Langer",
+			"homepage":"http://contao.ninja",
+			"role":"Developer"
+		}
+	],
+	"support":{
+		"issues":"https://github.com/BugBuster1701/botstatistics/issues",
+		"irc":"irc://irc.freenode.org/contao.dev",
+		"source":"https://github.com/BugBuster1701/botstatistics"
+	},
+	"require":{
+		"php": "^5.6|^7.0",
+		"contao/core-bundle": "~4.4",
+		"bugbuster/contao-botdetection-bundle":">=0.2.1,<2"
+	},
+	"require-dev": {
+			"contao/manager-plugin": "^2.0"
+	},
+	"conflict": {
+			"contao/manager-plugin": "<2.0 || >=3.0"
+	},
+	"autoload":{
+			"psr-4": {
+					"BugBuster\\BotStatisticsBundle\\": "src/"
+		},
+		"classmap": [
+					"src/Resources/contao/"
+		],
+		"exclude-from-classmap": [
+					"src/Resources/contao/config/",
+					"src/Resources/contao/dca/",
+					"src/Resources/contao/languages/",
+					"src/Resources/contao/templates/"
+		]
+	},
+	"extra":{
+		"contao":{
+			"transifex": {
+				"project": "contao-botstatistics-bundle",
+				"prefix": "master-",
+				"languages_cto": "src/Resources/contao/languages",
+				"languages_tx": ".tx"
+			}
+		},
+		"branch-alias": {
+			"dev-develop": "1.1.x-dev"
+		},
+		"contao-manager-plugin": "BugBuster\\BotStatisticsBundle\\ContaoManager\\Plugin"
+	}
+}
