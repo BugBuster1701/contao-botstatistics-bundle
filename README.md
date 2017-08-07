@@ -26,9 +26,9 @@ Botstatistics Bundle depends on:
 
 ## Usage
 
-After the installation a front end module of the type "Botstatistik" is to be created. This is the best way to install it in the Footer. The extension does not return anything except an HTML comment and does not affect the layout.
+After the installation a front end module of the type "Bot Statistics" is to be created. This is the best way to install it in the Footer. The extension does not return anything except a HTML comment and does not affect the layout.
 
-In the backend there is under "System" the new point "Botstatistik".
+In the backend there is under "System" the new point "Bot Statistics".
 
 
 ## Nutzung
