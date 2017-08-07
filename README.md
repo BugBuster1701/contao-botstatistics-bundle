@@ -17,6 +17,27 @@ Installation Guide (EN): [INSTALLATION_EN.md](INSTALLATION_EN.md)
 Installationsanleitung (DE): [INSTALLATION_DE.md](INSTALLATION_DE.md)
 
 
+## Dependencies
+
+Botstatistics Bundle depends on:
+
+* [bugbuster/contao-botdetection-bundle](https://github.com/BugBuster1701/contao-botdetection-bundle)
+
+
+## Usage
+
+After the installation a front end module of the type "Botstatistik" is to be created. This is the best way to install it in the Footer. The extension does not return anything except an HTML comment and does not affect the layout.
+
+In the backend there is under "System" the new point "Botstatistik".
+
+
+## Nutzung
+
+Nach der Installation ist ein Frontend Modul anzulegen vom Typ "Botstatistik". Dieses dann im Layout am besten im Footer einbauen. Die Erweiterung gibt außer einem HTML Kommentar nichts zurück und stört somit nicht das Layout.
+
+Im Backend gibt es unter "System" dann den neuen Punkt "Botstatistik".
+
+
 ## For Translators
 
 Translations are managed using Transifex. To create a new translation or to help to maintain an existing one, please register at transifex.com.
