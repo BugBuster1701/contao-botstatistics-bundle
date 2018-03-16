@@ -39,7 +39,7 @@ class ModuleBotStatisticsTag extends \Frontend
 	 */
 	public function replaceInsertTagsBotStatistics($strTag)
 	{
-	    $arrTag = trimsplit('::', $strTag);
+	    $arrTag = \StringUtil::trimsplit('::', $strTag);
 	    if ($arrTag[0] != 'cache_botstatistics')
 	    {
 	        return false; // nicht für uns
