@@ -1,12 +1,12 @@
 <?php 
 
 /**
- * Contao Open Source CMS, Copyright (C) 2005-2017 Leo Feyer
+ * Contao Open Source CMS, Copyright (C) 2005-2018 Leo Feyer
  * 
  * Module BotStatistics Stat - Backend
  * Backend statistics
  * 
- * @copyright  Glen Langer 2012..2017 <http://contao.ninja>
+ * @copyright  Glen Langer 2012..2018 <http://contao.ninja>
  * @author     Glen Langer (BugBuster)
  * @package    BotStatistics
  * @license    LGPL
@@ -26,7 +26,7 @@ use BugBuster\BotStatistics\BotStatisticsCheck;
 /**
  * Class ModuleBotStatisticsStat
  *
- * @copyright  Glen Langer 2012..2017 <http://contao.ninja>
+ * @copyright  Glen Langer 2012..2018 <http://contao.ninja>
  * @author     Glen Langer (BugBuster)
  * @package    BotStatistics
  */

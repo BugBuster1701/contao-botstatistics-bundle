@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright  Glen Langer 2017 <http://contao.ninja>
+ * @copyright  Glen Langer 2018 <http://contao.ninja>
  * @author     Glen Langer (BugBuster)
  * @package    BotStatistics
  * @license    LGPL-3.0+
@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Handles the dlstats back end routes.
  *
- * @copyright  Glen Langer 2017 <http://contao.ninja>
+ * @copyright  Glen Langer 2018 <http://contao.ninja>
  * @author     Glen Langer (BugBuster)
  *
  * @Route("/bugbuster_botstatistics", defaults={"_scope" = "backend", "_token_check" = true})
