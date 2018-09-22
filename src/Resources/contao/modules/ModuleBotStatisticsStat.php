@@ -67,7 +67,7 @@ class ModuleBotStatisticsStat extends BotStatisticsHelper
 	protected function compile()
 	{
 		$this->Template->href   = $this->getReferer(true);
-		$this->Template->title  = specialchars($GLOBALS['TL_LANG']['MSC']['backBT']);
+		$this->Template->title  = \StringUtil::specialchars($GLOBALS['TL_LANG']['MSC']['backBT']);
 		$this->Template->button = $GLOBALS['TL_LANG']['MSC']['backBT'];
 		$this->Template->theme  = $this->getTheme();
 		$this->Template->theme0 = 'default';
