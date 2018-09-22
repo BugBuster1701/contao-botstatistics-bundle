@@ -128,6 +128,7 @@ class ModuleBotStatisticsStat extends BotStatisticsHelper
                 'id'    => '0',
                 'title' => '---------'
     	    );
+    	    $arrBotModules2 = [];
 	    }
 	    $this->Template->bot_modules = $arrBotModules;
 	    $this->Template->bot_modules2 = $arrBotModules2;
