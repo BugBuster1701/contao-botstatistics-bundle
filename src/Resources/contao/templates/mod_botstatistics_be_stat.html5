@@ -2,7 +2,7 @@
 <div id="tl_buttons" style="padding-bottom: 9px;">
     <a href="<?= $this->href; ?>" class="header_back" title="<?= $this->title; ?>"><?= $this->button; ?></a>
 </div>
-<p><?= $this->getMessages(false); ?></p>
+<p><?= \Message::generate(); ?></p>
 <div class="tl_panel cf">
 	<!-- Kategorie Zeile //-->
 	<form method="post" class="info" id="bot_statistic" action="<?= $this->route('contao_backend') ?>?do=botstatistics">
