@@ -46,7 +46,8 @@ class BackendStatisticsDetails extends BotStatisticsHelper
 	{
 		$this->import('BackendUser', 'User');
 		parent::__construct(); 
-		$this->User->authenticate(); 
+		//$this->User->authenticate(); //deprecated
+		\System::getContainer()->get('contao.security.token_checker')->hasBackendUser();
 	    \System::loadLanguageFile('default');
 		\System::loadLanguageFile('tl_botstatistics'); 
 	}
