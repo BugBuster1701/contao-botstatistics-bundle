@@ -18,9 +18,9 @@
 		"source":"https://github.com/BugBuster1701/botstatistics"
 	},
 	"require":{
-		"php": "^5.6|^7.0",
-		"contao/core-bundle": "~4.4",
-		"bugbuster/contao-botdetection-bundle":">=0.2.1,<2"
+		"php": "^7.1",
+		"contao/core-bundle": "~4.5",
+		"bugbuster/contao-botdetection-bundle":"^1.0 || ^1.5"
 	},
 	"require-dev": {
 			"contao/manager-plugin": "^2.0"
