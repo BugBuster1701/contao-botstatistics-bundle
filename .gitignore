@@ -8,4 +8,6 @@
 build/
 # test apikey file
 phpunit.xml
-
+#for development
+/vendor/
+composer.lock

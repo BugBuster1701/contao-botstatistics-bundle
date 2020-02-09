@@ -1,0 +1,50 @@
+<?php
+
+$header = <<<EOF
+This file is part of a BugBuster Contao Bundle
+
+@copyright  Glen Langer 2012..2020 <http://contao.ninja>
+@author     Glen Langer (BugBuster)
+@package    BotStatistics
+@license    LGPL-3.0-or-later
+@see        https://github.com/BugBuster1701/contao-botstatistics-bundle
+EOF;
+
+switch ($_SERVER['PHP_CS_CONFIG'] ?? null) {
+    case 'legacy';
+        $config = new Contao\PhpCsFixer\LegacyConfig();
+        $config
+            ->getFinder()
+            ->exclude('languages')
+            ->exclude('templates')
+            ->in([
+                'src/Resources/contao',
+            ])
+        ;
+
+        return $config;
+
+    case 'template';
+        $config = new Contao\PhpCsFixer\TemplateConfig();
+        $config
+            ->getFinder()
+            ->name('*.html5')
+            ->in([
+                'src/Resources/contao/templates',
+            ])
+        ;
+
+        return $config;
+
+    default:
+        $config = new Contao\PhpCsFixer\DefaultConfig($header);
+        $config
+            ->getFinder()
+            ->exclude('Resources')
+            ->in([
+                'src',
+            ])
+        ;
+
+        return $config;
+}
