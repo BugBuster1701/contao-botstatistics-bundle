@@ -1,18 +1,16 @@
-<?php 
+<?php
 
 /**
  * Contao Open Source CMS, Copyright (C) 2005-2018 Leo Feyer
  *
  * @copyright  Glen Langer 2012..2018 <http://contao.ninja>
  * @author     Glen Langer (BugBuster)
- * @package    BotStatistics
  * @license    LGPL
  * @filesource
  * @see        https://github.com/BugBuster1701/contao-botstatistics-bundle
  */
-
 define('BOTSTATISTICS_VERSION', '1.0');
-define('BOTSTATISTICS_BUILD'  , '6');
+define('BOTSTATISTICS_BUILD', '6');
 
 /**
  * -------------------------------------------------------------------------
@@ -21,11 +19,10 @@ define('BOTSTATISTICS_BUILD'  , '6');
  */
 $GLOBALS['BE_MOD']['system']['botstatistics'] = array
 (
-        'callback'   => 'BugBuster\BotStatistics\ModuleBotStatisticsStat',
-        'icon'       => 'bundles/bugbusterbotstatistics/botstatistics2.png',
-        'stylesheet' => 'bundles/bugbusterbotstatistics/mod_botstatistics_be.css',
+	'callback'   => 'BugBuster\BotStatistics\ModuleBotStatisticsStat',
+	'icon'       => 'bundles/bugbusterbotstatistics/botstatistics2.png',
+	'stylesheet' => 'bundles/bugbusterbotstatistics/mod_botstatistics_be.css',
 );
-
 
 /**
  * -------------------------------------------------------------------------
@@ -34,9 +31,8 @@ $GLOBALS['BE_MOD']['system']['botstatistics'] = array
  */
 array_insert($GLOBALS['FE_MOD']['miscellaneous'], 0, array
 (
-        'botstatistics' => 'BugBuster\BotStatistics\ModuleBotStatistics',
-)); 
-
+	'botstatistics' => 'BugBuster\BotStatistics\ModuleBotStatistics',
+));
 
 /**
  * -------------------------------------------------------------------------
@@ -46,11 +42,9 @@ array_insert($GLOBALS['FE_MOD']['miscellaneous'], 0, array
 $GLOBALS['TL_HOOKS']['parseBackendTemplate'][]  = array('BugBuster\BotStatistics\BotStatisticsCheck', 'checkExtensions');
 $GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('BugBuster\BotStatistics\ModuleBotStatisticsTag', 'replaceInsertTagsBotStatistics');
 
-
 /**
  * -------------------------------------------------------------------------
  * CRON JOBS
  * -------------------------------------------------------------------------
  */
 $GLOBALS['TL_CRON']['daily'][]  = array('BugBuster\BotStatistics\BotStatisticsCron', 'deleteStatisticsData');
-

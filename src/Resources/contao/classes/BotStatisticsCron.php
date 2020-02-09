@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * Contao Open Source CMS, Copyright (C) 2005-2018 Leo Feyer
@@ -8,7 +8,6 @@
  *
  * @copyright  Glen Langer 2012..2018 <http://contao.ninja>
  * @author     Glen Langer (BugBuster)
- * @package    BotStatistics
  * @license    LGPL
  * @filesource
  * @see        https://github.com/BugBuster1701/contao-botstatistics-bundle
@@ -17,17 +16,17 @@
 /**
  * Run in a custom namespace, so the class can be replaced
  */
+
 namespace BugBuster\BotStatistics;
 
-use Psr\Log\LogLevel;
 use Contao\CoreBundle\Monolog\ContaoContext;
+use Psr\Log\LogLevel;
 
 /**
- * Class BotStatisticsCron 
+ * Class BotStatisticsCron
  *
  * @copyright  Glen Langer 2012..2018 <http://contao.ninja>
  * @author     Glen Langer (BugBuster)
- * @package    BotStatistics
  */
 class BotStatisticsCron extends \Frontend
 {
@@ -37,10 +36,10 @@ class BotStatisticsCron extends \Frontend
 	 */
 	public function deleteStatisticsData()
 	{
-	    $mindate = date('Y-m-d', mktime(0, 0, 0, date("m"), date("d")-90, date("Y")));
-	    
+		$mindate = date('Y-m-d', mktime(0, 0, 0, date("m"), date("d")-90, date("Y")));
+
 		$objCron = \Database::getInstance()
-		                ->prepare("SELECT 
+						->prepare("SELECT 
                                         * 
                                     FROM 
                                         `tl_module` 
@@ -49,11 +48,12 @@ class BotStatisticsCron extends \Frontend
                                     AND 
                                         `botstatistics_cron`=?
 		                        ")
-                        ->execute('botstatistics', 1);
+						->execute('botstatistics', 1);
+
 		while ($objCron->next())
 		{
-    	    \Database::getInstance()
-                    ->prepare("DELETE FROM 
+			\Database::getInstance()
+					->prepare("DELETE FROM 
                                     `tl_botstatistics_counter`, 
                                     `tl_botstatistics_counter_details`
                                 USING 
@@ -66,16 +66,15 @@ class BotStatisticsCron extends \Frontend
                                 AND 
                                     `tl_botstatistics_counter`.`bot_date`<?
                             ")
-                    ->execute($objCron->id, $mindate);
-    	    // Add log entry
-    	    \System::getContainer()
-                	    ->get('monolog.logger.contao')
-                	    ->log(LogLevel::INFO,
-                    	        'Deletion of old Botstatistics data for module '.$objCron->id,
-                    	        array('contao' => new ContaoContext('BotStatisticsCron deleteStatisticsData()', TL_CRON)));
-    	    	
+					->execute($objCron->id, $mindate);
+			// Add log entry
+			\System::getContainer()
+						->get('monolog.logger.contao')
+						->log(
+							LogLevel::INFO,
+							'Deletion of old Botstatistics data for module ' . $objCron->id,
+							array('contao' => new ContaoContext('BotStatisticsCron deleteStatisticsData()', TL_CRON))
+						);
 		}
 	}
-	
 }//class
-

@@ -1,6 +1,6 @@
 <!-- getBotStatSummary::start -->
 <div class="mod_botstatistics_be_summary">
-<?php if ($this->AnzBot == 0) : ?>
+<?php if (0 == $this->AnzBot) : ?>
     <table summary="Table lists records" class="mod_botstatistics_be_table_max">
     <tbody>
 	    <tr>

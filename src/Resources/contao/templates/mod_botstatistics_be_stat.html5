@@ -10,7 +10,7 @@
             <strong><?= $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['modulename']; ?>: </strong>        
             <select class="tl_select" id="tl_sort" name="bot_module_id" style="width: 200px;">
 <?php foreach ($this->bot_modules as $bot_module): ?>
-    <?php if ($bot_module['id']==$this->bot_module_id) : ?>
+    <?php if ($bot_module['id'] == $this->bot_module_id) : ?>
                 <option selected="selected" value="<?= $bot_module['id']; ?>"><?= $bot_module['title']; ?></option>
     <?php else: ?>
                 <option value="<?= $bot_module['id']; ?>"><?= $bot_module['title']; ?></option>
@@ -25,7 +25,7 @@
 </div> <!--  tl_panel cf-->
 <br> <br>
 <div class="tl_listing_container list_view">
-<?php if ($this->bot_module_id == 0) : ?>
+<?php if (0 == $this->bot_module_id) : ?>
 	<table summary="Table lists records" class="mod_botstatistics_be_table_max">
 	<tbody>
 	<tr>

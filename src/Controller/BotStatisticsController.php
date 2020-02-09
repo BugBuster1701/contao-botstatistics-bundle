@@ -1,16 +1,20 @@
 <?php
 
-/**
- * @copyright  Glen Langer 2018 <http://contao.ninja>
+declare(strict_types=1);
+
+/*
+ * This file is part of a BugBuster Contao Bundle
+ *
+ * @copyright  Glen Langer 2012..2020 <http://contao.ninja>
  * @author     Glen Langer (BugBuster)
  * @package    BotStatistics
- * @license    LGPL-3.0+
- * @see	       https://github.com/BugBuster1701/contao-botstatistics-bundle
+ * @license    LGPL-3.0-or-later
+ * @see        https://github.com/BugBuster1701/contao-botstatistics-bundle
  */
 
 namespace BugBuster\BotStatisticsBundle\Controller;
 
-use BugBuster\BotStatistics\BackendStatisticsDetails; 
+use BugBuster\BotStatistics\BackendStatisticsDetails;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

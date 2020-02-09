@@ -1,14 +1,13 @@
 <?php
- 
+
 /**
  * Contao Open Source CMS, Copyright (C) 2005-2018 Leo Feyer
  *
  * Module BotStatistics - Frontend
  * Insert counting tag in the page.
- * 
+ *
  * @copyright  Glen Langer 2012..2018 <http://contao.ninja>
  * @author     Glen Langer (BugBuster)
- * @package    BotStatistics
  * @license    LGPL
  * @filesource
  * @see        https://github.com/BugBuster1701/contao-botstatistics-bundle
@@ -17,18 +16,17 @@
 /**
  * Run in a custom namespace, so the class can be replaced
  */
+
 namespace BugBuster\BotStatistics;
 
 /**
- * Class ModuleBotStatistics 
+ * Class ModuleBotStatistics
  *
  * @copyright  Glen Langer 2012..2018 <http://contao.ninja>
  * @author     Glen Langer (BugBuster)
- * @package    BotStatistics
  */
 class ModuleBotStatistics extends \Module
 {
-
 	/**
 	 * Template
 	 * @var string
@@ -41,33 +39,32 @@ class ModuleBotStatistics extends \Module
 	 */
 	public function generate()
 	{
-	    if (TL_MODE == 'BE')
-	    {
-	        $objTemplate = new \BackendTemplate('be_wildcard');
-	        $objTemplate->wildcard = '### BotStatistics Counter ###';
-	        $objTemplate->title = $this->headline;
-	        $objTemplate->id = $this->id;
-	        $objTemplate->link = $this->name;
-	        $objTemplate->href = 'contao/main.php?do=themes&amp;table=tl_module&amp;act=edit&amp;id=' . $this->id;
-	        return $objTemplate->parse();
-	    }
-	
-	    return parent::generate();
+		if (TL_MODE == 'BE')
+		{
+			$objTemplate = new \BackendTemplate('be_wildcard');
+			$objTemplate->wildcard = '### BotStatistics Counter ###';
+			$objTemplate->title = $this->headline;
+			$objTemplate->id = $this->id;
+			$objTemplate->link = $this->name;
+			$objTemplate->href = 'contao/main.php?do=themes&amp;table=tl_module&amp;act=edit&amp;id=' . $this->id;
+
+			return $objTemplate->parse();
+		}
+
+		return parent::generate();
 	}
-	
+
 	/**
 	 * Generate module
 	 */
 	protected function compile()
 	{
-	    global $objPage; // for alias
-	    $arrBotStatistics = array();
-	    
-	    $arrBotStatistics['BotStatisticsID'] = $this->id; // Modul ID
-	    $arrBotStatistics['PageAlias']       = $objPage->alias;
+		global $objPage; // for alias
+		$arrBotStatistics = array();
 
-	    $this->Template->botstatistics = $arrBotStatistics;
+		$arrBotStatistics['BotStatisticsID'] = $this->id; // Modul ID
+		$arrBotStatistics['PageAlias']       = $objPage->alias;
+
+		$this->Template->botstatistics = $arrBotStatistics;
 	}
-	
 }//class
-
