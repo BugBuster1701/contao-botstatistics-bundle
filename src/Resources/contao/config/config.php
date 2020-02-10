@@ -1,16 +1,16 @@
 <?php
 
 /**
- * Contao Open Source CMS, Copyright (C) 2005-2018 Leo Feyer
+ * Contao Open Source CMS, Copyright (C) 2005-2020 Leo Feyer
  *
- * @copyright  Glen Langer 2012..2018 <http://contao.ninja>
+ * @copyright  Glen Langer 2012..2020 <http://contao.ninja>
  * @author     Glen Langer (BugBuster)
  * @license    LGPL
  * @filesource
  * @see        https://github.com/BugBuster1701/contao-botstatistics-bundle
  */
 define('BOTSTATISTICS_VERSION', '1.0');
-define('BOTSTATISTICS_BUILD', '6');
+define('BOTSTATISTICS_BUILD', '7');
 
 /**
  * -------------------------------------------------------------------------

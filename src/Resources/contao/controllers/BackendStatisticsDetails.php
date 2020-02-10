@@ -19,6 +19,8 @@
 
 namespace BugBuster\BotStatistics;
 
+use Contao\CoreBundle\Exception\AccessDeniedException;
+
 /**
  * Class BotStatisticsDetails
  *
@@ -41,7 +43,10 @@ class BackendStatisticsDetails extends BotStatisticsHelper
 		$this->import('BackendUser', 'User');
 		parent::__construct();
 		//$this->User->authenticate(); //deprecated
-		\System::getContainer()->get('contao.security.token_checker')->hasBackendUser();
+		if (false === \System::getContainer()->get('contao.security.token_checker')->hasBackendUser()) 
+		{
+			throw new AccessDeniedException('Access denied');
+		}
 		\System::loadLanguageFile('default');
 		\System::loadLanguageFile('tl_botstatistics');
 	}
