@@ -29,10 +29,7 @@ $GLOBALS['BE_MOD']['system']['botstatistics'] = array
  * FRONT END MODULES
  * -------------------------------------------------------------------------
  */
-array_insert($GLOBALS['FE_MOD']['miscellaneous'], 0, array
-(
-	'botstatistics' => 'BugBuster\BotStatistics\ModuleBotStatistics',
-));
+$GLOBALS['FE_MOD']['miscellaneous']['botstatistics'] = 'BugBuster\BotStatistics\ModuleBotStatistics';
 
 /**
  * -------------------------------------------------------------------------
