@@ -10,7 +10,7 @@
  * @see        https://github.com/BugBuster1701/contao-botstatistics-bundle
  */
 define('BOTSTATISTICS_VERSION', '1.0');
-define('BOTSTATISTICS_BUILD', '9');
+define('BOTSTATISTICS_BUILD', '10');
 
 /**
  * -------------------------------------------------------------------------
