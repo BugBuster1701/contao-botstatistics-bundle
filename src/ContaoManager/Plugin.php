@@ -5,9 +5,9 @@ declare(strict_types=1);
 /*
  * This file is part of a BugBuster Contao Bundle
  *
- * @copyright  Glen Langer 2012..2020 <http://contao.ninja>
+ * @copyright  Glen Langer 2020..2021 <http://contao.ninja>
  * @author     Glen Langer (BugBuster)
- * @package    BotStatistics
+ * @package    Contao BotStatistic Bundle
  * @license    LGPL-3.0-or-later
  * @see        https://github.com/BugBuster1701/contao-botstatistics-bundle
  */
@@ -23,8 +23,6 @@ use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * Plugin for the Contao Manager.
- *
- * @author Glen Langer (BugBuster)
  */
 class Plugin implements BundlePluginInterface, RoutingPluginInterface
 {
