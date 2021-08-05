@@ -1,0 +1,8 @@
+services:
+    _defaults: { autowire: true, autoconfigure: true, public: false }
+
+    BugBuster\BotStatisticsBundle\Controller\BotStatisticsController:
+        public: true
+        calls:
+            - method: setContainer
+              arguments: [ '@service_container' ]
