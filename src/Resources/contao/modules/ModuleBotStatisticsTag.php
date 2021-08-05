@@ -26,7 +26,7 @@ use Psr\Log\LogLevel;
  * @copyright  Glen Langer 2012..2018 <http://contao.ninja>
  * @author     Glen Langer (BugBuster)
  */
-class ModuleBotStatisticsTag extends \Frontend
+class ModuleBotStatisticsTag extends \Contao\Frontend
 {
 	protected $BotStatus = false;
 	protected $BotName   = '';
@@ -38,7 +38,7 @@ class ModuleBotStatisticsTag extends \Frontend
 	 */
 	public function replaceInsertTagsBotStatistics($strTag)
 	{
-		$arrTag = \StringUtil::trimsplit('::', $strTag);
+		$arrTag = \Contao\StringUtil::trimsplit('::', $strTag);
 
 		if ($arrTag[0] != 'cache_botstatistics')
 		{
@@ -47,8 +47,8 @@ class ModuleBotStatisticsTag extends \Frontend
 
 		if (!isset($arrTag[2]))
 		{
-			\System::loadLanguageFile('tl_botstatistics');
-			\System::getContainer()
+			\Contao\System::loadLanguageFile('tl_botstatistics');
+			\Contao\System::getContainer()
 						->get('monolog.logger.contao')
 						->log(
 							LogLevel::ERROR,
@@ -77,8 +77,8 @@ class ModuleBotStatisticsTag extends \Frontend
 			return '<!-- n0 c0un7 ' . $arrTag[3] . ' -->';
 		}
 
-		\System::loadLanguageFile('tl_botstatistics');
-		\System::getContainer()
+		\Contao\System::loadLanguageFile('tl_botstatistics');
+		\Contao\System::getContainer()
 						->get('monolog.logger.contao')
 						->log(
 							LogLevel::ERROR,
@@ -98,7 +98,7 @@ class ModuleBotStatisticsTag extends \Frontend
 	protected function setBotCounter($bid)
 	{
 		$visit = false;
-		$ClientIP  = bin2hex(sha1($bid . \Environment::get('ip'), true)); // sha1 20 Zeichen, bin2hex 40 zeichen
+		$ClientIP  = bin2hex(sha1($bid . \Contao\Environment::get('ip'), true)); // sha1 20 Zeichen, bin2hex 40 zeichen
 		$BlockTime = 60; //Sekunden
 		$this->CURDATE = date('Y-m-d');
 
@@ -117,7 +117,7 @@ class ModuleBotStatisticsTag extends \Frontend
 		}
 
 		//Bot Blocker
-		\Database::getInstance()
+		\Contao\Database::getInstance()
 					->prepare("DELETE FROM 
         	                        tl_botstatistics_blocker
                 	            WHERE 
@@ -128,7 +128,7 @@ class ModuleBotStatisticsTag extends \Frontend
 					->execute($BlockTime, $bid);
 
 		//Test ob Bot Visits gesetzt werden muessen
-		$objBotIP = \Database::getInstance()
+		$objBotIP = \Contao\Database::getInstance()
 								->prepare("SELECT 
         	                                    id
                             	            FROM 
@@ -152,13 +152,13 @@ class ModuleBotStatisticsTag extends \Frontend
 				'bot_name'     => $this->BotName,
 				'bot_counter'  => 0
 			);
-			\Database::getInstance()
+			\Contao\Database::getInstance()
 						->prepare("INSERT IGNORE INTO tl_botstatistics_counter %s")
 						->set($arrSet)
 						->execute();
 
 			//Bot Visits lesen
-			$objBotCounter = \Database::getInstance()
+			$objBotCounter = \Contao\Database::getInstance()
 								->prepare("SELECT 
     	                                        id, bot_counter
                             	            FROM 
@@ -173,7 +173,7 @@ class ModuleBotStatisticsTag extends \Frontend
 								->execute($bid, $this->CURDATE, $this->BotName);
 			$objBotCounter->next();
 			//zählen per update
-			\Database::getInstance()
+			\Contao\Database::getInstance()
 						->prepare("UPDATE 
             	                        tl_botstatistics_counter 
             	                    SET 
@@ -183,7 +183,7 @@ class ModuleBotStatisticsTag extends \Frontend
             	                ")
 						->execute($objBotCounter->bot_counter +1, $objBotCounter->id);
 			//blocken
-			\Database::getInstance()
+			\Contao\Database::getInstance()
 						->prepare("INSERT INTO 
             	                        tl_botstatistics_blocker 
             	                    SET 
@@ -215,7 +215,7 @@ class ModuleBotStatisticsTag extends \Frontend
 		//Detail Zählung
 		//detail on/off ermmitteln
 		//tl_botstatistics_counter.id ermitteln als pid
-		$objBotModul = \Database::getInstance()
+		$objBotModul = \Contao\Database::getInstance()
 							->prepare("SELECT 
 	                                        tl_botstatistics_counter.id AS pid
                         	            FROM 
@@ -238,12 +238,12 @@ class ModuleBotStatisticsTag extends \Frontend
 			'bot_page_alias'         => $page_alias,
 			'bot_page_alias_counter' => 0
 		);
-		\Database::getInstance()
+		\Contao\Database::getInstance()
 					->prepare("INSERT IGNORE INTO tl_botstatistics_counter_details %s")
 					->set($arrSet)
 					->execute();
 
-		\Database::getInstance()
+		\Contao\Database::getInstance()
 					->prepare("UPDATE 
         	                        tl_botstatistics_counter_details 
                                 SET 
@@ -264,11 +264,11 @@ class ModuleBotStatisticsTag extends \Frontend
 	protected function isSetBot()
 	{
 		$this->BotName = false;
-		$bundles = array_keys(\System::getContainer()->getParameter('kernel.bundles')); // old \ModuleLoader::getActive()
+		$bundles = array_keys(\Contao\System::getContainer()->getParameter('kernel.bundles')); // old \ModuleLoader::getActive()
 		if (!\in_array('BugBusterBotdetectionBundle', $bundles))
 		{
 			//BugBusterBotdetectionBundle Package fehlt, Abbruch
-			\System::getContainer()
+			\Contao\System::getContainer()
 					   ->get('monolog.logger.contao')
 					   ->log(
 					   	LogLevel::ERROR,
@@ -284,7 +284,7 @@ class ModuleBotStatisticsTag extends \Frontend
 		if ($ModuleBotDetection->checkBotAllTests())
 		{
 			$this->BotStatus = true;
-			$this->BotName   = CheckBotAgentExtended::checkAgentName(\Environment::get('httpUserAgent'));
+			$this->BotName   = CheckBotAgentExtended::checkAgentName(\Contao\Environment::get('httpUserAgent'));
 		}
 
 		//Debug log_message('BotName: '.$this->BotName,'debug.log');

@@ -28,7 +28,7 @@ use Psr\Log\LogLevel;
  * @copyright  Glen Langer 2012..2018 <http://contao.ninja>
  * @author     Glen Langer (BugBuster)
  */
-class BotStatisticsCron extends \Frontend
+class BotStatisticsCron extends \Contao\Frontend
 {
 	/**
 	 * Delete old statistic data
@@ -38,7 +38,7 @@ class BotStatisticsCron extends \Frontend
 	{
 		$mindate = date('Y-m-d', mktime(0, 0, 0, date("m"), date("d")-90, date("Y")));
 
-		$objCron = \Database::getInstance()
+		$objCron = \Contao\Database::getInstance()
 						->prepare("SELECT 
                                         * 
                                     FROM 
@@ -52,7 +52,7 @@ class BotStatisticsCron extends \Frontend
 
 		while ($objCron->next())
 		{
-			\Database::getInstance()
+			\Contao\Database::getInstance()
 					->prepare("DELETE FROM 
                                     `tl_botstatistics_counter`, 
                                     `tl_botstatistics_counter_details`
@@ -68,7 +68,7 @@ class BotStatisticsCron extends \Frontend
                             ")
 					->execute($objCron->id, $mindate);
 			// Add log entry
-			\System::getContainer()
+			\Contao\System::getContainer()
 						->get('monolog.logger.contao')
 						->log(
 							LogLevel::INFO,

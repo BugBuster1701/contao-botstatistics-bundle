@@ -25,13 +25,13 @@ namespace BugBuster\BotStatistics;
  * @copyright  Glen Langer 2012..2018 <http://contao.ninja>
  * @author     Glen Langer (BugBuster)
  */
-class BotStatisticsHelper extends \BackendModule
+class BotStatisticsHelper extends \Contao\BackendModule
 {
 	/**
 	 * Current object instance
 	 * @var object
 	 */
-	protected static $instance = null;
+	protected static $instance;
 
 	/**
 	 * Constructor
@@ -97,7 +97,7 @@ class BotStatisticsHelper extends \BackendModule
 	protected function getModulName($bmid)
 	{
 		//Modul Namen holen
-		$objBotModules = \Database::getInstance()
+		$objBotModules = \Contao\Database::getInstance()
 								->prepare("SELECT 
                                                 `botstatistics_name`
                                             FROM 
@@ -124,7 +124,7 @@ class BotStatisticsHelper extends \BackendModule
 		$today     = date('Y-m-d');
 		$yesterday = date('Y-m-d', mktime(0, 0, 0, date("m"), date("d")-1, date("Y")));
 
-		$this->TemplatePartial = new \BackendTemplate('mod_botstatistics_be_stat_partial_summary');
+		$this->TemplatePartial = new \Contao\BackendTemplate('mod_botstatistics_be_stat_partial_summary');
 
 		$this->TemplatePartial->AnzBotYesterday    = 0;
 		$this->TemplatePartial->AnzVisitsYesterday = 0;
@@ -136,7 +136,7 @@ class BotStatisticsHelper extends \BackendModule
 		$this->TemplatePartial->theme              = $this->getTheme();
 
 		//Anzahl der Bots mit Summe Besuche und Seitenzugriffe
-		$objBotStatCount = \Database::getInstance()
+		$objBotStatCount = \Contao\Database::getInstance()
 								->prepare("SELECT 
                                                 count(distinct `bot_name`) AS AnzBot, 
                                                     (SELECT 
@@ -155,7 +155,7 @@ class BotStatisticsHelper extends \BackendModule
 		$this->TemplatePartial->AnzBot    = $objBotStatCount->AnzBot;
 		$this->TemplatePartial->AnzVisits = ($objBotStatCount->AnzVisits) ? $objBotStatCount->AnzVisits : 0;
 		//Anzahl Seitenzugriffe
-		$objBotStatCount = \Database::getInstance()
+		$objBotStatCount = \Contao\Database::getInstance()
 								->prepare("SELECT 
                                                 sum(`bot_page_alias_counter`) AS AnzPages
                                             FROM 
@@ -169,7 +169,7 @@ class BotStatisticsHelper extends \BackendModule
 		$this->TemplatePartial->AnzPages = ($objBotStatCount->AnzPages) ? $objBotStatCount->AnzPages : 0;
 
 		//Anzahl Bots Heute/Gestern Besuche/Hits
-		$objBotStatCount = \Database::getInstance()
+		$objBotStatCount = \Contao\Database::getInstance()
 								->prepare("SELECT 
                                                 `bot_date`, 
                                                 count(distinct `bot_name`) AS AnzBot, 
@@ -200,7 +200,7 @@ class BotStatisticsHelper extends \BackendModule
 			}
 		}
 		// Anzahl Seiten Gesamt - Heute/Gestern
-		$objBotStatCount = \Database::getInstance()
+		$objBotStatCount = \Contao\Database::getInstance()
 								->prepare("SELECT 
                                                 `bot_date`, 
                                                 sum(`bot_page_alias_counter`) AS AnzPages 
@@ -243,7 +243,7 @@ class BotStatisticsHelper extends \BackendModule
 		//Besonderheit beachten das der 1.1. die 53. Woche sein kann!
 		$YearCurrentWeek = ($CurrentWeek > 40 && (int) date('m') == 1) ? date('Y')-1 : date('Y');
 		$YearLastWeek    = ($LastWeek    > 40 && (int) date('m') == 1) ? date('Y')-1 : date('Y');
-		$objBotStatCount = \Database::getInstance()
+		$objBotStatCount = \Contao\Database::getInstance()
 								->prepare("SELECT 
                                                 YEARWEEK( `bot_date`, 3 ) AS YW, 
                                                 COUNT(DISTINCT `bot_name`) AS AnzBotWeek, 
@@ -278,7 +278,7 @@ class BotStatisticsHelper extends \BackendModule
 			}
 		}
 		//Anzahl Hits aktuelle, letzte Woche
-		$objBotStatCount = \Database::getInstance()
+		$objBotStatCount = \Contao\Database::getInstance()
 								->prepare("SELECT 
                                                 YEARWEEK( c.`bot_date`, 3 ) AS YW, 
                                                 sum(d.`bot_page_alias_counter`) AS AnzPages
@@ -316,7 +316,7 @@ class BotStatisticsHelper extends \BackendModule
 		$BotDetailList  = '<div class="tl_listing_container list_view">' . "\n";
 		$BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">' . $this->getModulName($bmid) . '</td></tr>' . "\n";
 
-		$objBotStatDetailsAnzBot = \Database::getInstance()
+		$objBotStatDetailsAnzBot = \Contao\Database::getInstance()
 										->prepare("SELECT DISTINCT 
                                                         `bot_name` 
                                                     FROM 
@@ -341,7 +341,7 @@ class BotStatisticsHelper extends \BackendModule
 		$BotDetailList  = '<div class="tl_listing_container list_view">' . "\n";
 		$BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">' . $this->getModulName($bmid) . '</td><td class="tl_folder_tlist tl_right_nowrap">' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_visit'] . '</td></tr>' . "\n";
 
-		$objBotStatDetailsAnzBot = \Database::getInstance()
+		$objBotStatDetailsAnzBot = \Contao\Database::getInstance()
 										->prepare("SELECT DISTINCT 
                                                         `bot_name`, sum(`bot_counter`) AS AnzVisits
                                                     FROM 
@@ -367,7 +367,7 @@ class BotStatisticsHelper extends \BackendModule
 		$BotDetailList  = '<div class="tl_listing_container list_view">' . "\n";
 		$BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">' . $this->getModulName($bmid) . '</td><td class="tl_folder_tlist tl_right_nowrap">' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_hit'] . '</td></tr>' . "\n";
 
-		$objBotStatDetailsAnzBot = \Database::getInstance()
+		$objBotStatDetailsAnzBot = \Contao\Database::getInstance()
 										->prepare("SELECT 
                                                         c.`bot_name`, sum(d.`bot_page_alias_counter`) AS AnzPages
                                                     FROM 
@@ -403,7 +403,7 @@ class BotStatisticsHelper extends \BackendModule
 		$BotDetailList  = '<div class="tl_listing_container list_view">' . "\n";
 		$BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">' . $this->getModulName($bmid) . ': ' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['today'] . '</td></tr>' . "\n";
 
-		$objBotStatDetailsAnzBotToday = \Database::getInstance()
+		$objBotStatDetailsAnzBotToday = \Contao\Database::getInstance()
 											->prepare("SELECT DISTINCT 
                                                             `bot_name`
                                                         FROM 
@@ -431,7 +431,7 @@ class BotStatisticsHelper extends \BackendModule
 		$BotDetailList  = '<div class="tl_listing_container list_view">' . "\n";
 		$BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">' . $this->getModulName($bmid) . ': ' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['today'] . '</td><td class="tl_folder_tlist tl_right_nowrap">' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_visit'] . '</td></tr>' . "\n";
 
-		$objBotStatDetailsAnzVisitsToday = \Database::getInstance()
+		$objBotStatDetailsAnzVisitsToday = \Contao\Database::getInstance()
 												->prepare("SELECT DISTINCT 
                                                                 `bot_name`, sum(`bot_counter`) AS AnzVisits
                                                             FROM 
@@ -460,7 +460,7 @@ class BotStatisticsHelper extends \BackendModule
 		$BotDetailList  = '<div class="tl_listing_container list_view">' . "\n";
 		$BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">' . $this->getModulName($bmid) . ': ' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['today'] . '</td><td class="tl_folder_tlist tl_right_nowrap">' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_hit'] . '</td></tr>' . "\n";
 
-		$objBotStatDetailsAnzBotToday = \Database::getInstance()
+		$objBotStatDetailsAnzBotToday = \Contao\Database::getInstance()
 											->prepare("SELECT 
                                                             c.`bot_name`, sum(d.`bot_page_alias_counter`) AS AnzPages
                                                         FROM 
@@ -498,7 +498,7 @@ class BotStatisticsHelper extends \BackendModule
 		$BotDetailList  = '<div class="tl_listing_container list_view">' . "\n";
 		$BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">' . $this->getModulName($bmid) . ': ' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['yesterday'] . '</td></tr>' . "\n";
 
-		$objBotStatDetailsAnzBotYesterday = \Database::getInstance()
+		$objBotStatDetailsAnzBotYesterday = \Contao\Database::getInstance()
 												->prepare("SELECT DISTINCT 
                                                                 `bot_name`
                                                           FROM 
@@ -526,7 +526,7 @@ class BotStatisticsHelper extends \BackendModule
 		$BotDetailList  = '<div class="tl_listing_container list_view">' . "\n";
 		$BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">' . $this->getModulName($bmid) . ': ' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['yesterday'] . '</td><td class="tl_folder_tlist tl_right_nowrap">' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_visit'] . '</td></tr>' . "\n";
 
-		$objBotStatDetailsAnzVisitsYesterday = \Database::getInstance()
+		$objBotStatDetailsAnzVisitsYesterday = \Contao\Database::getInstance()
 													->prepare("SELECT DISTINCT 
                                                                     `bot_name`, sum(`bot_counter`) AS AnzVisits
                                                                 FROM 
@@ -555,7 +555,7 @@ class BotStatisticsHelper extends \BackendModule
 		$BotDetailList  = '<div class="tl_listing_container list_view">' . "\n";
 		$BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">' . $this->getModulName($bmid) . ': ' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['yesterday'] . '</td><td class="tl_folder_tlist tl_right_nowrap">' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_hit'] . '</td></tr>' . "\n";
 
-		$objBotStatDetailsAnzBotYesterday = \Database::getInstance()
+		$objBotStatDetailsAnzBotYesterday = \Contao\Database::getInstance()
 												->prepare("SELECT 
                                                                 c.`bot_name`, sum(d.`bot_page_alias_counter`) AS AnzPages
                                                             FROM 
@@ -594,7 +594,7 @@ class BotStatisticsHelper extends \BackendModule
 		$BotDetailList  = '<div class="tl_listing_container list_view">' . "\n";
 		$BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">' . $this->getModulName($bmid) . ': ' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['current_week'] . '</td></tr>' . "\n";
 
-		$objBotStatDetailsAnzBotWeek = \Database::getInstance()
+		$objBotStatDetailsAnzBotWeek = \Contao\Database::getInstance()
 											->prepare("SELECT DISTINCT 
                                                             `bot_name`
                                                          FROM 
@@ -624,7 +624,7 @@ class BotStatisticsHelper extends \BackendModule
 		$BotDetailList  = '<div class="tl_listing_container list_view">' . "\n";
 		$BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">' . $this->getModulName($bmid) . ': ' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['current_week'] . '</td><td class="tl_folder_tlist tl_right_nowrap">' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_visit'] . '</td></tr>' . "\n";
 
-		$objBotStatDetailsAnzVisitsWeek = \Database::getInstance()
+		$objBotStatDetailsAnzVisitsWeek = \Contao\Database::getInstance()
 												->prepare("SELECT DISTINCT 
                                                                 `bot_name`, sum(`bot_counter`) AS AnzVisits
                                                             FROM 
@@ -655,7 +655,7 @@ class BotStatisticsHelper extends \BackendModule
 		$BotDetailList  = '<div class="tl_listing_container list_view">' . "\n";
 		$BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">' . $this->getModulName($bmid) . ': ' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['current_week'] . '</td><td class="tl_folder_tlist tl_right_nowrap">' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_hit'] . '</td></tr>' . "\n";
 
-		$objBotStatDetailsAnzBotWeek = \Database::getInstance()
+		$objBotStatDetailsAnzBotWeek = \Contao\Database::getInstance()
 											->prepare("SELECT 
                                                             c.`bot_name`, sum(d.`bot_page_alias_counter`) AS AnzPages
                                                         FROM 
@@ -694,7 +694,7 @@ class BotStatisticsHelper extends \BackendModule
 		$BotDetailList  = '<div class="tl_listing_container list_view">' . "\n";
 		$BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">' . $this->getModulName($bmid) . ': ' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['last_week'] . '</td></tr>' . "\n";
 
-		$objBotStatDetailsAnzBotLastWeek = \Database::getInstance()
+		$objBotStatDetailsAnzBotLastWeek = \Contao\Database::getInstance()
 												->prepare("SELECT DISTINCT 
                                                                 `bot_name`
                                                              FROM 
@@ -724,7 +724,7 @@ class BotStatisticsHelper extends \BackendModule
 		$BotDetailList  = '<div class="tl_listing_container list_view">' . "\n";
 		$BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">' . $this->getModulName($bmid) . ': ' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['last_week'] . '</td><td class="tl_folder_tlist tl_right_nowrap">' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_visit'] . '</td></tr>' . "\n";
 
-		$objBotStatDetailsAnzVisitsLastWeek = \Database::getInstance()
+		$objBotStatDetailsAnzVisitsLastWeek = \Contao\Database::getInstance()
 												->prepare("SELECT DISTINCT 
                                                                 `bot_name`, sum(`bot_counter`) AS AnzVisits
                                                             FROM 
@@ -755,7 +755,7 @@ class BotStatisticsHelper extends \BackendModule
 		$BotDetailList  = '<div class="tl_listing_container list_view">' . "\n";
 		$BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">' . $this->getModulName($bmid) . ': ' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['last_week'] . '</td><td class="tl_folder_tlist tl_right_nowrap">' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_hit'] . '</td></tr>' . "\n";
 
-		$objBotStatDetailsAnzBotLastWeek = \Database::getInstance()
+		$objBotStatDetailsAnzBotLastWeek = \Contao\Database::getInstance()
 												->prepare("SELECT 
                                                                 c.`bot_name`, sum(d.`bot_page_alias_counter`) AS AnzPages
                                                             FROM 
@@ -782,7 +782,7 @@ class BotStatisticsHelper extends \BackendModule
 
 	protected function getTopBots($limit=20)
 	{
-		$this->TemplatePartial = new \BackendTemplate('mod_botstatistics_be_stat_partial_top_bots');
+		$this->TemplatePartial = new \Contao\BackendTemplate('mod_botstatistics_be_stat_partial_top_bots');
 
 		$this->TemplatePartial->BotTopBots  = '<div class="mod_botstatistics_be_table_max">' . "\n";
 		$this->TemplatePartial->BotTopBots .= '<table class="tl_listing">
@@ -796,7 +796,7 @@ class BotStatisticsHelper extends \BackendModule
                     <td class="tl_folder_tlist">' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['last_visit'] . '</td>
                 </tr>' . "\n";
 
-		$objTopBots =  \Database::getInstance()
+		$objTopBots =  \Contao\Database::getInstance()
 							->prepare("SELECT
                                             bot_name, 
                                             sum(bot_counter) AS bot_counter
@@ -812,7 +812,7 @@ class BotStatisticsHelper extends \BackendModule
 
 		while ($objTopBots->next())
 		{
-			$objDate = \Database::getInstance()
+			$objDate = \Contao\Database::getInstance()
 							->prepare("SELECT 
                                             bot_date
                                         FROM
@@ -831,7 +831,7 @@ class BotStatisticsHelper extends \BackendModule
 			$this->TemplatePartial->BotTopBots .= '<tr>
                     <td class="tl_file_list">' . $objTopBots->bot_name . '</td>
                     <td class="tl_file_list">' . $objTopBots->bot_counter . '</td>
-                    <td class="tl_file_list">' . \Date::parse($GLOBALS['TL_CONFIG']['dateFormat'], strtotime($objDate->bot_date)) . '</td>
+                    <td class="tl_file_list">' . \Contao\Date::parse($GLOBALS['TL_CONFIG']['dateFormat'], strtotime($objDate->bot_date)) . '</td>
                     </tr>' . "\n";
 		}
 		$this->TemplatePartial->BotTopBots .= '</tbody></table></div>';
@@ -841,7 +841,7 @@ class BotStatisticsHelper extends \BackendModule
 
 	protected function getTopPages($limit=20)
 	{
-		$this->TemplatePartial = new \BackendTemplate('mod_botstatistics_be_stat_partial_top_pages');
+		$this->TemplatePartial = new \Contao\BackendTemplate('mod_botstatistics_be_stat_partial_top_pages');
 
 		$this->TemplatePartial->BotTopPages  = '<div class="mod_botstatistics_be_table_max">' . "\n";
 		$this->TemplatePartial->BotTopPages .= '<table class="tl_listing">
@@ -854,7 +854,7 @@ class BotStatisticsHelper extends \BackendModule
                     <td class="tl_folder_tlist">' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_hit'] . '</td>
                 </tr>' . "\n";
 
-		$objTopPages =  \Database::getInstance()
+		$objTopPages =  \Contao\Database::getInstance()
 							->prepare("SELECT 
                                             d.bot_page_alias,
                                             count(d.bot_page_alias_counter) AS bot_page_alias_counter

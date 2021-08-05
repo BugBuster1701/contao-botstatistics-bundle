@@ -25,7 +25,7 @@ namespace BugBuster\BotStatistics;
  * @copyright  Glen Langer 2012..2018 <http://contao.ninja>
  * @author     Glen Langer (BugBuster)
  */
-class ModuleBotStatistics extends \Module
+class ModuleBotStatistics extends \Contao\Module
 {
 	/**
 	 * Template
@@ -41,7 +41,7 @@ class ModuleBotStatistics extends \Module
 	{
 		if (TL_MODE == 'BE')
 		{
-			$objTemplate = new \BackendTemplate('be_wildcard');
+			$objTemplate = new \Contao\BackendTemplate('be_wildcard');
 			$objTemplate->wildcard = '### BotStatistics Counter ###';
 			$objTemplate->title = $this->headline;
 			$objTemplate->id = $this->id;

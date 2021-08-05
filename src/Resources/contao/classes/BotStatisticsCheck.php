@@ -25,13 +25,13 @@ namespace BugBuster\BotStatistics;
  * @copyright  Glen Langer 2012..2018 <http://contao.ninja>
  * @author     Glen Langer (BugBuster)
  */
-class BotStatisticsCheck extends \System
+class BotStatisticsCheck extends \Contao\System
 {
 	/**
 	 * Current object instance
 	 * @var object
 	 */
-	protected static $instance = null;
+	protected static $instance;
 
 	/**
 	 * Constructor
@@ -66,10 +66,10 @@ class BotStatisticsCheck extends \System
 	{
 		if ($strTemplate == 'be_main')
 		{
-			$bundles = array_keys(\System::getContainer()->getParameter('kernel.bundles')); // old \ModuleLoader::getActive()
+			$bundles = array_keys(\Contao\System::getContainer()->getParameter('kernel.bundles')); // old \ModuleLoader::getActive()
 			if (!\in_array('BugBusterBotdetectionBundle', $bundles))
 			{
-				\Message::addInfo('Please install the required extension <strong>contao-botdetection-bundle</strong> for the extension contao-botstatistics-bundle.');
+				\Contao\Message::addInfo('Please install the required extension <strong>contao-botdetection-bundle</strong> for the extension contao-botstatistics-bundle.');
 			}
 		}
 

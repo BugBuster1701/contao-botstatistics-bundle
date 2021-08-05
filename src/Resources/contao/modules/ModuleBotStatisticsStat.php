@@ -46,9 +46,9 @@ class ModuleBotStatisticsStat extends BotStatisticsHelper
 	{
 		parent::__construct();
 
-		$this->intModuleID = (int) \Input::post('bot_module_id'); //Modul-ID
+		$this->intModuleID = (int) \Contao\Input::post('bot_module_id'); //Modul-ID
 		//act=zero&zid=...
-		if (\Input::get('act', true)=='zero')
+		if (\Contao\Input::get('act', true)=='zero')
 		{
 			$this->setZero();
 		}
@@ -62,14 +62,14 @@ class ModuleBotStatisticsStat extends BotStatisticsHelper
 	protected function compile()
 	{
 		$this->Template->href   = $this->getReferer(true);
-		$this->Template->title  = \StringUtil::specialchars($GLOBALS['TL_LANG']['MSC']['backBT']);
+		$this->Template->title  = \Contao\StringUtil::specialchars($GLOBALS['TL_LANG']['MSC']['backBT']);
 		$this->Template->button = $GLOBALS['TL_LANG']['MSC']['backBT'];
 		$this->Template->theme  = $this->getTheme();
 		$this->Template->theme0 = 'default';
 
 		if ($this->intModuleID == 0)
 		{   //direkter Aufruf ohne ID
-			$objBotModuleID = \Database::getInstance()
+			$objBotModuleID = \Contao\Database::getInstance()
 									->prepare("SELECT 
 		                                            MIN(id) AS MID 
 		                                        FROM 
@@ -90,7 +90,7 @@ class ModuleBotStatisticsStat extends BotStatisticsHelper
 		$this->Template->botstatistics_version = $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['modname'] . ' ' . BOTSTATISTICS_VERSION . '.' . BOTSTATISTICS_BUILD;
 
 		//Modul Namen holen
-		$objBotModules = \Database::getInstance()
+		$objBotModules = \Contao\Database::getInstance()
 								->prepare("SELECT 
 		                                        `id`, 
 		                                        `botstatistics_name`
@@ -144,15 +144,15 @@ class ModuleBotStatisticsStat extends BotStatisticsHelper
 	 */
 	protected function setZero()
 	{
-		if (is_numeric(\Input::get('zid')) && \Input::get('zid') > 0)
+		if (is_numeric(\Contao\Input::get('zid')) && \Contao\Input::get('zid') > 0)
 		{
-			$module_id = \Input::get('zid');
+			$module_id = \Contao\Input::get('zid');
 		}
 		else
 		{
 			return; // wrong zid
 		}
-		\Database::getInstance()
+		\Contao\Database::getInstance()
 			->prepare("DELETE FROM 
                             `tl_botstatistics_counter`, 
                             `tl_botstatistics_counter_details` 

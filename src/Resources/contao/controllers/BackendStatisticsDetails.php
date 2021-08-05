@@ -43,33 +43,33 @@ class BackendStatisticsDetails extends BotStatisticsHelper
 		$this->import('BackendUser', 'User');
 		parent::__construct();
 		//$this->User->authenticate(); //deprecated
-		if (false === \System::getContainer()->get('contao.security.token_checker')->hasBackendUser()) 
+		if (false === \Contao\System::getContainer()->get('contao.security.token_checker')->hasBackendUser()) 
 		{
 			throw new AccessDeniedException('Access denied');
 		}
-		\System::loadLanguageFile('default');
-		\System::loadLanguageFile('tl_botstatistics');
+		\Contao\System::loadLanguageFile('default');
+		\Contao\System::loadLanguageFile('tl_botstatistics');
 	}
 
 	public function run()
 	{
 		/** @var BackendTemplate|object $objTemplate */
-		$objTemplate = new \BackendTemplate('mod_botstatistics_be_stat_partial_details');
-		$objTemplate->theme         = \Backend::getTheme();
-		$objTemplate->base          = \Environment::get('base');
+		$objTemplate = new \Contao\BackendTemplate('mod_botstatistics_be_stat_partial_details');
+		$objTemplate->theme         = \Contao\Backend::getTheme();
+		$objTemplate->base          = \Contao\Environment::get('base');
 		$objTemplate->language      = $GLOBALS['TL_LANGUAGE'];
-		$objTemplate->title         = \StringUtil::specialchars($GLOBALS['TL_LANG']['MSC']['systemMessages']);
-		$objTemplate->charset       = \Config::get('characterSet');
+		$objTemplate->title         = \Contao\StringUtil::specialchars($GLOBALS['TL_LANG']['MSC']['systemMessages']);
+		$objTemplate->charset       = \Contao\Config::get('characterSet');
 
-		if (null === \Input::get('action', true) ||
-			 null === \Input::get('bmid', true))
+		if (null === \Contao\Input::get('action', true) ||
+			 null === \Contao\Input::get('bmid', true))
 		{
 			$objTemplate->BotDetailList = '<p class="tl_error">' . $GLOBALS['TL_LANG']['tl_botstatistics']['wrong_parameter'] . '</p>';
 
 			return $objTemplate->getResponse();
 		}
 
-		switch (\Input::get('action', true))
+		switch (\Contao\Input::get('action', true))
 		{
 			case 'AnzBot':
 			case 'AnzVisits':
@@ -86,8 +86,8 @@ class BackendStatisticsDetails extends BotStatisticsHelper
 			case 'AnzBotLastWeek':
 			case 'AnzVisitsLastWeek':
 			case 'AnzPagesLastWeek':
-				$DetailFunction = 'getBotStatDetails' . \Input::get('action', true);
-				$objTemplate->BotDetailList = $this->$DetailFunction(\Input::get('action', true), \Input::get('bmid', true));
+				$DetailFunction = 'getBotStatDetails' . \Contao\Input::get('action', true);
+				$objTemplate->BotDetailList = $this->$DetailFunction(\Contao\Input::get('action', true), \Contao\Input::get('bmid', true));
 				break;
 
 			default:
