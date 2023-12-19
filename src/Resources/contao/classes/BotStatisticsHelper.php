@@ -38,7 +38,6 @@ class BotStatisticsHelper extends \Contao\BackendModule
 	 */
 	public function __construct()
 	{
-		$this->import('BackendUser', 'User');
 		parent::__construct();
 	}
 

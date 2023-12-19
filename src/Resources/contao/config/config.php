@@ -9,8 +9,8 @@
  * @filesource
  * @see        https://github.com/BugBuster1701/contao-botstatistics-bundle
  */
-\define('BOTSTATISTICS_VERSION', '1.0');
-\define('BOTSTATISTICS_BUILD', '11');
+\define('BOTSTATISTICS_VERSION', '1.1');
+\define('BOTSTATISTICS_BUILD', '0');
 
 /**
  * -------------------------------------------------------------------------

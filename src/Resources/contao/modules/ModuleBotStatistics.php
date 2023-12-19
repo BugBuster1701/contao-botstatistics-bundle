@@ -19,6 +19,9 @@
 
 namespace BugBuster\BotStatistics;
 
+use Contao\System;
+use Symfony\Component\HttpFoundation\Request;
+
 /**
  * Class ModuleBotStatistics
  *
@@ -39,7 +42,10 @@ class ModuleBotStatistics extends \Contao\Module
 	 */
 	public function generate()
 	{
-		if (TL_MODE == 'BE')
+		//if (TL_MODE == 'BE')
+		if (System::getContainer()->get('contao.routing.scope_matcher')
+			->isBackendRequest(System::getContainer()->get('request_stack')->getCurrentRequest() ?? Request::create(''))
+		)
 		{
 			$objTemplate = new \Contao\BackendTemplate('be_wildcard');
 			$objTemplate->wildcard = '### BotStatistics Counter ###';
@@ -59,7 +65,8 @@ class ModuleBotStatistics extends \Contao\Module
 	 */
 	protected function compile()
 	{
-		global $objPage; // for alias
+		//global $objPage; // for alias
+		$objPage = System::getContainer()->get('request_stack')->getCurrentRequest()->get('pageModel');
 		$arrBotStatistics = array();
 
 		$arrBotStatistics['BotStatisticsID'] = $this->id; // Modul ID

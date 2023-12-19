@@ -53,7 +53,7 @@ class ModuleBotStatisticsTag extends \Contao\Frontend
 						->log(
 							LogLevel::ERROR,
 							$GLOBALS['TL_LANG']['tl_botstatistics']['no_key'],
-							array('contao' => new ContaoContext('ModuleBotStatisticsTag replaceInsertTagsBotStatistics ' . BOTSTATISTICS_VERSION . '.' . BOTSTATISTICS_BUILD, TL_ERROR))
+							array('contao' => new ContaoContext('ModuleBotStatisticsTag replaceInsertTagsBotStatistics ' . BOTSTATISTICS_VERSION . '.' . BOTSTATISTICS_BUILD, ContaoContext::ERROR))
 						);
 
 			return false;  // da fehlt was
@@ -83,7 +83,7 @@ class ModuleBotStatisticsTag extends \Contao\Frontend
 						->log(
 							LogLevel::ERROR,
 							$GLOBALS['TL_LANG']['tl_botstatistics']['wrong_key'],
-							array('contao' => new ContaoContext('ModuleBotStatisticsTag replaceInsertTagsBotStatistics ' . BOTSTATISTICS_VERSION . '.' . BOTSTATISTICS_BUILD, TL_ERROR))
+							array('contao' => new ContaoContext('ModuleBotStatisticsTag replaceInsertTagsBotStatistics ' . BOTSTATISTICS_VERSION . '.' . BOTSTATISTICS_BUILD, ContaoContext::ERROR))
 						);
 
 		return false;  // da ist was falsch
@@ -273,7 +273,7 @@ class ModuleBotStatisticsTag extends \Contao\Frontend
 					   ->log(
 					   	LogLevel::ERROR,
 					   	'contao-botstatistics-bundle package required for the package: BotStatistics!',
-					   	array('contao' => new ContaoContext('ModuleBitStatisticsTag isSetBot ', TL_ERROR))
+					   	array('contao' => new ContaoContext('ModuleBitStatisticsTag isSetBot ', ContaoContext::ERROR))
 					   );
 
 			return false;

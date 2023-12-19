@@ -73,7 +73,7 @@ class BotStatisticsCron extends \Contao\Frontend
 						->log(
 							LogLevel::INFO,
 							'Deletion of old Botstatistics data for module ' . $objCron->id,
-							array('contao' => new ContaoContext('BotStatisticsCron deleteStatisticsData()', TL_CRON))
+							array('contao' => new ContaoContext('BotStatisticsCron deleteStatisticsData()', ContaoContext::CRON))
 						);
 		}
 	}

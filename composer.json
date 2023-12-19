@@ -14,17 +14,17 @@
 	],
 	"support":{
 		"issues":"https://github.com/BugBuster1701/botstatistics/issues",
-		"irc":"irc://irc.freenode.org/contao.dev",
-		"source":"https://github.com/BugBuster1701/botstatistics"
+		"source":"https://github.com/BugBuster1701/botstatistics",
+		"forum":"https://community.contao.org/de/forumdisplay.php?119"
 	},
 	"require":{
-		"php": "^7.2 || ^8.0",
-		"contao/core-bundle": "^4.9",
-		"bugbuster/contao-botdetection-bundle":">=1.7.0,<2"
+		"php": "^8.1",
+		"contao/core-bundle": "^5.2",
+		"bugbuster/contao-botdetection-bundle":"^1.9"
 	},
 	"require-dev": {
 			"contao/manager-plugin": "^2.0",
-			"friendsofphp/php-cs-fixer": "^2.17"
+			"friendsofphp/php-cs-fixer": "^3.10"
 	},
 	"conflict": {
 			"contao/manager-plugin": "<2.0 || >=3.0"
@@ -56,5 +56,12 @@
 			"dev-develop": "1.1.x-dev"
 		},
 		"contao-manager-plugin": "BugBuster\\BotStatisticsBundle\\ContaoManager\\Plugin"
+	},
+	"config": {
+		"allow-plugins": {
+			"contao-components/installer": true,
+			"contao/manager-plugin": true,
+			"php-http/discovery": true
+		}
 	}
 }
