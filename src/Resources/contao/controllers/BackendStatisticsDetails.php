@@ -32,15 +32,10 @@ class BackendStatisticsDetails extends BotStatisticsHelper
 	/**
 	 * Initialize the controller
 	 *
-	 * 1. Import the user
-	 * 2. Call the parent constructor
-	 * 3. Authenticate the user
-	 * 4. Load the language files
-	 * DO NOT CHANGE THIS ORDER!
 	 */
 	public function __construct()
 	{
-		$this->import('BackendUser', 'User');
+		//$this->import('BackendUser', 'User');
 		parent::__construct();
 		//$this->User->authenticate(); //deprecated
 		if (false === \Contao\System::getContainer()->get('contao.security.token_checker')->hasBackendUser()) 
@@ -59,10 +54,11 @@ class BackendStatisticsDetails extends BotStatisticsHelper
 		$objTemplate->base          = \Contao\Environment::get('base');
 		$objTemplate->language      = $GLOBALS['TL_LANGUAGE'];
 		$objTemplate->title         = \Contao\StringUtil::specialchars($GLOBALS['TL_LANG']['MSC']['systemMessages']);
-		$objTemplate->charset       = \Contao\Config::get('characterSet');
+		$objTemplate->charset       = \Contao\System::getContainer()->getParameter('kernel.charset'); # \Contao\Config::get('characterSet');
+		$objTemplate->version       = \Contao\CoreBundle\ContaoCoreBundle::getVersion();
 
 		if (null === \Contao\Input::get('action', true) ||
-			 null === \Contao\Input::get('bmid', true))
+			null === \Contao\Input::get('bmid', true))
 		{
 			$objTemplate->BotDetailList = '<p class="tl_error">' . $GLOBALS['TL_LANG']['tl_botstatistics']['wrong_parameter'] . '</p>';
 

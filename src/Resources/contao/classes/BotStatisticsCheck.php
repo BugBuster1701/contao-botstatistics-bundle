@@ -61,6 +61,7 @@ class BotStatisticsCheck extends \Contao\System
 	 * @param  string $strContent
 	 * @param  string $strTemplate
 	 * @return string
+	 * @deprecated 1.1.0
 	 */
 	public function checkExtensions($strContent, $strTemplate)
 	{

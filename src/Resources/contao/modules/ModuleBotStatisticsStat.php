@@ -66,6 +66,7 @@ class ModuleBotStatisticsStat extends BotStatisticsHelper
 		$this->Template->button = $GLOBALS['TL_LANG']['MSC']['backBT'];
 		$this->Template->theme  = $this->getTheme();
 		$this->Template->theme0 = 'default';
+		$this->Template->requestToken = \Contao\System::getContainer()->get('contao.csrf.token_manager')->getDefaultTokenValue();
 
 		if ($this->intModuleID == 0)
 		{   //direkter Aufruf ohne ID
