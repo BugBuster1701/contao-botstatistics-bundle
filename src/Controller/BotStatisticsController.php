@@ -23,21 +23,17 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Handles the dlstats back end routes.
- *
- * @copyright  Glen Langer 2018 <http://contao.ninja>
- *
- * @Route("/bugbuster_botstatistics", defaults={"_scope" = "backend", "_token_check" = true})
+ * Handles the dlstats back end details route.
  */
+#[Route('/bugbuster_botstatistics', defaults: ['_scope' => 'backend','_token_check' => true])]
 class BotStatisticsController extends AbstractController
 {
     /**
-     * Renders the alerts content.
+     * Renders the details content.
      *
      * @return Response
-     *
-     * @Route("/backend_details", name="bugbuster_botstatistics_backend_details")
      */
+    #[Route('/backend_details', name:"bugbuster_botstatistics_backend_details")]
     public function detailsAction()
     {
         $this->container->get('contao.framework')->initialize();
