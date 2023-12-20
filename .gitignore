@@ -9,3 +9,5 @@ phpunit.xml
 #for development
 /vendor/
 composer.lock
+#ECS
+tools/ecs/vendor/

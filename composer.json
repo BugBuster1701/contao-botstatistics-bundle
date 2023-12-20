@@ -23,8 +23,7 @@
 		"bugbuster/contao-botdetection-bundle":"^1.9"
 	},
 	"require-dev": {
-			"contao/manager-plugin": "^2.0",
-			"friendsofphp/php-cs-fixer": "^3.10"
+			"contao/manager-plugin": "^2.0"
 	},
 	"conflict": {
 			"contao/manager-plugin": "<2.0 || >=3.0"
@@ -44,14 +43,6 @@
 		]
 	},
 	"extra":{
-		"contao":{
-			"transifex": {
-				"project": "contao-botstatistics-bundle",
-				"prefix": "master-",
-				"languages_cto": "src/Resources/contao/languages",
-				"languages_tx": ".tx"
-			}
-		},
 		"branch-alias": {
 			"dev-develop": "1.1.x-dev"
 		},
