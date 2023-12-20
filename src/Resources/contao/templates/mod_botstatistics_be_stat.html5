@@ -10,7 +10,7 @@
 			<input class="tl_img_submit" style="padding-left: 6px;" type="image" value="<?= \Contao\StringUtil::specialchars($GLOBALS['TL_LANG']['MSC']['showOnly']); ?>" title="<?= \Contao\StringUtil::specialchars($GLOBALS['TL_LANG']['MSC']['showOnly']); ?>" src="<?= \Contao\Image::getPath('sync.svg') ?>" name="filter">
 		</div>
         <div class="tl_submit_panel tl_subpanel">
-            <strong><?= $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['modulename']; ?>: </strong>        
+            <strong><?= $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['modulename']; ?>: </strong>
             <select class="tl_select" id="tl_sort" name="bot_module_id" style="width: 200px;">
 <?php foreach ($this->bot_modules as $bot_module): ?>
     <?php if ($bot_module['id'] == $this->bot_module_id) : ?>
@@ -20,8 +20,8 @@
     <?php endif; ?>
 <?php endforeach; ?>
             </select>
-            <input type="hidden" name="REQUEST_TOKEN" value="<?= $this->requestToken; ?>">            
-        </div>    
+            <input type="hidden" name="REQUEST_TOKEN" value="<?= $this->requestToken; ?>">
+        </div>
 	</form>
 	<!-- Kategorie Ende //-->
 </div> <!--  tl_panel cf-->
@@ -60,10 +60,10 @@
 	    <!-- Gesamt-Statistikdaten -->
 	    <?= $this->BotSummary; ?>
 	    <div style="clear:left;"></div>
-	    
+
 	    <?= $this->BotTopBots; ?>
 	    <div style="clear:left;"></div>
-	    
+
 	    <?= $this->BotTopPages; ?>
 	    <div style="clear:left;"></div>
 	</div>

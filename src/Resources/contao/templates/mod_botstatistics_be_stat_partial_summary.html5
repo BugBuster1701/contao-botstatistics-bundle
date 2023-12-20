@@ -8,7 +8,7 @@
 	    </tr>
     </tbody>
     </table>
-<?php else: ?> 
+<?php else: ?>
 	<table summary="Table lists records" class="mod_botstatistics_be_table_max">
   	<tbody>
     	<tr>
@@ -22,7 +22,7 @@
 			<td class="tl_file_list" style="padding-left: 2px; text-align: right;"><?= $this->AnzBot; ?></td>   <td class="tl_file_list" style="width: 50px; padding: 0 0 0 2px; text-align: left;"><?php if ($this->AnzBot > 0) : ?>   <a onclick="Backend.openModalIframe({'width':780,'height':600,'title':'Details','url':this.href});return false" title="Details" href="<?= $this->route('bugbuster_botstatistics_backend_details') ?>?action=AnzBot&amp;bmid=<?= $this->bot_module_id; ?>"><?= \Contao\Image::getHtml('show.svg', 'Details') ?></a><?php else: ?><?= \Contao\Image::getHtml('show.svg', 'Details', 'id="mod_botstatistics_grey"') ?><?php endif; ?></td>
 			<td class="tl_file_list" style="padding-left: 2px; text-align: right;"><?= $this->AnzVisits; ?></td><td class="tl_file_list" style="width: 50px; padding: 0 0 0 2px; text-align: left;"><?php if ($this->AnzVisits > 0) : ?><a onclick="Backend.openModalIframe({'width':780,'height':600,'title':'Details','url':this.href});return false" title="Details" href="<?= $this->route('bugbuster_botstatistics_backend_details') ?>?action=AnzVisits&amp;bmid=<?= $this->bot_module_id; ?>"><?= \Contao\Image::getHtml('show.svg', 'Details') ?></a><?php else: ?><?= \Contao\Image::getHtml('show.svg', 'Details', 'id="mod_botstatistics_grey"') ?><?php endif; ?></td>
 			<td class="tl_file_list" style="padding-left: 2px; text-align: right;"><?= $this->AnzPages; ?></td> <td class="tl_file_list" style="width: 50px; padding: 0 0 0 2px; text-align: left;"><?php if ($this->AnzPages > 0) : ?> <a onclick="Backend.openModalIframe({'width':780,'height':600,'title':'Details','url':this.href});return false" title="Details" href="<?= $this->route('bugbuster_botstatistics_backend_details') ?>?action=AnzPages&amp;bmid=<?= $this->bot_module_id; ?>"><?= \Contao\Image::getHtml('show.svg', 'Details') ?></a><?php else: ?><?= \Contao\Image::getHtml('show.svg', 'Details', 'id="mod_botstatistics_grey"') ?><?php endif; ?></td>
-		</tr>	
+		</tr>
 		<tr>
 			<td class="tl_file_list" style="padding-left: 2px; text-align: left;"><?= $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['today']; ?></td>
 			<td class="tl_file_list" style="padding-left: 2px; text-align: right;"><?= $this->AnzBotToday; ?></td>   <td class="tl_file_list" style="width: 50px; padding: 0 0 0 2px; text-align: left;"><?php if ($this->AnzBotToday > 0) : ?>   <a onclick="Backend.openModalIframe({'width':780,'height':600,'title':'Details','url':this.href});return false" title="Details" href="<?= $this->route('bugbuster_botstatistics_backend_details') ?>?action=AnzBotToday&amp;bmid=<?= $this->bot_module_id; ?>"><?= \Contao\Image::getHtml('show.svg', 'Details') ?></a><?php else: ?><?= \Contao\Image::getHtml('show.svg', 'Details', 'id="mod_botstatistics_grey"') ?><?php endif; ?></td>

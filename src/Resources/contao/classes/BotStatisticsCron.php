@@ -1,16 +1,14 @@
 <?php
 
-/**
- * Contao Open Source CMS, Copyright (C) 2005-2018 Leo Feyer
+/*
+ * This file is part of a BugBuster Contao Bundle.
  *
- * Module BotStatistics
- * FE - Cronjob
- *
- * @copyright  Glen Langer 2012..2018 <http://contao.ninja>
+ * @copyright  Glen Langer 2023 <http://contao.ninja>
  * @author     Glen Langer (BugBuster)
- * @license    LGPL
- * @filesource
- * @see        https://github.com/BugBuster1701/contao-botstatistics-bundle
+ * @package    Contao BotStatistic Bundle
+ * @link       https://github.com/BugBuster1701/contao-botstatistic-bundle
+ *
+ * @license    LGPL-3.0-or-later
  */
 
 /**
@@ -20,15 +18,17 @@
 namespace BugBuster\BotStatistics;
 
 use Contao\CoreBundle\Monolog\ContaoContext;
+use Contao\Database;
+use Contao\Frontend;
+use Contao\System;
 use Psr\Log\LogLevel;
 
 /**
  * Class BotStatisticsCron
  *
  * @copyright  Glen Langer 2012..2018 <http://contao.ninja>
- * @author     Glen Langer (BugBuster)
  */
-class BotStatisticsCron extends \Contao\Frontend
+class BotStatisticsCron extends Frontend
 {
 	/**
 	 * Delete old statistic data
@@ -38,37 +38,37 @@ class BotStatisticsCron extends \Contao\Frontend
 	{
 		$mindate = date('Y-m-d', mktime(0, 0, 0, date("m"), date("d")-90, date("Y")));
 
-		$objCron = \Contao\Database::getInstance()
-						->prepare("SELECT 
-                                        * 
-                                    FROM 
-                                        `tl_module` 
-                                    WHERE 
-                                        `type`=? 
-                                    AND 
+		$objCron = Database::getInstance()
+						->prepare("SELECT
+                                        *
+                                    FROM
+                                        `tl_module`
+                                    WHERE
+                                        `type`=?
+                                    AND
                                         `botstatistics_cron`=?
 		                        ")
 						->execute('botstatistics', 1);
 
 		while ($objCron->next())
 		{
-			\Contao\Database::getInstance()
-					->prepare("DELETE FROM 
-                                    `tl_botstatistics_counter`, 
+			Database::getInstance()
+					->prepare("DELETE FROM
+                                    `tl_botstatistics_counter`,
                                     `tl_botstatistics_counter_details`
-                                USING 
-                                    `tl_botstatistics_counter`, 
+                                USING
+                                    `tl_botstatistics_counter`,
                                     `tl_botstatistics_counter_details`
-                                WHERE 
+                                WHERE
                                     `tl_botstatistics_counter`.`id` = `tl_botstatistics_counter_details`.`pid`
-                                AND 
+                                AND
                                     `tl_botstatistics_counter`.`bot_module_id`=?
-                                AND 
+                                AND
                                     `tl_botstatistics_counter`.`bot_date`<?
                             ")
 					->execute($objCron->id, $mindate);
 			// Add log entry
-			\Contao\System::getContainer()
+			System::getContainer()
 						->get('monolog.logger.contao')
 						->log(
 							LogLevel::INFO,
@@ -77,4 +77,4 @@ class BotStatisticsCron extends \Contao\Frontend
 						);
 		}
 	}
-}//class
+}// class
