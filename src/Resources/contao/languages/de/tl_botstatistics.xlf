@@ -1,0 +1,21 @@
+<?xml version="1.0" ?><xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file datatype="php" date="2017-07-24T20:28:25+02:00" original="tl_botstatistics" source-language="en" target-language="de">
+    <body>
+      <trans-unit id="tl_botstatistics.no_key">
+        <source>Tag name was not specified (parameter 2)</source>
+        <target>Kein Tagname angegeben (Parameter 2)</target>
+        
+      </trans-unit>
+      <trans-unit id="tl_botstatistics.wrong_key">
+        <source>Faulty or incorrect tag name (parameter 2)</source>
+        <target>Fehlerhafter oder falscher Tagname (Parameter 2)</target>
+        
+      </trans-unit>
+      <trans-unit id="tl_botstatistics.wrong_parameter">
+        <source>Faulty or incorrect parameter</source>
+        <target>Fehlerhafte oder falsche Parameter</target>
+        
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

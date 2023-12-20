@@ -1,0 +1,126 @@
+<?xml version="1.0" ?><xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file datatype="php" date="2017-07-24T20:28:25+02:00" original="default" source-language="en" target-language="ja">
+    <body>
+      <trans-unit id="MSC.tl_botstatistics_stat.bot_name">
+        <source>Name of bot</source>
+        <target>ボットの名前</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.bots_top20">
+        <source>Bot visits TOP 20</source>
+        <target>訪問したボットの上位20</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.current_week">
+        <source>Current week</source>
+        <target>今週</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.date">
+        <source>Date</source>
+        <target>日付</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.last_visit">
+        <source>Last visits</source>
+        <target>最終訪問</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.last_week">
+        <source>Last week</source>
+        <target>先週</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.modname">
+        <source>Botstatistic Module</source>
+        <target>ボット統計モジュール</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.modulename">
+        <source>Module name</source>
+        <target>モジュール名</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.name">
+        <source>Name</source>
+        <target>名前</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.no_data">
+        <source>No data available for this module.</source>
+        <target>このモジュールにデータはありません。</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.no_stat_data">
+        <source>No statistic data for this counter.</source>
+        <target>このこのカウンターに統計データはありません。</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.number">
+        <source>Visits</source>
+        <target>訪問</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.number_bots">
+        <source>Number of different bots</source>
+        <target>ボット種類の数</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.number_hit">
+        <source>Number of hits (Pages)</source>
+        <target>訪問数(ページ)</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.number_visit">
+        <source>Number of visits (Scans)</source>
+        <target>訪問数(スキャン)</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.page_alias">
+        <source>Page alias</source>
+        <target>ページのエイリアス</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.pages_top20">
+        <source>Bot page hits TOP 20</source>
+        <target>訪問したページの上位20</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.period">
+        <source>Period</source>
+        <target>期間</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.reset">
+        <source>Reset</source>
+        <target>初期化</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.today">
+        <source>Today</source>
+        <target>今日</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.total">
+        <source>Total number</source>
+        <target>合計</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.yesterday">
+        <source>Yesterday</source>
+        <target>昨日</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.zero">
+        <source>The statistic counters will be reset to zero for this module.</source>
+        <target>このモジュールの統計カウンターをゼロに初期化します。</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.zero_confirm">
+        <source>Do you really want to reset the statistic counter for this module?</source>
+        <target>このモジュールの統計カウンターを本当に初期化しますか?</target>
+        
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
