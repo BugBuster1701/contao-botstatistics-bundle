@@ -1,6 +1,6 @@
 {
 	"name":"bugbuster/contao-botstatistics-bundle",
-	"description":"Contao 4 BotStatistics Bundle - Counts the number of bot requests (visits, pages). ",
+	"description":"Contao 5 BotStatistics Bundle - Counts the number of bot requests (visits, pages). ",
 	"keywords":["contao","statistic","counter"],
 	"type":"contao-bundle",
 	"homepage":"http://contao.ninja",
