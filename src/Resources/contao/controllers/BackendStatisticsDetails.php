@@ -1,16 +1,14 @@
 <?php
 
-/**
- * Contao Open Source CMS, Copyright (C) 2005-2018 Leo Feyer
+/*
+ * This file is part of a BugBuster Contao Bundle.
  *
- * Module BotStatistics Stat - Backend
- * Botstatistic details
- *
- * @copyright  Glen Langer 2012..2018 <http://contao.ninja>
+ * @copyright  Glen Langer 2023 <http://contao.ninja>
  * @author     Glen Langer (BugBuster)
- * @license    LGPL
- * @filesource
- * @see        https://github.com/BugBuster1701/contao-botstatistics-bundle
+ * @package    Contao BotStatistics Bundle
+ * @link       https://github.com/BugBuster1701/contao-botstatistics-bundle
+ *
+ * @license    LGPL-3.0-or-later
  */
 
 /**
@@ -19,57 +17,59 @@
 
 namespace BugBuster\BotStatistics;
 
+use Contao\Backend;
+use Contao\BackendTemplate;
+use Contao\CoreBundle\ContaoCoreBundle;
 use Contao\CoreBundle\Exception\AccessDeniedException;
+use Contao\Environment;
+use Contao\Input;
+use Contao\StringUtil;
+use Contao\System;
 
 /**
  * Class BotStatisticsDetails
  *
  * @copyright  Glen Langer 2012..2018 <http://contao.ninja>
- * @author     Glen Langer (BugBuster)
  */
 class BackendStatisticsDetails extends BotStatisticsHelper
 {
 	/**
 	 * Initialize the controller
-	 *
-	 * 1. Import the user
-	 * 2. Call the parent constructor
-	 * 3. Authenticate the user
-	 * 4. Load the language files
-	 * DO NOT CHANGE THIS ORDER!
 	 */
 	public function __construct()
 	{
-		$this->import('BackendUser', 'User');
+		// $this->import('BackendUser', 'User');
 		parent::__construct();
-		//$this->User->authenticate(); //deprecated
-		if (false === \Contao\System::getContainer()->get('contao.security.token_checker')->hasBackendUser()) 
+		// $this->User->authenticate(); //deprecated
+		if (false === System::getContainer()->get('contao.security.token_checker')->hasBackendUser())
 		{
 			throw new AccessDeniedException('Access denied');
 		}
-		\Contao\System::loadLanguageFile('default');
-		\Contao\System::loadLanguageFile('tl_botstatistics');
+		System::loadLanguageFile('default');
+		System::loadLanguageFile('tl_botstatistics');
 	}
 
 	public function run()
 	{
 		/** @var BackendTemplate|object $objTemplate */
-		$objTemplate = new \Contao\BackendTemplate('mod_botstatistics_be_stat_partial_details');
-		$objTemplate->theme         = \Contao\Backend::getTheme();
-		$objTemplate->base          = \Contao\Environment::get('base');
+		$objTemplate = new BackendTemplate('mod_botstatistics_be_stat_partial_details');
+		$objTemplate->theme         = Backend::getTheme();
+		$objTemplate->base          = Environment::get('base');
 		$objTemplate->language      = $GLOBALS['TL_LANGUAGE'];
-		$objTemplate->title         = \Contao\StringUtil::specialchars($GLOBALS['TL_LANG']['MSC']['systemMessages']);
-		$objTemplate->charset       = \Contao\Config::get('characterSet');
+		$objTemplate->title         = StringUtil::specialchars($GLOBALS['TL_LANG']['MSC']['systemMessages']);
+		$objTemplate->charset       = System::getContainer()->getParameter('kernel.charset'); // \Contao\Config::get('characterSet');
+		$objTemplate->version       = ContaoCoreBundle::getVersion();
 
-		if (null === \Contao\Input::get('action', true) ||
-			 null === \Contao\Input::get('bmid', true))
-		{
+		if (
+			null === Input::get('action', true)
+			|| null === Input::get('bmid', true)
+		) {
 			$objTemplate->BotDetailList = '<p class="tl_error">' . $GLOBALS['TL_LANG']['tl_botstatistics']['wrong_parameter'] . '</p>';
 
 			return $objTemplate->getResponse();
 		}
 
-		switch (\Contao\Input::get('action', true))
+		switch (Input::get('action', true))
 		{
 			case 'AnzBot':
 			case 'AnzVisits':
@@ -86,12 +86,12 @@ class BackendStatisticsDetails extends BotStatisticsHelper
 			case 'AnzBotLastWeek':
 			case 'AnzVisitsLastWeek':
 			case 'AnzPagesLastWeek':
-				$DetailFunction = 'getBotStatDetails' . \Contao\Input::get('action', true);
-				$objTemplate->BotDetailList = $this->$DetailFunction(\Contao\Input::get('action', true), \Contao\Input::get('bmid', true));
+				$DetailFunction = 'getBotStatDetails' . Input::get('action', true);
+				$objTemplate->BotDetailList = $this->$DetailFunction(Input::get('action', true), Input::get('bmid', true));
 				break;
 
 			default:
-				   $objTemplate->BotDetailList = '<p class="tl_error">' . $GLOBALS['TL_LANG']['tl_botstatistics']['wrong_parameter'] . '</p>';
+				$objTemplate->BotDetailList = '<p class="tl_error">' . $GLOBALS['TL_LANG']['tl_botstatistics']['wrong_parameter'] . '</p>';
 				break;
 		}
 

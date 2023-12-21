@@ -1,0 +1,126 @@
+<?xml version="1.0" ?><xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file datatype="php" date="2017-07-24T20:28:25+02:00" original="default" source-language="en" target-language="fr">
+    <body>
+      <trans-unit id="MSC.tl_botstatistics_stat.bot_name">
+        <source>Name of bot</source>
+        <target>Nom du bot</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.bots_top20">
+        <source>Bot visits TOP 20</source>
+        <target>Bot visite le TOP 20</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.current_week">
+        <source>Current week</source>
+        <target>Cette semaine</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.date">
+        <source>Date</source>
+        <target>Date</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.last_visit">
+        <source>Last visits</source>
+        <target>Dernières visites</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.last_week">
+        <source>Last week</source>
+        <target>La semaine dernière</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.modname">
+        <source>Botstatistic Module</source>
+        <target>Module Botstatique</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.modulename">
+        <source>Module name</source>
+        <target>Nom du module</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.name">
+        <source>Name</source>
+        <target>Prénom</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.no_data">
+        <source>No data available for this module.</source>
+        <target>Aucune donnée disponible pour ce module.</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.no_stat_data">
+        <source>No statistic data for this counter.</source>
+        <target>Aucune donnée statistique pour ce compteur.</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.number">
+        <source>Visits</source>
+        <target>Visites</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.number_bots">
+        <source>Number of different bots</source>
+        <target>Nombre de bots différents</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.number_hit">
+        <source>Number of hits (Pages)</source>
+        <target>Nombre de hits (pages)</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.number_visit">
+        <source>Number of visits (Scans)</source>
+        <target>Nombre de visites (Scans)</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.page_alias">
+        <source>Page alias</source>
+        <target>Alias de page</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.pages_top20">
+        <source>Bot page hits TOP 20</source>
+        <target>La page de bot frappe le TOP 20</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.period">
+        <source>Period</source>
+        <target>Période</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.reset">
+        <source>Reset</source>
+        <target>Réinitialiser</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.today">
+        <source>Today</source>
+        <target>Aujourd'hui</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.total">
+        <source>Total number</source>
+        <target>Nombre total</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.yesterday">
+        <source>Yesterday</source>
+        <target>Hier</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.zero">
+        <source>The statistic counters will be reset to zero for this module.</source>
+        <target>Les compteurs statistiques seront remis à zéro pour ce module.</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.zero_confirm">
+        <source>Do you really want to reset the statistic counter for this module?</source>
+        <target>Voulez-vous vraiment réinitialiser le compteur de statistiques pour ce module?</target>
+        
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

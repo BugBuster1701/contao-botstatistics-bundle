@@ -15,13 +15,17 @@ declare(strict_types=1);
  * please view the LICENSE file that was distributed with this source code.
  */
 
-namespace BugBuster\BotStatisticsBundle;
+namespace BugBuster\BotStatisticsBundle\Tests;
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
+use BugBuster\BotStatisticsBundle\BugBusterBotStatisticsBundle;
+use PHPUnit\Framework\TestCase;
 
-/**
- * Configures the Contao BotStatistics bundle.
- */
-class BugBusterBotStatisticsBundle extends Bundle
+class BugBusterBotStatisticsBundleTest extends TestCase
 {
+    public function testCanBeInstantiated(): void
+    {
+        $bundle = new BugBusterBotStatisticsBundle();
+
+        $this->assertInstanceOf('BugBuster\BotStatisticsBundle\BugBusterBotStatisticsBundle', $bundle);
+    }
 }

@@ -1,6 +1,6 @@
 {
 	"name":"bugbuster/contao-botstatistics-bundle",
-	"description":"Contao 4 BotStatistics Bundle - Counts the number of bot requests (visits, pages). ",
+	"description":"Contao 5 BotStatistics Bundle - Counts the number of bot requests (visits, pages). ",
 	"keywords":["contao","statistic","counter"],
 	"type":"contao-bundle",
 	"homepage":"http://contao.ninja",
@@ -14,17 +14,19 @@
 	],
 	"support":{
 		"issues":"https://github.com/BugBuster1701/botstatistics/issues",
-		"irc":"irc://irc.freenode.org/contao.dev",
-		"source":"https://github.com/BugBuster1701/botstatistics"
+		"source":"https://github.com/BugBuster1701/botstatistics",
+		"forum":"https://community.contao.org/de/forumdisplay.php?119"
 	},
 	"require":{
-		"php": "^7.2 || ^8.0",
-		"contao/core-bundle": "^4.9",
-		"bugbuster/contao-botdetection-bundle":">=1.7.0,<2"
+		"php": "^8.1",
+		"contao/core-bundle": "^5.2",
+		"bugbuster/contao-botdetection-bundle":"^1.9",
+		"symfony/framework-bundle": "^6.4",
+        "symfony/http-kernel": "^6.4"
 	},
 	"require-dev": {
 			"contao/manager-plugin": "^2.0",
-			"friendsofphp/php-cs-fixer": "^2.17"
+			"phpunit/phpunit": "^8.5 || ^9.3"
 	},
 	"conflict": {
 			"contao/manager-plugin": "<2.0 || >=3.0"
@@ -44,17 +46,31 @@
 		]
 	},
 	"extra":{
-		"contao":{
-			"transifex": {
-				"project": "contao-botstatistics-bundle",
-				"prefix": "master-",
-				"languages_cto": "src/Resources/contao/languages",
-				"languages_tx": ".tx"
-			}
-		},
 		"branch-alias": {
 			"dev-develop": "1.1.x-dev"
 		},
 		"contao-manager-plugin": "BugBuster\\BotStatisticsBundle\\ContaoManager\\Plugin"
-	}
+	},
+	"config": {
+		"allow-plugins": {
+			"contao-components/installer": true,
+			"contao/manager-plugin": true,
+			"php-http/discovery": true
+		}
+	},
+    "scripts": {
+        "all": [
+            "@cs-fixer",
+            "@unit-tests"
+        ],
+        "cs-fixer": [
+            "@ecs",
+            "@ecs-legacy",
+            "@ecs-template"
+        ],
+        "ecs": "@php tools/ecs/vendor/bin/ecs check src/ tests/ --config tools/ecs/config/default.php --fix --ansi",
+        "ecs-legacy": "@php tools/ecs/vendor/bin/ecs check src/Resources/contao/ --config tools/ecs/config/legacy.php --fix --ansi",
+        "ecs-template": "@php tools/ecs/vendor/bin/ecs check src/Resources/contao/templates --config tools/ecs/config/template.php --fix --ansi",
+        "unit-tests": "@php vendor/bin/phpunit --testdox --colors=always tests/"
+    }
 }

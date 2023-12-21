@@ -1,16 +1,14 @@
 <?php
 
-/**
- * Contao Open Source CMS, Copyright (C) 2005-2018 Leo Feyer
+/*
+ * This file is part of a BugBuster Contao Bundle.
  *
- * Module BotStatistics Stat
- * Check the required extensions
- *
- * @copyright  Glen Langer 2012..2018 <http://contao.ninja>
+ * @copyright  Glen Langer 2023 <http://contao.ninja>
  * @author     Glen Langer (BugBuster)
- * @license    LGPL
- * @filesource
- * @see        https://github.com/BugBuster1701/contao-botstatistics-bundle
+ * @package    Contao BotStatistics Bundle
+ * @link       https://github.com/BugBuster1701/contao-botstatistics-bundle
+ *
+ * @license    LGPL-3.0-or-later
  */
 
 /**
@@ -19,13 +17,15 @@
 
 namespace BugBuster\BotStatistics;
 
+use Contao\Message;
+use Contao\System;
+
 /**
  * Class BotStatisticsCheck
  *
  * @copyright  Glen Langer 2012..2018 <http://contao.ninja>
- * @author     Glen Langer (BugBuster)
  */
-class BotStatisticsCheck extends \Contao\System
+class BotStatisticsCheck extends System
 {
 	/**
 	 * Current object instance
@@ -61,15 +61,16 @@ class BotStatisticsCheck extends \Contao\System
 	 * @param  string $strContent
 	 * @param  string $strTemplate
 	 * @return string
+	 * @deprecated 1.1.0
 	 */
 	public function checkExtensions($strContent, $strTemplate)
 	{
 		if ($strTemplate == 'be_main')
 		{
-			$bundles = array_keys(\Contao\System::getContainer()->getParameter('kernel.bundles')); // old \ModuleLoader::getActive()
+			$bundles = array_keys(System::getContainer()->getParameter('kernel.bundles')); // old \ModuleLoader::getActive()
 			if (!\in_array('BugBusterBotdetectionBundle', $bundles))
 			{
-				\Contao\Message::addInfo('Please install the required extension <strong>contao-botdetection-bundle</strong> for the extension contao-botstatistics-bundle.');
+				Message::addInfo('Please install the required extension <strong>contao-botdetection-bundle</strong> for the extension contao-botstatistics-bundle.');
 			}
 		}
 

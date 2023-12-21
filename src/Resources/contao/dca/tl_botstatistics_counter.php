@@ -1,19 +1,17 @@
 <?php
 
-/**
- * Contao Open Source CMS, Copyright (C) 2005-2018 Leo Feyer
+/*
+ * This file is part of a BugBuster Contao Bundle.
  *
- * Modul BotStatistics
- * DCA tl_botstatistics_counter
- *
- * @copyright  Glen Langer 2012..2018 <http://contao.ninja>
+ * @copyright  Glen Langer 2023 <http://contao.ninja>
  * @author     Glen Langer (BugBuster)
- * @license    LGPL
- * @filesource
- * @see        https://github.com/BugBuster1701/contao-botstatistics-bundle
+ * @package    Contao BotStatistics Bundle
+ * @link       https://github.com/BugBuster1701/contao-botstatistics-bundle
+ *
+ * @license    LGPL-3.0-or-later
  */
 
-/**
+/*
  * Table tl_botstatistics_counter
  */
 $GLOBALS['TL_DCA']['tl_botstatistics_counter'] = array

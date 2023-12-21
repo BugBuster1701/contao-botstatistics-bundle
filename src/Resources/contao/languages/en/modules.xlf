@@ -1,0 +1,22 @@
+<?xml version="1.0" ?><xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file datatype="php" date="2017-07-24T20:28:25+02:00" original="modules" source-language="en" target-language="en">
+    <body>
+      <trans-unit id="FMD.botstatistics.0">
+        <source>Bot Statistics</source>
+        
+      </trans-unit>
+      <trans-unit id="FMD.botstatistics.1">
+        <source>Count visits of Bots</source>
+        
+      </trans-unit>
+      <trans-unit id="MOD.botstatistics.0">
+        <source>Bot Statistics</source>
+        
+      </trans-unit>
+      <trans-unit id="MOD.botstatistics.1">
+        <source>Count visits of Bots</source>
+        
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

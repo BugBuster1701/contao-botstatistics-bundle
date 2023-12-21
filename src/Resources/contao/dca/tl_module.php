@@ -1,24 +1,22 @@
 <?php
 
-/**
- * Contao Open Source CMS, Copyright (C) 2005-2018 Leo Feyer
+/*
+ * This file is part of a BugBuster Contao Bundle.
  *
- * Modul BotStatistics - Backend
- * DCA tl_module, modifies the data container array of table tl_module.
- *
- * @copyright  Glen Langer 2012..2018 <http://contao.ninja>
+ * @copyright  Glen Langer 2023 <http://contao.ninja>
  * @author     Glen Langer (BugBuster)
- * @license    LGPL
- * @filesource
- * @see        https://github.com/BugBuster1701/contao-botstatistics-bundle
+ * @package    Contao BotStatistics Bundle
+ * @link       https://github.com/BugBuster1701/contao-botstatistics-bundle
+ *
+ * @license    LGPL-3.0-or-later
  */
 
-/**
+/*
  * Add palettes to tl_module
  */
 $GLOBALS['TL_DCA']['tl_module']['palettes']['botstatistics']   = 'name,type;botstatistics_name,botstatistics_cron';
 
-/**
+/*
  * Add fields to tl_module
  */
 $GLOBALS['TL_DCA']['tl_module']['fields']['botstatistics_name'] = array

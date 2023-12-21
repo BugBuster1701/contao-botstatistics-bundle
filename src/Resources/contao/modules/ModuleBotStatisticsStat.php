@@ -1,16 +1,14 @@
 <?php
 
-/**
- * Contao Open Source CMS, Copyright (C) 2005-2018 Leo Feyer
+/*
+ * This file is part of a BugBuster Contao Bundle.
  *
- * Module BotStatistics Stat - Backend
- * Backend statistics
- *
- * @copyright  Glen Langer 2012..2018 <http://contao.ninja>
+ * @copyright  Glen Langer 2023 <http://contao.ninja>
  * @author     Glen Langer (BugBuster)
- * @license    LGPL
- * @filesource
- * @see        https://github.com/BugBuster1701/contao-botstatistics-bundle
+ * @package    Contao BotStatistics Bundle
+ * @link       https://github.com/BugBuster1701/contao-botstatistics-bundle
+ *
+ * @license    LGPL-3.0-or-later
  */
 
 /**
@@ -19,11 +17,15 @@
 
 namespace BugBuster\BotStatistics;
 
+use Contao\Database;
+use Contao\Input;
+use Contao\StringUtil;
+use Contao\System;
+
 /**
  * Class ModuleBotStatisticsStat
  *
  * @copyright  Glen Langer 2012..2018 <http://contao.ninja>
- * @author     Glen Langer (BugBuster)
  */
 class ModuleBotStatisticsStat extends BotStatisticsHelper
 {
@@ -46,14 +48,14 @@ class ModuleBotStatisticsStat extends BotStatisticsHelper
 	{
 		parent::__construct();
 
-		$this->intModuleID = (int) \Contao\Input::post('bot_module_id'); //Modul-ID
-		//act=zero&zid=...
-		if (\Contao\Input::get('act', true)=='zero')
+		$this->intModuleID = (int) Input::post('bot_module_id'); // Modul-ID
+		// act=zero&zid=...
+		if (Input::get('act', true)=='zero')
 		{
 			$this->setZero();
 		}
-		//for statistics page directly, callback modules use not the template hook
-		BotStatisticsCheck::getInstance()->checkExtensions('', 'be_main');
+		// for statistics page directly, callback modules use not the template hook
+		// BotStatisticsCheck::getInstance()->checkExtensions('', 'be_main');
 	}
 
 	/**
@@ -62,19 +64,20 @@ class ModuleBotStatisticsStat extends BotStatisticsHelper
 	protected function compile()
 	{
 		$this->Template->href   = $this->getReferer(true);
-		$this->Template->title  = \Contao\StringUtil::specialchars($GLOBALS['TL_LANG']['MSC']['backBT']);
+		$this->Template->title  = StringUtil::specialchars($GLOBALS['TL_LANG']['MSC']['backBT']);
 		$this->Template->button = $GLOBALS['TL_LANG']['MSC']['backBT'];
 		$this->Template->theme  = $this->getTheme();
 		$this->Template->theme0 = 'default';
+		$this->Template->requestToken = System::getContainer()->get('contao.csrf.token_manager')->getDefaultTokenValue();
 
 		if ($this->intModuleID == 0)
-		{   //direkter Aufruf ohne ID
-			$objBotModuleID = \Contao\Database::getInstance()
-									->prepare("SELECT 
-		                                            MIN(id) AS MID 
-		                                        FROM 
-		                                            tl_module 
-		                                        WHERE 
+		{   // direkter Aufruf ohne ID
+			$objBotModuleID = Database::getInstance()
+									->prepare("SELECT
+		                                            MIN(id) AS MID
+		                                        FROM
+		                                            tl_module
+		                                        WHERE
 		                                            `type`='botstatistics'
 		                                    ")
 									->execute();
@@ -89,14 +92,14 @@ class ModuleBotStatisticsStat extends BotStatisticsHelper
 
 		$this->Template->botstatistics_version = $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['modname'] . ' ' . BOTSTATISTICS_VERSION . '.' . BOTSTATISTICS_BUILD;
 
-		//Modul Namen holen
-		$objBotModules = \Contao\Database::getInstance()
-								->prepare("SELECT 
-		                                        `id`, 
+		// Modul Namen holen
+		$objBotModules = Database::getInstance()
+								->prepare("SELECT
+		                                        `id`,
 		                                        `botstatistics_name`
-                                            FROM 
+                                            FROM
 		                                        `tl_module`
-                                            WHERE 
+                                            WHERE
 		                                        `type`='botstatistics'
                                             ORDER BY `botstatistics_name`
 		                                ")
@@ -112,23 +115,23 @@ class ModuleBotStatisticsStat extends BotStatisticsHelper
 					'id'    => $objBotModules->id,
 					'title' => $objBotModules->botstatistics_name
 				);
-				//fuer direkten Zugriff
+				// fuer direkten Zugriff
 				$arrBotModules2[$objBotModules->id] = $objBotModules->botstatistics_name;
 			}
 		}
-		else
-		{ // es gibt kein Modul
+		else // es gibt kein Modul
+		{
 			$arrBotModules[] = array
-			(
-				'id'    => '0',
-				'title' => '---------'
-			);
+				(
+					'id'    => '0',
+					'title' => '---------'
+				);
 			$arrBotModules2 = array();
 		}
 		$this->Template->bot_modules = $arrBotModules;
 		$this->Template->bot_modules2 = $arrBotModules2;
 
-		//Modul Werte holen
+		// Modul Werte holen
 		if ($intBotModules > 0)
 		{
 			$this->Template->BotSummary  = $this->getBotStatSummary();
@@ -144,24 +147,24 @@ class ModuleBotStatisticsStat extends BotStatisticsHelper
 	 */
 	protected function setZero()
 	{
-		if (is_numeric(\Contao\Input::get('zid')) && \Contao\Input::get('zid') > 0)
+		if (is_numeric(Input::get('zid')) && Input::get('zid') > 0)
 		{
-			$module_id = \Contao\Input::get('zid');
+			$module_id = Input::get('zid');
 		}
 		else
 		{
 			return; // wrong zid
 		}
-		\Contao\Database::getInstance()
-			->prepare("DELETE FROM 
-                            `tl_botstatistics_counter`, 
-                            `tl_botstatistics_counter_details` 
-                        USING 
-                            `tl_botstatistics_counter`, 
-                            `tl_botstatistics_counter_details` 
-                        WHERE 
+		Database::getInstance()
+			->prepare("DELETE FROM
+                            `tl_botstatistics_counter`,
+                            `tl_botstatistics_counter_details`
+                        USING
+                            `tl_botstatistics_counter`,
+                            `tl_botstatistics_counter_details`
+                        WHERE
                             `tl_botstatistics_counter`.`id` = `tl_botstatistics_counter_details`.`pid`
-                        AND 
+                        AND
                             `tl_botstatistics_counter`.`bot_module_id` = ?
                     ")
 			->execute($module_id);

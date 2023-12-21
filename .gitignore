@@ -2,8 +2,6 @@
 .buildpath
 .project
 .settings/
-# Transifex
-/.tx/
 # phpunit
 build/
 # test apikey file
@@ -11,3 +9,5 @@ phpunit.xml
 #for development
 /vendor/
 composer.lock
+#ECS
+tools/ecs/vendor/

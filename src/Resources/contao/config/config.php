@@ -1,18 +1,20 @@
 <?php
 
-/**
- * Contao Open Source CMS, Copyright (C) 2005-2020 Leo Feyer
+/*
+ * This file is part of a BugBuster Contao Bundle.
  *
- * @copyright  Glen Langer 2012..2020 <http://contao.ninja>
+ * @copyright  Glen Langer 2023 <http://contao.ninja>
  * @author     Glen Langer (BugBuster)
- * @license    LGPL
- * @filesource
- * @see        https://github.com/BugBuster1701/contao-botstatistics-bundle
+ * @package    Contao BotStatistics Bundle
+ * @link       https://github.com/BugBuster1701/contao-botstatistics-bundle
+ *
+ * @license    LGPL-3.0-or-later
  */
-\define('BOTSTATISTICS_VERSION', '1.0');
-\define('BOTSTATISTICS_BUILD', '11');
 
-/**
+define('BOTSTATISTICS_VERSION', '1.1');
+define('BOTSTATISTICS_BUILD', '0');
+
+/*
  * -------------------------------------------------------------------------
  * BACK END MODULES
  * -------------------------------------------------------------------------
@@ -24,14 +26,14 @@ $GLOBALS['BE_MOD']['system']['botstatistics'] = array
 	'stylesheet' => 'bundles/bugbusterbotstatistics/mod_botstatistics_be.css',
 );
 
-/**
+/*
  * -------------------------------------------------------------------------
  * FRONT END MODULES
  * -------------------------------------------------------------------------
  */
 $GLOBALS['FE_MOD']['miscellaneous']['botstatistics'] = 'BugBuster\BotStatistics\ModuleBotStatistics';
 
-/**
+/*
  * -------------------------------------------------------------------------
  * HOOKS
  * -------------------------------------------------------------------------
@@ -39,7 +41,7 @@ $GLOBALS['FE_MOD']['miscellaneous']['botstatistics'] = 'BugBuster\BotStatistics\
 $GLOBALS['TL_HOOKS']['parseBackendTemplate'][]  = array('BugBuster\BotStatistics\BotStatisticsCheck', 'checkExtensions');
 $GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('BugBuster\BotStatistics\ModuleBotStatisticsTag', 'replaceInsertTagsBotStatistics');
 
-/**
+/*
  * -------------------------------------------------------------------------
  * CRON JOBS
  * -------------------------------------------------------------------------

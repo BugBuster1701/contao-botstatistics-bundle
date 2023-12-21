@@ -1,0 +1,112 @@
+<?xml version="1.0" ?><xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file datatype="php" date="2017-07-24T20:28:25+02:00" original="default" source-language="en" target-language="hi">
+    <body>
+      <trans-unit id="MSC.tl_botstatistics_stat.bot_name">
+        <source>Name of bot</source>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.bots_top20">
+        <source>Bot visits TOP 20</source>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.current_week">
+        <source>Current week</source>
+        <target>इस सप्ताह</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.date">
+        <source>Date</source>
+        <target>दिनांक</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.last_visit">
+        <source>Last visits</source>
+        <target>अंतिम प्रवेश</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.last_week">
+        <source>Last week</source>
+        <target>पिछले सप्ताह</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.modname">
+        <source>Botstatistic Module</source>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.modulename">
+        <source>Module name</source>
+        <target>मापांक नाम</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.name">
+        <source>Name</source>
+        <target>नाम</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.no_data">
+        <source>No data available for this module.</source>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.no_stat_data">
+        <source>No statistic data for this counter.</source>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.number">
+        <source>Visits</source>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.number_bots">
+        <source>Number of different bots</source>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.number_hit">
+        <source>Number of hits (Pages)</source>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.number_visit">
+        <source>Number of visits (Scans)</source>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.page_alias">
+        <source>Page alias</source>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.pages_top20">
+        <source>Bot page hits TOP 20</source>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.period">
+        <source>Period</source>
+        <target>अवधि</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.reset">
+        <source>Reset</source>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.today">
+        <source>Today</source>
+        <target>आज</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.total">
+        <source>Total number</source>
+        <target>कुल संख्या</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.yesterday">
+        <source>Yesterday</source>
+        <target>कल</target>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.zero">
+        <source>The statistic counters will be reset to zero for this module.</source>
+        
+      </trans-unit>
+      <trans-unit id="MSC.tl_botstatistics_stat.zero_confirm">
+        <source>Do you really want to reset the statistic counter for this module?</source>
+        
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

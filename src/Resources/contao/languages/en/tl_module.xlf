@@ -1,0 +1,22 @@
+<?xml version="1.0" ?><xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file datatype="php" date="2017-07-24T20:28:25+02:00" original="tl_module" source-language="en" target-language="en">
+    <body>
+      <trans-unit id="tl_module.botstatistics_cron.0">
+        <source>Automatically delete old statistics data?</source>
+        
+      </trans-unit>
+      <trans-unit id="tl_module.botstatistics_cron.1">
+        <source>Check, to enable the deletion of old statistics data (older than 90 days).</source>
+        
+      </trans-unit>
+      <trans-unit id="tl_module.botstatistics_name.0">
+        <source>Module name for the statistics</source>
+        
+      </trans-unit>
+      <trans-unit id="tl_module.botstatistics_name.1">
+        <source>The name is for the choice of the statistics.</source>
+        
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

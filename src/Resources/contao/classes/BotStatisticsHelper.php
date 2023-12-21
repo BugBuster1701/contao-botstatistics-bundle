@@ -1,16 +1,14 @@
 <?php
 
-/**
- * Contao Open Source CMS, Copyright (C) 2005-2018 Leo Feyer
+/*
+ * This file is part of a BugBuster Contao Bundle.
  *
- * Module BotStatistics Stat
- * Helper class
- *
- * @copyright  Glen Langer 2012..2018 <http://contao.ninja>
+ * @copyright  Glen Langer 2023 <http://contao.ninja>
  * @author     Glen Langer (BugBuster)
- * @license    LGPL
- * @filesource
- * @see        https://github.com/BugBuster1701/contao-botstatistics-bundle
+ * @package    Contao BotStatistics Bundle
+ * @link       https://github.com/BugBuster1701/contao-botstatistics-bundle
+ *
+ * @license    LGPL-3.0-or-later
  */
 
 /**
@@ -19,13 +17,17 @@
 
 namespace BugBuster\BotStatistics;
 
+use Contao\BackendModule;
+use Contao\BackendTemplate;
+use Contao\Database;
+use Contao\Date;
+
 /**
  * Class BotStatisticsHelper
  *
  * @copyright  Glen Langer 2012..2018 <http://contao.ninja>
- * @author     Glen Langer (BugBuster)
  */
-class BotStatisticsHelper extends \Contao\BackendModule
+class BotStatisticsHelper extends BackendModule
 {
 	/**
 	 * Current object instance
@@ -38,7 +40,6 @@ class BotStatisticsHelper extends \Contao\BackendModule
 	 */
 	public function __construct()
 	{
-		$this->import('BackendUser', 'User');
 		parent::__construct();
 	}
 
@@ -96,15 +97,15 @@ class BotStatisticsHelper extends \Contao\BackendModule
 
 	protected function getModulName($bmid)
 	{
-		//Modul Namen holen
-		$objBotModules = \Contao\Database::getInstance()
-								->prepare("SELECT 
+		// Modul Namen holen
+		$objBotModules = Database::getInstance()
+								->prepare("SELECT
                                                 `botstatistics_name`
-                                            FROM 
+                                            FROM
                                                 `tl_module`
-                                            WHERE 
+                                            WHERE
                                                 `type`='botstatistics'
-                                            AND 
+                                            AND
                                                 `id`=?
                                         ")
 								->execute($bmid);
@@ -124,7 +125,7 @@ class BotStatisticsHelper extends \Contao\BackendModule
 		$today     = date('Y-m-d');
 		$yesterday = date('Y-m-d', mktime(0, 0, 0, date("m"), date("d")-1, date("Y")));
 
-		$this->TemplatePartial = new \Contao\BackendTemplate('mod_botstatistics_be_stat_partial_summary');
+		$this->TemplatePartial = new BackendTemplate('mod_botstatistics_be_stat_partial_summary');
 
 		$this->TemplatePartial->AnzBotYesterday    = 0;
 		$this->TemplatePartial->AnzVisitsYesterday = 0;
@@ -135,52 +136,52 @@ class BotStatisticsHelper extends \Contao\BackendModule
 		$this->TemplatePartial->bot_module_id      = $this->intModuleID;
 		$this->TemplatePartial->theme              = $this->getTheme();
 
-		//Anzahl der Bots mit Summe Besuche und Seitenzugriffe
-		$objBotStatCount = \Contao\Database::getInstance()
-								->prepare("SELECT 
-                                                count(distinct `bot_name`) AS AnzBot, 
-                                                    (SELECT 
-                                                        sum(`bot_counter`) 
-                                                     FROM 
-                                                        `tl_botstatistics_counter` 
-                                                     WHERE 
+		// Anzahl der Bots mit Summe Besuche und Seitenzugriffe
+		$objBotStatCount = Database::getInstance()
+								->prepare("SELECT
+                                                count(distinct `bot_name`) AS AnzBot,
+                                                    (SELECT
+                                                        sum(`bot_counter`)
+                                                     FROM
+                                                        `tl_botstatistics_counter`
+                                                     WHERE
                                                         `bot_module_id`=?
                                                      ) AS AnzVisits
-                                            FROM 
-                                                `tl_botstatistics_counter` 
-                                            WHERE 
+                                            FROM
+                                                `tl_botstatistics_counter`
+                                            WHERE
                                                 `bot_module_id`=?
                                         ")
 								->execute($this->intModuleID, $this->intModuleID);
 		$this->TemplatePartial->AnzBot    = $objBotStatCount->AnzBot;
-		$this->TemplatePartial->AnzVisits = ($objBotStatCount->AnzVisits) ? $objBotStatCount->AnzVisits : 0;
-		//Anzahl Seitenzugriffe
-		$objBotStatCount = \Contao\Database::getInstance()
-								->prepare("SELECT 
+		$this->TemplatePartial->AnzVisits = $objBotStatCount->AnzVisits ?: 0;
+		// Anzahl Seitenzugriffe
+		$objBotStatCount = Database::getInstance()
+								->prepare("SELECT
                                                 sum(`bot_page_alias_counter`) AS AnzPages
-                                            FROM 
+                                            FROM
                                                 `tl_botstatistics_counter_details` d
-                                            INNER JOIN 
+                                            INNER JOIN
                                                 `tl_botstatistics_counter` c ON d.pid = c.id
-                                            WHERE 
+                                            WHERE
                                                 c.`bot_module_id`=?
                                         ")
 								->execute($this->intModuleID);
-		$this->TemplatePartial->AnzPages = ($objBotStatCount->AnzPages) ? $objBotStatCount->AnzPages : 0;
+		$this->TemplatePartial->AnzPages = $objBotStatCount->AnzPages ?: 0;
 
-		//Anzahl Bots Heute/Gestern Besuche/Hits
-		$objBotStatCount = \Contao\Database::getInstance()
-								->prepare("SELECT 
-                                                `bot_date`, 
-                                                count(distinct `bot_name`) AS AnzBot, 
+		// Anzahl Bots Heute/Gestern Besuche/Hits
+		$objBotStatCount = Database::getInstance()
+								->prepare("SELECT
+                                                `bot_date`,
+                                                count(distinct `bot_name`) AS AnzBot,
                                                 sum(`bot_counter`) AS AnzVisits
-                                            FROM 
+                                            FROM
                                                 `tl_botstatistics_counter`
-                                            WHERE 
+                                            WHERE
                                                 `bot_module_id`=?
-                                            AND 
+                                            AND
                                                 `bot_date`>=?
-                                            GROUP BY 
+                                            GROUP BY
                                                 `bot_date`
                                         ")
 								->execute($this->intModuleID, $yesterday);
@@ -200,19 +201,19 @@ class BotStatisticsHelper extends \Contao\BackendModule
 			}
 		}
 		// Anzahl Seiten Gesamt - Heute/Gestern
-		$objBotStatCount = \Contao\Database::getInstance()
-								->prepare("SELECT 
-                                                `bot_date`, 
-                                                sum(`bot_page_alias_counter`) AS AnzPages 
-                                            FROM 
+		$objBotStatCount = Database::getInstance()
+								->prepare("SELECT
+                                                `bot_date`,
+                                                sum(`bot_page_alias_counter`) AS AnzPages
+                                            FROM
                                                 `tl_botstatistics_counter`
-                                            INNER JOIN 
+                                            INNER JOIN
                                                 `tl_botstatistics_counter_details` ON `tl_botstatistics_counter`.id=`tl_botstatistics_counter_details`.pid
-                                            WHERE 
-                                                `bot_module_id`=? 
-                                            AND 
+                                            WHERE
+                                                `bot_module_id`=?
+                                            AND
                                                 `bot_date`>=?
-                                            GROUP BY 
+                                            GROUP BY
                                                 `bot_date`
                                         ")
 								->execute($this->intModuleID, $yesterday);
@@ -230,7 +231,7 @@ class BotStatisticsHelper extends \Contao\BackendModule
 			}
 		}
 
-		//Anzahl Besuche aktuelle Woche, letzte Woche
+		// Anzahl Besuche aktuelle Woche, letzte Woche
 		$this->TemplatePartial->AnzBotWeek    = 0;
 		$this->TemplatePartial->AnzVisitsWeek = 0;
 		$this->TemplatePartial->AnzPagesWeek  = 0;
@@ -240,19 +241,19 @@ class BotStatisticsHelper extends \Contao\BackendModule
 
 		$CurrentWeek     = date('W');
 		$LastWeek        = date('W', mktime(0, 0, 0, date("m"), date("d")-7, date("Y")));
-		//Besonderheit beachten das der 1.1. die 53. Woche sein kann!
+		// Besonderheit beachten das der 1.1. die 53. Woche sein kann!
 		$YearCurrentWeek = ($CurrentWeek > 40 && (int) date('m') == 1) ? date('Y')-1 : date('Y');
 		$YearLastWeek    = ($LastWeek    > 40 && (int) date('m') == 1) ? date('Y')-1 : date('Y');
-		$objBotStatCount = \Contao\Database::getInstance()
-								->prepare("SELECT 
-                                                YEARWEEK( `bot_date`, 3 ) AS YW, 
-                                                COUNT(DISTINCT `bot_name`) AS AnzBotWeek, 
-                                                SUM(`bot_counter`) AS AnzVisitsWeek 
-                                            FROM 
+		$objBotStatCount = Database::getInstance()
+								->prepare("SELECT
+                                                YEARWEEK( `bot_date`, 3 ) AS YW,
+                                                COUNT(DISTINCT `bot_name`) AS AnzBotWeek,
+                                                SUM(`bot_counter`) AS AnzVisitsWeek
+                                            FROM
                                                 `tl_botstatistics_counter`
-                                            WHERE 
+                                            WHERE
                                                 `bot_module_id`=?
-                                            AND 
+                                            AND
                                                 YEARWEEK( `bot_date`, 3 ) BETWEEN ? AND ?
                                             GROUP BY YW
                                             ORDER BY YW DESC
@@ -277,18 +278,18 @@ class BotStatisticsHelper extends \Contao\BackendModule
 				$this->TemplatePartial->AnzVisitsLastWeek = $objBotStatCount->AnzVisitsWeek;
 			}
 		}
-		//Anzahl Hits aktuelle, letzte Woche
-		$objBotStatCount = \Contao\Database::getInstance()
-								->prepare("SELECT 
-                                                YEARWEEK( c.`bot_date`, 3 ) AS YW, 
+		// Anzahl Hits aktuelle, letzte Woche
+		$objBotStatCount = Database::getInstance()
+								->prepare("SELECT
+                                                YEARWEEK( c.`bot_date`, 3 ) AS YW,
                                                 sum(d.`bot_page_alias_counter`) AS AnzPages
-                                            FROM 
+                                            FROM
                                                 `tl_botstatistics_counter` c
-                                            INNER JOIN  
+                                            INNER JOIN
                                                 `tl_botstatistics_counter_details` d ON c.id=d.pid
-                                            WHERE 
+                                            WHERE
                                                 c.`bot_module_id`=?
-                                            AND 
+                                            AND
                                                 YEARWEEK( c.`bot_date`, 3 ) BETWEEN ? AND ?
                                             GROUP BY YW
                                             ORDER BY YW DESC
@@ -316,12 +317,12 @@ class BotStatisticsHelper extends \Contao\BackendModule
 		$BotDetailList  = '<div class="tl_listing_container list_view">' . "\n";
 		$BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">' . $this->getModulName($bmid) . '</td></tr>' . "\n";
 
-		$objBotStatDetailsAnzBot = \Contao\Database::getInstance()
-										->prepare("SELECT DISTINCT 
-                                                        `bot_name` 
-                                                    FROM 
+		$objBotStatDetailsAnzBot = Database::getInstance()
+										->prepare("SELECT DISTINCT
+                                                        `bot_name`
+                                                    FROM
                                                         `tl_botstatistics_counter`
-                                                    WHERE 
+                                                    WHERE
                                                         `bot_module_id`=?
                                                     ORDER BY `bot_name`
                                                 ")
@@ -341,12 +342,12 @@ class BotStatisticsHelper extends \Contao\BackendModule
 		$BotDetailList  = '<div class="tl_listing_container list_view">' . "\n";
 		$BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">' . $this->getModulName($bmid) . '</td><td class="tl_folder_tlist tl_right_nowrap">' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_visit'] . '</td></tr>' . "\n";
 
-		$objBotStatDetailsAnzBot = \Contao\Database::getInstance()
-										->prepare("SELECT DISTINCT 
+		$objBotStatDetailsAnzBot = Database::getInstance()
+										->prepare("SELECT DISTINCT
                                                         `bot_name`, sum(`bot_counter`) AS AnzVisits
-                                                    FROM 
+                                                    FROM
                                                         `tl_botstatistics_counter`
-                                                    WHERE 
+                                                    WHERE
                                                         `bot_module_id`=?
                                                     GROUP BY `bot_name`
                                                     ORDER BY AnzVisits DESC
@@ -367,14 +368,14 @@ class BotStatisticsHelper extends \Contao\BackendModule
 		$BotDetailList  = '<div class="tl_listing_container list_view">' . "\n";
 		$BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">' . $this->getModulName($bmid) . '</td><td class="tl_folder_tlist tl_right_nowrap">' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_hit'] . '</td></tr>' . "\n";
 
-		$objBotStatDetailsAnzBot = \Contao\Database::getInstance()
-										->prepare("SELECT 
+		$objBotStatDetailsAnzBot = Database::getInstance()
+										->prepare("SELECT
                                                         c.`bot_name`, sum(d.`bot_page_alias_counter`) AS AnzPages
-                                                    FROM 
+                                                    FROM
                                                         `tl_botstatistics_counter_details` d
-                                                    INNER JOIN 
+                                                    INNER JOIN
                                                         `tl_botstatistics_counter` c ON d.pid = c.id
-                                                    WHERE 
+                                                    WHERE
                                                         c.`bot_module_id`=?
                                                     GROUP BY c.`bot_name`
                                                     ORDER BY AnzPages DESC
@@ -403,14 +404,14 @@ class BotStatisticsHelper extends \Contao\BackendModule
 		$BotDetailList  = '<div class="tl_listing_container list_view">' . "\n";
 		$BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">' . $this->getModulName($bmid) . ': ' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['today'] . '</td></tr>' . "\n";
 
-		$objBotStatDetailsAnzBotToday = \Contao\Database::getInstance()
-											->prepare("SELECT DISTINCT 
+		$objBotStatDetailsAnzBotToday = Database::getInstance()
+											->prepare("SELECT DISTINCT
                                                             `bot_name`
-                                                        FROM 
+                                                        FROM
                                                             `tl_botstatistics_counter`
-                                                        WHERE 
+                                                        WHERE
                                                             `bot_module_id`=?
-                                                        AND 
+                                                        AND
                                                             `bot_date`=?
                                                         ORDER BY `bot_name`
                                                     ")
@@ -431,14 +432,14 @@ class BotStatisticsHelper extends \Contao\BackendModule
 		$BotDetailList  = '<div class="tl_listing_container list_view">' . "\n";
 		$BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">' . $this->getModulName($bmid) . ': ' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['today'] . '</td><td class="tl_folder_tlist tl_right_nowrap">' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_visit'] . '</td></tr>' . "\n";
 
-		$objBotStatDetailsAnzVisitsToday = \Contao\Database::getInstance()
-												->prepare("SELECT DISTINCT 
+		$objBotStatDetailsAnzVisitsToday = Database::getInstance()
+												->prepare("SELECT DISTINCT
                                                                 `bot_name`, sum(`bot_counter`) AS AnzVisits
-                                                            FROM 
+                                                            FROM
                                                                 `tl_botstatistics_counter`
-                                                            WHERE 
+                                                            WHERE
                                                                 `bot_module_id`=?
-                                                            AND 
+                                                            AND
                                                                 `bot_date`=?
                                                             GROUP BY `bot_name`
                                                             ORDER BY AnzVisits DESC
@@ -460,16 +461,16 @@ class BotStatisticsHelper extends \Contao\BackendModule
 		$BotDetailList  = '<div class="tl_listing_container list_view">' . "\n";
 		$BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">' . $this->getModulName($bmid) . ': ' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['today'] . '</td><td class="tl_folder_tlist tl_right_nowrap">' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_hit'] . '</td></tr>' . "\n";
 
-		$objBotStatDetailsAnzBotToday = \Contao\Database::getInstance()
-											->prepare("SELECT 
+		$objBotStatDetailsAnzBotToday = Database::getInstance()
+											->prepare("SELECT
                                                             c.`bot_name`, sum(d.`bot_page_alias_counter`) AS AnzPages
-                                                        FROM 
+                                                        FROM
                                                             `tl_botstatistics_counter_details` d
-                                                        INNER JOIN 
+                                                        INNER JOIN
                                                             `tl_botstatistics_counter` c ON d.pid = c.id
-                                                        WHERE 
+                                                        WHERE
                                                             c.`bot_module_id`=?
-                                                        AND 
+                                                        AND
                                                             `bot_date`=?
                                                         GROUP BY c.`bot_name`
                                                         ORDER BY AnzPages DESC
@@ -498,15 +499,15 @@ class BotStatisticsHelper extends \Contao\BackendModule
 		$BotDetailList  = '<div class="tl_listing_container list_view">' . "\n";
 		$BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">' . $this->getModulName($bmid) . ': ' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['yesterday'] . '</td></tr>' . "\n";
 
-		$objBotStatDetailsAnzBotYesterday = \Contao\Database::getInstance()
-												->prepare("SELECT DISTINCT 
+		$objBotStatDetailsAnzBotYesterday = Database::getInstance()
+												->prepare("SELECT DISTINCT
                                                                 `bot_name`
-                                                          FROM 
+                                                          FROM
                                                                 `tl_botstatistics_counter`
-                                                          WHERE 
+                                                          WHERE
                                                                 `bot_module_id`=?
-                                                          AND 
-                                                                `bot_date`=? 
+                                                          AND
+                                                                `bot_date`=?
                                                           ORDER BY `bot_name`
                                                         ")
 												->execute($bmid, $yesterday);
@@ -526,14 +527,14 @@ class BotStatisticsHelper extends \Contao\BackendModule
 		$BotDetailList  = '<div class="tl_listing_container list_view">' . "\n";
 		$BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">' . $this->getModulName($bmid) . ': ' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['yesterday'] . '</td><td class="tl_folder_tlist tl_right_nowrap">' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_visit'] . '</td></tr>' . "\n";
 
-		$objBotStatDetailsAnzVisitsYesterday = \Contao\Database::getInstance()
-													->prepare("SELECT DISTINCT 
+		$objBotStatDetailsAnzVisitsYesterday = Database::getInstance()
+													->prepare("SELECT DISTINCT
                                                                     `bot_name`, sum(`bot_counter`) AS AnzVisits
-                                                                FROM 
+                                                                FROM
                                                                     `tl_botstatistics_counter`
-                                                                WHERE 
+                                                                WHERE
                                                                     `bot_module_id`=?
-                                                                AND 
+                                                                AND
                                                                     `bot_date`=?
                                                                 GROUP BY `bot_name`
                                                                 ORDER BY AnzVisits DESC
@@ -555,16 +556,16 @@ class BotStatisticsHelper extends \Contao\BackendModule
 		$BotDetailList  = '<div class="tl_listing_container list_view">' . "\n";
 		$BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">' . $this->getModulName($bmid) . ': ' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['yesterday'] . '</td><td class="tl_folder_tlist tl_right_nowrap">' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_hit'] . '</td></tr>' . "\n";
 
-		$objBotStatDetailsAnzBotYesterday = \Contao\Database::getInstance()
-												->prepare("SELECT 
+		$objBotStatDetailsAnzBotYesterday = Database::getInstance()
+												->prepare("SELECT
                                                                 c.`bot_name`, sum(d.`bot_page_alias_counter`) AS AnzPages
-                                                            FROM 
+                                                            FROM
                                                                 `tl_botstatistics_counter_details` d
-                                                            INNER JOIN 
+                                                            INNER JOIN
                                                                 `tl_botstatistics_counter` c ON d.pid = c.id
-                                                            WHERE 
+                                                            WHERE
                                                                 c.`bot_module_id`=?
-                                                            AND 
+                                                            AND
                                                                 `bot_date`=?
                                                             GROUP BY c.`bot_name`
                                                             ORDER BY AnzPages DESC
@@ -589,19 +590,19 @@ class BotStatisticsHelper extends \Contao\BackendModule
 	protected function getBotStatDetailsAnzBotWeek($action, $bmid)
 	{
 		$CurrentWeek = date('W');
-		//Besonderheit beachten das der 1.1. die 53. Woche sein kann!
+		// Besonderheit beachten das der 1.1. die 53. Woche sein kann!
 		$YearCurrentWeek = ($CurrentWeek > 40 && (int) date('m') == 1) ? date('Y')-1 : date('Y');
 		$BotDetailList  = '<div class="tl_listing_container list_view">' . "\n";
 		$BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">' . $this->getModulName($bmid) . ': ' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['current_week'] . '</td></tr>' . "\n";
 
-		$objBotStatDetailsAnzBotWeek = \Contao\Database::getInstance()
-											->prepare("SELECT DISTINCT 
+		$objBotStatDetailsAnzBotWeek = Database::getInstance()
+											->prepare("SELECT DISTINCT
                                                             `bot_name`
-                                                         FROM 
+                                                         FROM
                                                             `tl_botstatistics_counter`
-                                                         WHERE 
+                                                         WHERE
                                                             `bot_module_id`=?
-                                                         AND 
+                                                         AND
                                                             YEARWEEK( `bot_date`, 3 ) =?
                                                          ORDER BY `bot_name`
                                                     ")
@@ -619,19 +620,19 @@ class BotStatisticsHelper extends \Contao\BackendModule
 	protected function getBotStatDetailsAnzVisitsWeek($action, $bmid)
 	{
 		$CurrentWeek = date('W');
-		//Besonderheit beachten das der 1.1. die 53. Woche sein kann!
+		// Besonderheit beachten das der 1.1. die 53. Woche sein kann!
 		$YearCurrentWeek = ($CurrentWeek > 40 && (int) date('m') == 1) ? date('Y')-1 : date('Y');
 		$BotDetailList  = '<div class="tl_listing_container list_view">' . "\n";
 		$BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">' . $this->getModulName($bmid) . ': ' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['current_week'] . '</td><td class="tl_folder_tlist tl_right_nowrap">' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_visit'] . '</td></tr>' . "\n";
 
-		$objBotStatDetailsAnzVisitsWeek = \Contao\Database::getInstance()
-												->prepare("SELECT DISTINCT 
+		$objBotStatDetailsAnzVisitsWeek = Database::getInstance()
+												->prepare("SELECT DISTINCT
                                                                 `bot_name`, sum(`bot_counter`) AS AnzVisits
-                                                            FROM 
+                                                            FROM
                                                                 `tl_botstatistics_counter`
-                                                            WHERE 
+                                                            WHERE
                                                                 `bot_module_id`=?
-                                                            AND 
+                                                            AND
                                                                 YEARWEEK( `bot_date`, 3 ) =?
                                                             GROUP BY `bot_name`
                                                             ORDER BY AnzVisits DESC
@@ -650,21 +651,21 @@ class BotStatisticsHelper extends \Contao\BackendModule
 	protected function getBotStatDetailsAnzPagesWeek($action, $bmid)
 	{
 		$CurrentWeek = date('W');
-		//Besonderheit beachten das der 1.1. die 53. Woche sein kann!
+		// Besonderheit beachten das der 1.1. die 53. Woche sein kann!
 		$YearCurrentWeek = ($CurrentWeek > 40 && (int) date('m') == 1) ? date('Y')-1 : date('Y');
 		$BotDetailList  = '<div class="tl_listing_container list_view">' . "\n";
 		$BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">' . $this->getModulName($bmid) . ': ' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['current_week'] . '</td><td class="tl_folder_tlist tl_right_nowrap">' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_hit'] . '</td></tr>' . "\n";
 
-		$objBotStatDetailsAnzBotWeek = \Contao\Database::getInstance()
-											->prepare("SELECT 
+		$objBotStatDetailsAnzBotWeek = Database::getInstance()
+											->prepare("SELECT
                                                             c.`bot_name`, sum(d.`bot_page_alias_counter`) AS AnzPages
-                                                        FROM 
+                                                        FROM
                                                             `tl_botstatistics_counter_details` d
-                                                        INNER JOIN 
+                                                        INNER JOIN
                                                             `tl_botstatistics_counter` c ON d.pid = c.id
-                                                        WHERE 
+                                                        WHERE
                                                             c.`bot_module_id`=?
-                                                        AND 
+                                                        AND
                                                             YEARWEEK( `bot_date`, 3 ) =?
                                                         GROUP BY c.`bot_name`
                                                         ORDER BY AnzPages DESC
@@ -689,19 +690,19 @@ class BotStatisticsHelper extends \Contao\BackendModule
 	protected function getBotStatDetailsAnzBotLastWeek($action, $bmid)
 	{
 		$LastWeek = date('W', mktime(0, 0, 0, date("m"), date("d")-7, date("Y")));
-		//Besonderheit beachten das der 1.1. die 53. Woche sein kann!
+		// Besonderheit beachten das der 1.1. die 53. Woche sein kann!
 		$YearLastWeek = ($LastWeek > 40 && (int) date('m') == 1) ? date('Y')-1 : date('Y');
 		$BotDetailList  = '<div class="tl_listing_container list_view">' . "\n";
 		$BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">' . $this->getModulName($bmid) . ': ' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['last_week'] . '</td></tr>' . "\n";
 
-		$objBotStatDetailsAnzBotLastWeek = \Contao\Database::getInstance()
-												->prepare("SELECT DISTINCT 
+		$objBotStatDetailsAnzBotLastWeek = Database::getInstance()
+												->prepare("SELECT DISTINCT
                                                                 `bot_name`
-                                                             FROM 
+                                                             FROM
                                                                 `tl_botstatistics_counter`
-                                                             WHERE 
+                                                             WHERE
                                                                 `bot_module_id` = ?
-                                                             AND 
+                                                             AND
                                                                 YEARWEEK( `bot_date`, 3 ) = ?
                                                              ORDER BY `bot_name`
                                                         ")
@@ -719,19 +720,19 @@ class BotStatisticsHelper extends \Contao\BackendModule
 	protected function getBotStatDetailsAnzVisitsLastWeek($action, $bmid)
 	{
 		$LastWeek = date('W', mktime(0, 0, 0, date("m"), date("d")-7, date("Y")));
-		//Besonderheit beachten das der 1.1. die 53. Woche sein kann!
+		// Besonderheit beachten das der 1.1. die 53. Woche sein kann!
 		$YearLastWeek = ($LastWeek > 40 && (int) date('m') == 1) ? date('Y')-1 : date('Y');
 		$BotDetailList  = '<div class="tl_listing_container list_view">' . "\n";
 		$BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">' . $this->getModulName($bmid) . ': ' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['last_week'] . '</td><td class="tl_folder_tlist tl_right_nowrap">' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_visit'] . '</td></tr>' . "\n";
 
-		$objBotStatDetailsAnzVisitsLastWeek = \Contao\Database::getInstance()
-												->prepare("SELECT DISTINCT 
+		$objBotStatDetailsAnzVisitsLastWeek = Database::getInstance()
+												->prepare("SELECT DISTINCT
                                                                 `bot_name`, sum(`bot_counter`) AS AnzVisits
-                                                            FROM 
+                                                            FROM
                                                                 `tl_botstatistics_counter`
-                                                            WHERE 
+                                                            WHERE
                                                                 `bot_module_id` = ?
-                                                            AND 
+                                                            AND
                                                                 YEARWEEK( `bot_date`, 3 ) = ?
                                                             GROUP BY `bot_name`
                                                             ORDER BY AnzVisits DESC
@@ -750,21 +751,21 @@ class BotStatisticsHelper extends \Contao\BackendModule
 	protected function getBotStatDetailsAnzPagesLastWeek($action, $bmid)
 	{
 		$LastWeek = date('W', mktime(0, 0, 0, date("m"), date("d")-7, date("Y")));
-		//Besonderheit beachten das der 1.1. die 53. Woche sein kann!
+		// Besonderheit beachten das der 1.1. die 53. Woche sein kann!
 		$YearLastWeek = ($LastWeek > 40 && (int) date('m') == 1) ? date('Y')-1 : date('Y');
 		$BotDetailList  = '<div class="tl_listing_container list_view">' . "\n";
 		$BotDetailList .= '<table class="tl_listing"><tbody><tr><td class="tl_folder_tlist">' . $this->getModulName($bmid) . ': ' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['last_week'] . '</td><td class="tl_folder_tlist tl_right_nowrap">' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_hit'] . '</td></tr>' . "\n";
 
-		$objBotStatDetailsAnzBotLastWeek = \Contao\Database::getInstance()
-												->prepare("SELECT 
+		$objBotStatDetailsAnzBotLastWeek = Database::getInstance()
+												->prepare("SELECT
                                                                 c.`bot_name`, sum(d.`bot_page_alias_counter`) AS AnzPages
-                                                            FROM 
+                                                            FROM
                                                                 `tl_botstatistics_counter_details` d
-                                                            INNER JOIN 
+                                                            INNER JOIN
                                                                 `tl_botstatistics_counter` c ON d.pid = c.id
-                                                            WHERE 
+                                                            WHERE
                                                                 c.`bot_module_id` = ?
-                                                            AND 
+                                                            AND
                                                                 YEARWEEK( `bot_date`, 3 ) = ?
                                                             GROUP BY c.`bot_name`
                                                             ORDER BY AnzPages DESC
@@ -782,7 +783,7 @@ class BotStatisticsHelper extends \Contao\BackendModule
 
 	protected function getTopBots($limit=20)
 	{
-		$this->TemplatePartial = new \Contao\BackendTemplate('mod_botstatistics_be_stat_partial_top_bots');
+		$this->TemplatePartial = new BackendTemplate('mod_botstatistics_be_stat_partial_top_bots');
 
 		$this->TemplatePartial->BotTopBots  = '<div class="mod_botstatistics_be_table_max">' . "\n";
 		$this->TemplatePartial->BotTopBots .= '<table class="tl_listing">
@@ -796,9 +797,9 @@ class BotStatisticsHelper extends \Contao\BackendModule
                     <td class="tl_folder_tlist">' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['last_visit'] . '</td>
                 </tr>' . "\n";
 
-		$objTopBots =  \Contao\Database::getInstance()
+		$objTopBots =  Database::getInstance()
 							->prepare("SELECT
-                                            bot_name, 
+                                            bot_name,
                                             sum(bot_counter) AS bot_counter
                                        FROM
                                             tl_botstatistics_counter
@@ -812,8 +813,8 @@ class BotStatisticsHelper extends \Contao\BackendModule
 
 		while ($objTopBots->next())
 		{
-			$objDate = \Contao\Database::getInstance()
-							->prepare("SELECT 
+			$objDate = Database::getInstance()
+							->prepare("SELECT
                                             bot_date
                                         FROM
                                             tl_botstatistics_counter
@@ -821,17 +822,17 @@ class BotStatisticsHelper extends \Contao\BackendModule
                                             bot_module_id = ?
                                         AND
                                             bot_name = ?
-                                        ORDER BY 
+                                        ORDER BY
                                             bot_date DESC
                                     ")
 							->limit(1)
 							->execute($this->intModuleID, $objTopBots->bot_name);
-			//C2: $this->parseDate($GLOBALS['TL_CONFIG']['datimFormat'], strtotime($objDate->bot_date))
+			// C2: $this->parseDate($GLOBALS['TL_CONFIG']['datimFormat'], strtotime($objDate->bot_date))
 
 			$this->TemplatePartial->BotTopBots .= '<tr>
                     <td class="tl_file_list">' . $objTopBots->bot_name . '</td>
                     <td class="tl_file_list">' . $objTopBots->bot_counter . '</td>
-                    <td class="tl_file_list">' . \Contao\Date::parse($GLOBALS['TL_CONFIG']['dateFormat'], strtotime($objDate->bot_date)) . '</td>
+                    <td class="tl_file_list">' . Date::parse($GLOBALS['TL_CONFIG']['dateFormat'], strtotime($objDate->bot_date)) . '</td>
                     </tr>' . "\n";
 		}
 		$this->TemplatePartial->BotTopBots .= '</tbody></table></div>';
@@ -841,7 +842,7 @@ class BotStatisticsHelper extends \Contao\BackendModule
 
 	protected function getTopPages($limit=20)
 	{
-		$this->TemplatePartial = new \Contao\BackendTemplate('mod_botstatistics_be_stat_partial_top_pages');
+		$this->TemplatePartial = new BackendTemplate('mod_botstatistics_be_stat_partial_top_pages');
 
 		$this->TemplatePartial->BotTopPages  = '<div class="mod_botstatistics_be_table_max">' . "\n";
 		$this->TemplatePartial->BotTopPages .= '<table class="tl_listing">
@@ -854,8 +855,8 @@ class BotStatisticsHelper extends \Contao\BackendModule
                     <td class="tl_folder_tlist">' . $GLOBALS['TL_LANG']['MSC']['tl_botstatistics_stat']['number_hit'] . '</td>
                 </tr>' . "\n";
 
-		$objTopPages =  \Contao\Database::getInstance()
-							->prepare("SELECT 
+		$objTopPages =  Database::getInstance()
+							->prepare("SELECT
                                             d.bot_page_alias,
                                             count(d.bot_page_alias_counter) AS bot_page_alias_counter
                                         FROM
