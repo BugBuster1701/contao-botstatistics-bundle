@@ -25,7 +25,8 @@
         "symfony/http-kernel": "^6.4"
 	},
 	"require-dev": {
-			"contao/manager-plugin": "^2.0"
+			"contao/manager-plugin": "^2.0",
+			"phpunit/phpunit": "^8.5 || ^9.3"
 	},
 	"conflict": {
 			"contao/manager-plugin": "<2.0 || >=3.0"
@@ -67,9 +68,9 @@
             "@ecs-legacy",
             "@ecs-template"
         ],
-        "ecs": "@php tools/ecs/vendor/bin/ecs check src/ --config tools/ecs/config/default.php --fix --ansi",
+        "ecs": "@php tools/ecs/vendor/bin/ecs check src/ tests/ --config tools/ecs/config/default.php --fix --ansi",
         "ecs-legacy": "@php tools/ecs/vendor/bin/ecs check src/Resources/contao/ --config tools/ecs/config/legacy.php --fix --ansi",
         "ecs-template": "@php tools/ecs/vendor/bin/ecs check src/Resources/contao/templates --config tools/ecs/config/template.php --fix --ansi",
-        "unit-tests": "@php vendor/bin/phpunit --testdox --colors=always"
+        "unit-tests": "@php vendor/bin/phpunit --testdox --colors=always tests/"
     }
 }
