@@ -119,7 +119,7 @@ return static function (ECSConfig $ecsConfig): void {
     ]);
 
     $ecsConfig->ruleWithConfiguration(HeaderCommentFixer::class, [
-        'header' => "This file is part of a BugBuster Contao Bundle.\n\n@copyright  Glen Langer ".date('Y')." <http://contao.ninja>\n@author     Glen Langer (BugBuster)\n@package    Contao BotStatistic Bundle\n@link       https://github.com/BugBuster1701/contao-botstatistic-bundle\n\n@license    LGPL-3.0-or-later",
+        'header' => "This file is part of a BugBuster Contao Bundle.\n\n@copyright  Glen Langer ".date('Y')." <http://contao.ninja>\n@author     Glen Langer (BugBuster)\n@package    Contao BotStatistics Bundle\n@link       https://github.com/BugBuster1701/contao-botstatistics-bundle\n\n@license    LGPL-3.0-or-later",
     ]);
 
     $ecsConfig->ruleWithConfiguration(ListSyntaxFixer::class, [

@@ -7,8 +7,8 @@ declare(strict_types=1);
  *
  * @copyright  Glen Langer 2023 <http://contao.ninja>
  * @author     Glen Langer (BugBuster)
- * @package    Contao BotStatistic Bundle
- * @link       https://github.com/BugBuster1701/contao-botstatistic-bundle
+ * @package    Contao BotStatistics Bundle
+ * @link       https://github.com/BugBuster1701/contao-botstatistics-bundle
  *
  * @license    LGPL-3.0-or-later
  * For the full copyright and license information,

@@ -7,8 +7,8 @@ declare(strict_types=1);
  *
  * @copyright  Glen Langer 2023 <http://contao.ninja>
  * @author     Glen Langer (BugBuster)
- * @package    Contao BotStatistic Bundle
- * @link       https://github.com/BugBuster1701/contao-botstatistic-bundle
+ * @package    Contao BotStatistics Bundle
+ * @link       https://github.com/BugBuster1701/contao-botstatistics-bundle
  *
  * @license    LGPL-3.0-or-later
  * For the full copyright and license information,
@@ -25,7 +25,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Handles the dlstats back end details route.
  */
-#[Route('/bugbuster_botstatistics', defaults: ['_scope' => 'backend','_token_check' => true])]
+#[Route('/bugbuster_botstatistics', defaults: ['_scope' => 'backend', '_token_check' => true])]
 class BotStatisticsController extends AbstractController
 {
     /**
@@ -33,7 +33,7 @@ class BotStatisticsController extends AbstractController
      *
      * @return Response
      */
-    #[Route('/backend_details', name:"bugbuster_botstatistics_backend_details")]
+    #[Route('/backend_details', name: 'bugbuster_botstatistics_backend_details')]
     public function detailsAction()
     {
         $this->container->get('contao.framework')->initialize();
