@@ -1,8 +1,9 @@
-# Contao 4 Botstatistics Bundle
+# Contao 5 Botstatistics Bundle
 
-[![Latest Stable Version](https://poser.pugx.org/bugbuster/contao-botstatistics-bundle/v/stable.svg)](https://packagist.org/packages/bugbuster/contao-botstatistics-bundle) [![Total Downloads](https://poser.pugx.org/bugbuster/contao-botstatistics-bundle/downloads.svg)](https://packagist.org/packages/bugbuster/contao-botstatistics-bundle) [![Latest Unstable Version](https://poser.pugx.org/bugbuster/contao-botstatistics-bundle/v/unstable.svg)](https://packagist.org/packages/bugbuster/contao-botstatistics-bundle) [![License](https://poser.pugx.org/bugbuster/contao-botstatistics-bundle/license.svg)](https://packagist.org/packages/bugbuster/contao-botstatistics-bundle)
+[![Latest Stable Version](https://poser.pugx.org/bugbuster/contao-botstatistics-bundle/v/stable.svg)](https://packagist.org/packages/bugbuster/contao-botstatistics-bundle) [![Total Downloads](https://poser.pugx.org/bugbuster/contao-botstatistics-bundle/downloads.svg)](https://packagist.org/packages/bugbuster/contao-botstatistics-bundle) [![Latest Unstable Version](https://poser.pugx.org/bugbuster/contao-botstatistics-bundle/v/unstable.svg)](https://packagist.org/packages/bugbuster/contao-botstatistics-bundle) [![License](https://poser.pugx.org/bugbuster/contao-botstatistics-bundle/license.svg)](https://packagist.org/packages/bugbuster/contao-botstatistics-bundle) [![PHP Version Require](https://poser.pugx.org/bugbuster/contao-botstatistics-bundle/require/php)](https://packagist.org/packages/bugbuster/contao-botstatistics-bundle) [![Symfony Version Require](https://img.shields.io/badge/Symfony-6.4-blue.svg "Symfony Version 6.4")](https://packagist.org/packages/bugbuster/contao-botstatistics-bundle)
 
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/54159c6c-14db-4f26-9e4b-23e3a5e4574d/small.png)](https://insight.sensiolabs.com/projects/54159c6c-14db-4f26-9e4b-23e3a5e4574d)
+
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/f0a61bc418b847caa6d09fa7ae34e3a1)](https://app.codacy.com/gh/BugBuster1701/contao-botstatistics-bundle/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 
 ## About
