@@ -20,3 +20,4 @@ Installation in einer Composer-basierenden Contao 5.2+ Managed-Edition:
 * `composer require "bugbuster/contao-botstatistics-bundle"`
 * `php bin/console contao:migrate`
 
+(für Contao 4.13 benutze "... contao-botstatistics-bundle:^1.0")
