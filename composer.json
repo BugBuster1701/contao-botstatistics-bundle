@@ -23,7 +23,7 @@
 		"bugbuster/contao-botdetection-bundle":"^1.9",
 		"symfony/framework-bundle": "^6.4",
         "symfony/http-kernel": "^6.4",
-		"monolog/monolog": "^2.9|^3.0"
+		"monolog/monolog": "^2.9"
 	},
 	"require-dev": {
 			"contao/manager-plugin": "^2.0",
@@ -47,9 +47,6 @@
 		]
 	},
 	"extra":{
-		"branch-alias": {
-			"dev-develop": "1.1.x-dev"
-		},
 		"contao-manager-plugin": "BugBuster\\BotStatisticsBundle\\ContaoManager\\Plugin"
 	},
 	"config": {
