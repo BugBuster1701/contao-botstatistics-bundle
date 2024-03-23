@@ -12,7 +12,7 @@
  */
 
 define('BOTSTATISTICS_VERSION', '1.1');
-define('BOTSTATISTICS_BUILD', '3');
+define('BOTSTATISTICS_BUILD', '4');
 
 /*
  * -------------------------------------------------------------------------
@@ -32,6 +32,13 @@ $GLOBALS['BE_MOD']['system']['botstatistics'] = array
  * -------------------------------------------------------------------------
  */
 $GLOBALS['FE_MOD']['miscellaneous']['botstatistics'] = 'BugBuster\BotStatistics\ModuleBotStatistics';
+
+use Contao\System;
+use Symfony\Component\HttpFoundation\Request;
+if (!System::getContainer()->get('contao.routing.scope_matcher')->isBackendRequest(System::getContainer()->get('request_stack')->getCurrentRequest() ?? Request::create('')))
+{
+	$GLOBALS['TL_CSS'][] = 'bundles/bugbusterbotstatistics/mod_botstatistics_fe.css';
+}
 
 /*
  * -------------------------------------------------------------------------
