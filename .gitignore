@@ -11,3 +11,7 @@ phpunit.xml
 composer.lock
 #ECS
 tools/ecs/vendor/
+#Icon Entwicklung
+src/Resources/public/themes/default/Mediamodifier-Design.svg
+src/Resources/public/themes/default/arrow-down.svg
+src/Resources/public/themes/default/arrow-down-0-mini.svg
