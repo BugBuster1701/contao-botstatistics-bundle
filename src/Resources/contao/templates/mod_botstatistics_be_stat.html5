@@ -5,7 +5,7 @@
 <p><?= \Contao\Message::generate(); ?></p>
 <div class="tl_panel cf">
 	<!-- Kategorie Zeile //-->
-	<form method="post" class="tl_form" id="bot_statistic" action="<?= $this->route('contao_backend') ?>?do=botstatistics">
+	<form method="post" class="tl_form" id="bot_statistic" data-turbo="false" action="<?= $this->route('contao_backend') ?>?do=botstatistics">
 		<div class="tl_submit_panel tl_subpanel">
 			<input class="tl_img_submit" style="padding-left: 6px;" type="image" value="<?= \Contao\StringUtil::specialchars($GLOBALS['TL_LANG']['MSC']['showOnly']); ?>" title="<?= \Contao\StringUtil::specialchars($GLOBALS['TL_LANG']['MSC']['showOnly']); ?>" src="<?= \Contao\Image::getPath('sync.svg') ?>" name="filter">
 		</div>
