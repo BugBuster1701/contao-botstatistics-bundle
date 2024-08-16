@@ -65,7 +65,8 @@ class ModuleBotStatistics extends Module
 	protected function compile()
 	{
 		// global $objPage; // for alias
-		$objPage = System::getContainer()->get('request_stack')->getCurrentRequest()->get('pageModel');
+		// $objPage = System::getContainer()->get('request_stack')->getCurrentRequest()->get('pageModel');
+		$objPage = System::getContainer()->get('contao.routing.page_finder')->getCurrentPage();
 		$arrBotStatistics = array();
 
 		$arrBotStatistics['BotStatisticsID'] = $this->id; // Modul ID
