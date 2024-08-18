@@ -3,7 +3,7 @@
 /*
  * This file is part of a BugBuster Contao Bundle.
  *
- * @copyright  Glen Langer 2023 <http://contao.ninja>
+ * @copyright  Glen Langer 2024 <http://contao.ninja>
  * @author     Glen Langer (BugBuster)
  * @package    Contao BotStatistics Bundle
  * @link       https://github.com/BugBuster1701/contao-botstatistics-bundle
@@ -35,6 +35,7 @@ $GLOBALS['FE_MOD']['miscellaneous']['botstatistics'] = 'BugBuster\BotStatistics\
 
 use Contao\System;
 use Symfony\Component\HttpFoundation\Request;
+
 if (!System::getContainer()->get('contao.routing.scope_matcher')->isBackendRequest(System::getContainer()->get('request_stack')->getCurrentRequest() ?? Request::create('')))
 {
 	$GLOBALS['TL_CSS'][] = 'bundles/bugbusterbotstatistics/mod_botstatistics_fe.css';
