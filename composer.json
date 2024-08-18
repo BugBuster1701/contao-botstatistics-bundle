@@ -22,7 +22,7 @@
 		"contao/core-bundle": ">=5.4.0,<5.7.0",
 		"bugbuster/contao-botdetection-bundle":"^1.14",
 		"symfony/framework-bundle": "^6.4 || ^7.0",
-        "symfony/http-kernel": "^6.4 || ^7.0",
+		"symfony/http-kernel": "^6.4 || ^7.0",
 		"monolog/monolog": "^3.5.0"
 	},
 	"require-dev": {
