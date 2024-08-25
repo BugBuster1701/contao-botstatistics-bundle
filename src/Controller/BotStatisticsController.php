@@ -20,7 +20,7 @@ namespace BugBuster\BotStatisticsBundle\Controller;
 use BugBuster\BotStatistics\BackendStatisticsDetails;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 /**
  * Handles the dlstats back end details route.
