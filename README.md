@@ -17,7 +17,9 @@ Counts the number of bot requests (visits, pages)
 
 
 ## Notice
-For Contao 4.13 please install version 1.0.x.
+For Contao 4.13 please install version 1.0.x.<br>
+For Contao 5.3 please install version 1.1.x.<br>
+For Contao 5.4 please install version 1.2.x.
 
 
 ## Installation

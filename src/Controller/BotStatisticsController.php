@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of a BugBuster Contao Bundle.
  *
- * @copyright  Glen Langer 2023 <http://contao.ninja>
+ * @copyright  Glen Langer 2024 <http://contao.ninja>
  * @author     Glen Langer (BugBuster)
  * @package    Contao BotStatistics Bundle
  * @link       https://github.com/BugBuster1701/contao-botstatistics-bundle
@@ -20,7 +20,7 @@ namespace BugBuster\BotStatisticsBundle\Controller;
 use BugBuster\BotStatistics\BackendStatisticsDetails;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 /**
  * Handles the dlstats back end details route.

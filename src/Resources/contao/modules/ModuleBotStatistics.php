@@ -3,7 +3,7 @@
 /*
  * This file is part of a BugBuster Contao Bundle.
  *
- * @copyright  Glen Langer 2023 <http://contao.ninja>
+ * @copyright  Glen Langer 2024 <http://contao.ninja>
  * @author     Glen Langer (BugBuster)
  * @package    Contao BotStatistics Bundle
  * @link       https://github.com/BugBuster1701/contao-botstatistics-bundle
@@ -65,7 +65,8 @@ class ModuleBotStatistics extends Module
 	protected function compile()
 	{
 		// global $objPage; // for alias
-		$objPage = System::getContainer()->get('request_stack')->getCurrentRequest()->get('pageModel');
+		// $objPage = System::getContainer()->get('request_stack')->getCurrentRequest()->get('pageModel');
+		$objPage = System::getContainer()->get('contao.routing.page_finder')->getCurrentPage();
 		$arrBotStatistics = array();
 
 		$arrBotStatistics['BotStatisticsID'] = $this->id; // Modul ID
