@@ -12,7 +12,7 @@
  */
 
 define('BOTSTATISTICS_VERSION', '1.2');
-define('BOTSTATISTICS_BUILD', '3');
+define('BOTSTATISTICS_BUILD', '4');
 
 /*
  * -------------------------------------------------------------------------
