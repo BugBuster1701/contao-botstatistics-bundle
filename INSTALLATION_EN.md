@@ -22,4 +22,4 @@ Installation in a Composer-based Contao 5.2+ Managed-Edition:
 
 (for Contao 4.13 use "... contao-botstatistics-bundle:^1.0")<br>
 (for Contao 5.3 use "... contao-botstatistics-bundle:^1.1")<br>
-(for Contao 5.4 use "... contao-botstatistics-bundle:^1.2")
+(for Contao 5.4+ use "... contao-botstatistics-bundle:^1.2")
