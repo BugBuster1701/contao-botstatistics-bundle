@@ -29,7 +29,7 @@
 	<?php endif; ?>
 <?php endforeach; ?>
 				</select>
-				<input class="tl_submit_panel" style="padding-left: 10px; min-width: 20px;" type="image"
+				<input class="tl_submit_panel mod_botstatistics_be_reset" style="padding-left: 10px; min-width: 20px;" type="image"
 					value="<?= \Contao\StringUtil::specialchars($GLOBALS['TL_LANG']['MSC']['showOnly']); ?>"
 					title="<?= \Contao\StringUtil::specialchars($GLOBALS['TL_LANG']['MSC']['showOnly']); ?>"
 					src="<?= \Contao\Image::getPath('sync.svg') ?>" width="20" height="20" name="filter">

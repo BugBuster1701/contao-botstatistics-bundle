@@ -37,6 +37,10 @@
   vertical-align:middle
 }
 
+.mod_botstatistics_be_reset {
+  border: 0 none !important;
+}
+
 .mod_botstatistics_be_table_max { 
   margin: 2px 0 !important;
   width: 100%;
