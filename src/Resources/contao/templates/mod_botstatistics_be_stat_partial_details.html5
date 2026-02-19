@@ -6,7 +6,6 @@
 	<base href="<?= $this->base ?>">
 	<title><?= $this->title ?> - Contao Open Source CMS <?= $this->version ?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link rel="stylesheet" href="<?= $this->asset('styles/fonts.css', 'system/themes/'.$this->theme) ?>">
 	<link rel="stylesheet" href="<?= $this->asset('backend.css', 'system/themes/'.$this->theme) ?>" data-turbo-track="reload">
 	<link rel="stylesheet" href="<?= $this->asset('backend.css', 'contao_core') ?>" data-turbo-track="reload">
 	<link rel="stylesheet" type="text/css" href="bundles/bugbusterbotstatistics/mod_botstatistics_be.css" media="all">
